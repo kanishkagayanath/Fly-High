@@ -9,14 +9,20 @@ namespace FlyHigh.PhoneController
         [SerializeField, Min(0)] private float maximumSpeed = 55f;
         [SerializeField, Min(0)] private float maximumReverseSpeed = 12f;
         [SerializeField, Min(0.1f)] private float steeringResponse = 3f;
+        [SerializeField, Min(0.05f)] private float releaseStopSmoothing = 0.25f;
+        private Vector3 releaseSlowdownVelocity;
         private float smoothedSteering;
         private CarWheelVisuals wheelVisuals;
+        private CarContactGuard contactGuard;
         private WifiReceiver input;
         private Rigidbody car;
         private Camera view;
         private bool cityMode;
         private Vector3 startPosition;
         private Quaternion startRotation = Quaternion.identity;
+        public float RawSteering { get; private set; }
+        public Transform PlayerCar => car != null ? car.transform : null;
+        public string CollisionDiagnostics => contactGuard != null ? contactGuard.Diagnostics : "Contact guard initializing";
         public void Initialize(WifiReceiver receiver, bool useCity = false)
         {
             input = receiver;
@@ -60,9 +66,14 @@ namespace FlyHigh.PhoneController
             CreateCarVisual(body.transform);
             body.transform.SetPositionAndRotation(startPosition, startRotation);
             car = body.AddComponent<Rigidbody>();
-            car.mass = 1000; car.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            car.mass = 1000;
+            // Arcade control owns heading. Impacts may move/stop the car, but cannot spin it.
+            car.constraints = RigidbodyConstraints.FreezeRotation;
             car.interpolation = RigidbodyInterpolation.Interpolate;
             car.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            contactGuard = body.AddComponent<CarContactGuard>();
+            contactGuard.Initialize(box);
+            if (cityMode) CarContactGuard.AddPavementBarriers();
             view = Camera.main;
             if (view == null) view = new GameObject("Prototype camera", typeof(Camera)).GetComponent<Camera>();
             view.transform.position = startPosition + startRotation * new Vector3(0, 7, -12);
@@ -119,20 +130,41 @@ namespace FlyHigh.PhoneController
                 brake = keys.sKey.isPressed ? 1 : 0;
             }
             Vector3 velocity = car.linearVelocity;
+            RawSteering = steer;
+            // Ease road velocity toward rest when a driving pedal is released.
+            // Preserve gravity and clear the smoothing state when drive resumes.
+            if (Mathf.Abs(throttle) < 0.01f)
+            {
+                Vector3 horizontal = new Vector3(velocity.x, 0, velocity.z);
+                horizontal = Vector3.SmoothDamp(horizontal, Vector3.zero, ref releaseSlowdownVelocity,
+                    releaseStopSmoothing, Mathf.Infinity, Time.fixedDeltaTime);
+                if (horizontal.sqrMagnitude < 0.0025f)
+                {
+                    horizontal = Vector3.zero;
+                    releaseSlowdownVelocity = Vector3.zero;
+                }
+                velocity = new Vector3(horizontal.x, velocity.y, horizontal.z);
+            }
+            else releaseSlowdownVelocity = Vector3.zero;
+            velocity = contactGuard.Slide(velocity);
+            car.linearVelocity = velocity;
             float speed = Vector3.Dot(velocity, car.transform.forward);
             smoothedSteering = Mathf.MoveTowards(smoothedSteering, steer, steeringResponse * Time.fixedDeltaTime);
             float speedFraction = Mathf.Clamp01(Mathf.Abs(speed) / Mathf.Max(1, maximumSpeed));
             // Hold the opposite pedal to brake first, then change direction near standstill.
             if (throttle * speed < -0.5f) { brake = 1; throttle = 0; }
+            Vector3 driveForce = Vector3.zero;
             if (brake <= 0 && ((throttle > 0 && speed < maximumSpeed) || (throttle < 0 && speed > -maximumReverseSpeed)))
-                car.AddForce(car.transform.forward * (throttle * acceleration * (throttle < 0 ? 0.6f : 1)), ForceMode.Acceleration);
+                driveForce = car.transform.forward * (throttle * acceleration * (throttle < 0 ? 0.6f : 1));
             Vector3 sideways = Vector3.Project(velocity, car.transform.right);
-            car.AddForce(-sideways * Mathf.Lerp(10f, 14f, speedFraction), ForceMode.Acceleration);
-            car.AddForce(-new Vector3(velocity.x, 0, velocity.z) * (0.25f + brake * 5), ForceMode.Acceleration);
+            driveForce -= sideways * Mathf.Lerp(10f, 14f, speedFraction);
+            driveForce -= new Vector3(velocity.x, 0, velocity.z) * (0.25f + brake * 5);
+            car.AddForce(contactGuard.Slide(driveForce), ForceMode.Acceleration);
             float turnRate = Mathf.Lerp(70f, 25f, speedFraction);
             float direction = speed >= 0 ? 1 : -1;
-            car.MoveRotation(car.rotation * Quaternion.Euler(0, smoothedSteering * turnRate * direction
-                * Mathf.Clamp01(Mathf.Abs(speed) / 4) * Time.fixedDeltaTime, 0));
+            Quaternion turn = car.rotation * Quaternion.Euler(0, smoothedSteering * turnRate * direction
+                * Mathf.Clamp01(Mathf.Abs(speed) / 4) * Time.fixedDeltaTime, 0);
+            contactGuard.ApplySteering(turn);
             if (car.position.y < startPosition.y - 30 || (!cityMode && (Mathf.Abs(car.position.x) > 98 || Mathf.Abs(car.position.z) > 98)))
                 ResetCar();
         }
@@ -141,6 +173,8 @@ namespace FlyHigh.PhoneController
             car.position = startPosition; car.rotation = startRotation;
             car.linearVelocity = Vector3.zero; car.angularVelocity = Vector3.zero;
             smoothedSteering = 0;
+            releaseSlowdownVelocity = Vector3.zero;
+            contactGuard.Clear();
             if (wheelVisuals != null) wheelVisuals.ResetPose();
         }
         private void Update()

@@ -22,8 +22,8 @@ namespace FlyHigh.PhoneController
             wheels.Clear();
             foreach (var part in model.GetComponentsInChildren<Transform>(true))
             {
-                bool front = part.name == "Car_13_Wheel_Front_Left" || part.name == "Car_13_Wheel_Front_Right";
-                bool rear = part.name == "Car_13_Wheel_Rear_Left" || part.name == "Car_13_Wheel_Rear_Right";
+                bool front = part.name.EndsWith("_Wheel_Front_Left", System.StringComparison.Ordinal) || part.name.EndsWith("_Wheel_Front_Right", System.StringComparison.Ordinal);
+                bool rear = part.name.EndsWith("_Wheel_Rear_Left", System.StringComparison.Ordinal) || part.name.EndsWith("_Wheel_Rear_Right", System.StringComparison.Ordinal);
                 if (!front && !rear) continue;
                 var renderers = part.GetComponentsInChildren<Renderer>();
                 if (renderers.Length == 0) continue;
@@ -39,7 +39,7 @@ namespace FlyHigh.PhoneController
                 });
             }
             if (wheels.Count != 4)
-                Debug.LogWarning("[Car wheels] Expected four named Car_13 wheels; found " + wheels.Count);
+                Debug.LogWarning("[Car wheels] Expected four named vehicle wheels; found " + wheels.Count);
         }
 
         public void Animate(float forwardSpeed, float steeringDegrees, float deltaTime)

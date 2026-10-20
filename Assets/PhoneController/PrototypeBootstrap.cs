@@ -13,6 +13,8 @@ namespace FlyHigh.PhoneController
         private TMP_Text status;
         private PhoneSender sender;
         private WifiReceiver receiver;
+        private RacingPrototype driving;
+        private CityTrafficSystem traffic;
         private string addresses;
         private RectTransform safeArea;
 
@@ -53,11 +55,18 @@ namespace FlyHigh.PhoneController
             status = Label("", 0.05f, 0.34f, 0.9f, 0.1f, 22);
 #else
             receiver = gameObject.AddComponent<WifiReceiver>();
-            gameObject.AddComponent<RacingPrototype>().Initialize(receiver, SceneManager.GetActiveScene().name == "CityDrive");
+            driving = gameObject.AddComponent<RacingPrototype>();
+            driving.Initialize(receiver, SceneManager.GetActiveScene().name == "CityDrive");
+            if (SceneManager.GetActiveScene().name == "CityDrive")
+            {
+                traffic = gameObject.AddComponent<CityTrafficSystem>();
+                traffic.Initialize(driving.PlayerCar);
+            }
             addresses = "";
             foreach (var ip in Dns.GetHostAddresses(Dns.GetHostName()))
                 if (ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip)) addresses += ip + "  ";
-            status = Label("", 0.02f, 0.66f, 0.96f, 0.32f, 25);
+            status = Label("", 0.02f, 0.59f, 0.96f, 0.39f, 24);
+            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, status.gameObject);
 #endif
         }
         private void Update()
@@ -74,6 +83,8 @@ namespace FlyHigh.PhoneController
             if (receiver != null) status.text = "FLY HIGH — Wi-Fi controller test\nPC address: " + addresses +
                 "\nPairing code: " + receiver.PairingCode + "   |   " + receiver.Status +
                 "\n" + receiver.Diagnostics +
+                "\n" + driving.CollisionDiagnostics + " | Input steer: " + driving.RawSteering.ToString("F2") +
+                (traffic != null ? "\n" + traffic.Status : "") +
                 "\nKeyboard: W forward, Down Arrow reverse, S brake, A/D steer, R reset";
         }
         private RectTransform Rect(string title, float x, float y, float w, float h)

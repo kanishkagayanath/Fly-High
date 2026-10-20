@@ -12,12 +12,14 @@ namespace FlyHigh.PhoneController.Editor
             EditorApplication.delayCall += () =>
             {
                 PrepareCarVisual();
+                PrepareTraffic();
                 if (!File.Exists("Assets/TextMesh Pro/Resources/TMP Settings.asset")) Prepare();
             };
         }
         public static void Prepare()
         {
             PrepareCarVisual();
+            PrepareTraffic();
             TMPro.TMP_PackageResourceImporter.ImportResources(true, false, false);
             AssetDatabase.Refresh();
         }
@@ -33,6 +35,23 @@ namespace FlyHigh.PhoneController.Editor
             settings.prefab = prefab;
             AssetDatabase.CreateAsset(settings, path);
             AssetDatabase.SaveAssets();
+        }
+        private static void PrepareTraffic()
+        {
+            const string folder = "Assets/PhoneController/Resources";
+            const string path = folder + "/FlyHighTraffic.asset";
+            if (AssetDatabase.LoadAssetAtPath<TrafficVehicleSettings>(path) != null) return;
+            var prefabs = new System.Collections.Generic.List<UnityEngine.GameObject>();
+            foreach (string name in new[] { "Car_06", "Car_16", "Car_19", "Van" })
+            {
+                var prefab = AssetDatabase.LoadAssetAtPath<UnityEngine.GameObject>("Assets/ithappy/Cartoon_City_Free/Prefabs/Cars/" + name + ".prefab");
+                if (prefab != null) prefabs.Add(prefab);
+            }
+            if (prefabs.Count == 0) return;
+            if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/PhoneController", "Resources");
+            var settings = UnityEngine.ScriptableObject.CreateInstance<TrafficVehicleSettings>();
+            settings.vehicles = prefabs.ToArray();
+            AssetDatabase.CreateAsset(settings, path); AssetDatabase.SaveAssets();
         }
         [MenuItem("Fly High/Build PC prototype")]
         public static void BuildPC() => Build(BuildTarget.StandaloneWindows64, "Builds/PC/FlyHigh.exe");
