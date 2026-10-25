@@ -23,13 +23,23 @@ namespace FlyHigh.PhoneController
             for (int i = 0; i < graph.nodes.Count; i++) if (graph.nodes[i].neighbours.Count > 0) candidates.Add(i);
             for (int i = candidates.Count - 1; i > 0; i--)
             { int j = Random.Range(0, i + 1); int swap = candidates[i]; candidates[i] = candidates[j]; candidates[j] = swap; }
-            if (player != null)
-                candidates.Sort((a, b) => (graph.nodes[a].position - player.position).sqrMagnitude.CompareTo(
-                    (graph.nodes[b].position - player.position).sqrMagnitude));
             var spawnPoints = new List<Vector3>();
-            foreach (int index in candidates)
+            // Farthest-point placement spreads traffic over the complete road network.
+            // The old player-distance sort filled the nearby streets first.
+            while (candidates.Count > 0 && VehicleCount < settings.vehicleCount)
             {
-                if (VehicleCount >= settings.vehicleCount) break;
+                int selected=-1;float best=float.NegativeInfinity;
+                foreach(int candidate in candidates)
+                {
+                    Vector3 p=graph.nodes[candidate].position;
+                    if(player!=null && Vector3.Distance(player.position,p)<14)continue;
+                    float separation=spawnPoints.Count==0?0:float.PositiveInfinity;
+                    foreach(var other in spawnPoints)separation=Mathf.Min(separation,(p-other).sqrMagnitude);
+                    if(separation>best){best=separation;selected=candidate;}
+                }
+                if(selected<0)break;
+                candidates.Remove(selected);
+                int index=selected;
                 Vector3 position = graph.nodes[index].position;
                 if (player != null && Vector3.Distance(player.position, position) < 14) continue;
                 bool spaced = true;

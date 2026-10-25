@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
@@ -15,11 +17,20 @@ namespace FlyHigh.PhoneController
         private uint sequence;
         private float nextSend, lastAck = -100, centre;
         private bool active = true;
+        private UdpClient discoverySocket;
+        private readonly List<DiscoveredPC> games = new List<DiscoveredPC>();
+        private readonly List<IPEndPoint> broadcastTargets = new List<IPEndPoint>();
+        private string discoveryNonce;
+        private byte[] discoveryRequest;
+        private float discoveryEnd, nextDiscoverySend;
+        public IReadOnlyList<DiscoveredPC> Games => games;
+        public int DiscoveryVersion { get; private set; }
+        public bool Searching => discoverySocket != null;
         public float Throttle { get; set; }
         public float Reverse { get; set; }
         public float Brake { get; set; }
         public float Steering { get; private set; }
-        public string Status { get; private set; } = "Enter the PC address and pairing code";
+        public string Status { get; private set; } = "Tap Find PC, or enter an address and code";
         public bool Connected => socket != null && Time.realtimeSinceStartup - lastAck < 1;
 
         private void OnEnable()
@@ -44,6 +55,102 @@ namespace FlyHigh.PhoneController
             catch (SocketException e) { Disconnect(); Status = e.Message; }
         }
 
+        public void FindPCs()
+        {
+            Disconnect(); games.Clear(); DiscoveryVersion++;
+            try
+            {
+                discoverySocket = new UdpClient(AddressFamily.InterNetwork);
+                discoverySocket.EnableBroadcast = true;
+                discoverySocket.Client.Blocking = false;
+                discoverySocket.Client.Bind(new IPEndPoint(IPAddress.Any, 0));
+                discoveryNonce = Guid.NewGuid().ToString("N");
+                discoveryRequest = ControllerDiscovery.Request(discoveryNonce);
+                BuildBroadcastTargets();
+                discoveryEnd = Time.realtimeSinceStartup + 6;
+                nextDiscoverySend = 0;
+                Status = "Searching for PCs on your Wi-Fi...";
+            }
+            catch (SocketException e) { CancelDiscovery(); Status = "Cannot search: " + e.SocketErrorCode + ". Try manual Connect."; }
+        }
+
+        public void CancelDiscovery()
+        {
+            discoverySocket?.Close(); discoverySocket = null;
+            discoveryNonce = null; discoveryRequest = null;
+            if (socket == null) Status = "Tap Find PC, or enter an address and code";
+        }
+
+        private void BuildBroadcastTargets()
+        {
+            broadcastTargets.Clear();
+            broadcastTargets.Add(new IPEndPoint(IPAddress.Broadcast, ControllerPacket.Port));
+            // Directed broadcasts help PCs with several adapters. Limited broadcast remains the fallback.
+            try
+            {
+                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (adapter.OperationalStatus != OperationalStatus.Up || adapter.NetworkInterfaceType == NetworkInterfaceType.Loopback) continue;
+                    foreach (var address in adapter.GetIPProperties().UnicastAddresses)
+                    {
+                        if (address.Address.AddressFamily != AddressFamily.InterNetwork || address.IPv4Mask == null) continue;
+                        byte[] ip = address.Address.GetAddressBytes(), mask = address.IPv4Mask.GetAddressBytes();
+                        for (int i = 0; i < 4; i++) ip[i] = (byte)(ip[i] | (mask[i] ^ 255));
+                        var target = new IPEndPoint(new IPAddress(ip), ControllerPacket.Port);
+                        if (!broadcastTargets.Contains(target) && broadcastTargets.Count < 8) broadcastTargets.Add(target);
+                    }
+                }
+            }
+            catch (NetworkInformationException) { }
+            catch (NotSupportedException) { }
+        }
+
+        private void UpdateDiscovery()
+        {
+            float now = Time.realtimeSinceStartup;
+            if (now >= discoveryEnd)
+            {
+                CancelDiscovery();
+                Status = games.Count > 0 ? "Choose your PC to connect" : "No PC found. Check same Wi-Fi and firewall, or use manual Connect.";
+                return;
+            }
+            try
+            {
+                for (int i = 0; i < 32 && discoverySocket.Available > 0; i++)
+                {
+                    IPEndPoint peer = new IPEndPoint(IPAddress.Any, 0);
+                    byte[] data = discoverySocket.Receive(ref peer);
+                    if (peer.Port != ControllerPacket.Port || !ControllerDiscovery.TryReadReply(data, discoveryNonce, out var found)) continue;
+                    found.Address = peer.Address.ToString();
+                    int existing = games.FindIndex(pc => pc.Id == found.Id);
+                    if (existing >= 0)
+                    {
+                        var old = games[existing];
+                        if (old.Busy == found.Busy && old.PairingCode == found.PairingCode) continue;
+                        games[existing] = found;
+                    }
+                    else if (games.Count < ControllerDiscovery.MaximumGames) games.Add(found);
+                    else continue;
+                    DiscoveryVersion++;
+                }
+                if (now >= nextDiscoverySend)
+                {
+                    nextDiscoverySend = now + 0.75f;
+                    // One unavailable adapter must not prevent searches on the others.
+                    SocketError? failure = null; bool sent = false;
+                    foreach (var target in broadcastTargets)
+                    {
+                        try { discoverySocket.Send(discoveryRequest, discoveryRequest.Length, target); sent = true; }
+                        catch (SocketException e) { failure = e.SocketErrorCode; }
+                    }
+                    if (!sent) { CancelDiscovery(); Status = "Cannot search: " + failure + ". Try manual Connect."; }
+                }
+            }
+            // An adapter/PC without a listener can return ICMP errors. Keep searching the other targets.
+            catch (SocketException e) when (e.SocketErrorCode == SocketError.ConnectionReset || e.SocketErrorCode == SocketError.ConnectionRefused) { }
+            catch (SocketException e) { CancelDiscovery(); Status = "Search interrupted: " + e.SocketErrorCode + ". Try again or use manual Connect."; }
+        }
+
         private float Tilt()
         {
             if (Accelerometer.current == null) return 0;
@@ -55,7 +162,9 @@ namespace FlyHigh.PhoneController
 
         private void Update()
         {
-            if (socket == null || !active) return;
+            if (!active) return;
+            if (discoverySocket != null) UpdateDiscovery();
+            if (socket == null) return;
             Steering = Mathf.Lerp(Steering, Mathf.Clamp(Mathf.DeltaAngle(centre, Tilt()) / 35f, -1, 1),
                 1 - Mathf.Exp(-12 * Time.unscaledDeltaTime));
             try
@@ -79,11 +188,12 @@ namespace FlyHigh.PhoneController
 
         public void Disconnect()
         {
+            CancelDiscovery();
             socket?.Close(); socket = null; lastAck = -100; Throttle = Reverse = Brake = Steering = 0;
             Status = "Disconnected";
         }
-        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; }
-        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; }
+        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; if (!focus) CancelDiscovery(); }
+        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; if (pause) CancelDiscovery(); }
         private void OnDisable() { Disconnect(); Screen.sleepTimeout = SleepTimeout.SystemSetting; }
     }
 }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c01883887766c41bb82d953bd6b6ae, type: 3}
+  m_Name: FlyHighLighting
+  m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.CityLightingSettings
+  skyMaterial: {fileID: 2100000, guid: 9f7642befbfcec744adba3baa055f5b7, type: 2}
+  windowGlowMaterial: {fileID: 2100000, guid: cc67acb91f0a56448934d9152211ae57, type: 2}
+  atmosphereProfile: {fileID: 11400000, guid: 5cb7346848b5c324fa878f3afe04d404, type: 2}
+  cycleMinutes: 12
+  initialHour: 9
+  transitionSeconds: 5

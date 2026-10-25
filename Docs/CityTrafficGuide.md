@@ -1,42 +1,41 @@
 # CityDrive NPC traffic
 
-The PC city now includes a first version of automatic traffic using Car_06, Car_16, Car_19 and Van from the imported city package.
+Updated 2026-10-25.
 
 ## Try it
 
-1. Stop Play mode and allow Unity to finish compiling/importing.
-2. Open CityDrive, press Play, then click Play in the game's menu.
-3. Look for **NPC traffic: N vehicles** on the PC display. Up to eight vehicles are placed on clear road space near the player's starting area, with spacing from the player and each other.
-4. Drive toward a traffic vehicle and check that it slows/stops. Move away and check that it continues.
-5. Open the main menu with Escape: traffic should pause with the game.
+Open CityDrive, enter Play mode, then choose Play in the game menu. Eight moving NPCs are distributed across the road network. Traffic follows longer routes between nine map districts, including the outer streets and central roads. The phone controller APK does not need rebuilding; rebuild the PC executable to distribute these changes.
 
-The Android controller does not need rebuilding.
+## Movement and routing
 
-## Adjust traffic
+- CityRoadGraph samples the static road colliders once. Only the approved asphalt material triangles are accepted; paving and kerb submeshes are excluded. Vehicle footprints and static obstacles validate the route.
+- Destination selection cycles through nine districts. Weighted graph search favours continuing forwards and the right side of the road, with a penalty for sharp changes in direction. Route-node reservations guide planning; actual vehicle shapes determine safe movement, so adjacent lanes do not stop simply because they share a coarse nearest grid point.
+- TrafficPath caches a polyline with rounded Bezier corners, arc distances and interpolated headings. Shortcutting preserves the selected lane instead of cutting across opposing traffic. Interpolated route poses are validated at 0.25-metre spacing before use.
+- NPCs keep speed through intermediate waypoints. Curvature and upcoming obstacles set their speed, with gradual acceleration/braking. New routes start before the current one ends and preserve a forward lead-in.
+- Kinematic Rigidbody movement uses MovePosition/MoveRotation in FixedUpdate with interpolation. Physics decisions use Rigidbody poses, rather than the delayed visible Transform. Wheel animation runs in LateUpdate with render-frame time.
+- Obstacle checks follow the curved route ahead. Vehicles stop for blockers and resume once clear. Persistent conflicts trigger a new route; the yielding NPC can safely reverse along its path and retry, without teleporting or entering the pavement.
+- NPCs pause with the main menu and resume with the game.
 
-After Unity imports the new scripts, the editor creates `Assets/PhoneController/Resources/FlyHighTraffic.asset`. Select it in the Project window to change Vehicle Count, Cruising Speed or vehicle prefabs. Make changes outside Play mode, then restart Play mode. Default count is 8; default speed is 7 world units/second, varied slightly per vehicle.
+This is ambient prototype traffic. Right-side routing is a preference, not a complete authored lane/junction system. Traffic lights, formal intersection priority and overtaking are not implemented; vehicles can form temporary queues. Decorative parked demo cars remain separate from the moving NPC population.
 
-## Behaviour and limits
+## Settings
 
-- Road routes are sampled once from the imported static road MeshColliders. Routes avoid the sampled pavement barriers and blocked space.
-- Cars favour continuing straight, sometimes choose another connected road direction, and can turn around at route ends.
-- Vehicles reserve road points and check obstacles ahead. They wait when blocked, rather than forcing through the player or teleporting away.
-- Wheel animation supports the city package's named front/rear wheel objects.
-- This is an initial ambient traffic system. It does not yet have authored traffic lanes, traffic lights, overtaking, or full junction priority rules. Congested or narrow routes can form queues.
-- Existing parked demo vehicles remain in place; the system adds moving traffic vehicles.
+Select Assets/PhoneController/Resources/FlyHighTraffic.asset outside Play mode. Vehicle Count controls the moving population (default 8), Cruising Speed defaults to 7 world units/second with per-car variation, and Vehicles supplies the prefab models. Restart Play after changing settings.
+
+## Files
+
+- CityRoadGraph.cs: asphalt sampling, map districts, route search and static clearance.
+- TrafficPath.cs: cached rounded routes, pose evaluation and curvature speed limits.
+- NpcTrafficCar.cs: movement, sensing, recovery, reservations and wheel presentation.
+- CityTrafficSystem.cs: map-wide spawn distribution and model/settings integration.
+- TrafficReservations.cs: route-node ownership hints.
 
 ## Validation
 
-Editor and Android source paths compiled against the project's installed Unity libraries. Reservation checks passed for occupied-node exclusion, opposing-swap prevention, ownership-safe release, route handoff, cleanup and invalid requests. Live route generation, driving, visual placement and performance still need a Play mode check in the user's Editor.
+Live Unity compilation passed. Android conditional source compilation passed with the existing PC-only PrototypeBootstrap field warnings.
 
-If the display shows zero vehicles or reports missing traffic assets, inspect the Console's `[City traffic]` message. The system skips unsafe/unavailable spawn locations rather than spawning cars in buildings or on pavements.
+A 165.7-game-second run with eight NPCs visited all 42 authored road tiles and all nine districts. Each vehicle travelled 748-932 metres and completed 2-5 district routes. At 672 fleet samples, full NPC footprints remained on asphalt (zero rejected poses). Temporary queues recovered; the longest stationary interval in that run was 12.3 game seconds. This is sampled validation of this scene and population, not a guarantee for arbitrary traffic counts or layouts.
 
-## Asphalt-only NPC correction — 2026-10-19
+A temporary obstacle test stopped an NPC with zero measured collision penetration; after removal it travelled another 11.62 metres over three seconds. Pause/resume produced zero NPC Rigidbody position drift. A 12-second URP render-pose sample collected 3,693 frames; the final movement path stayed interpolated with no direct per-frame Transform writes. No FPS improvement or comparative jitter percentage is claimed.
 
-Reported: moving NPCs spawn/drive on the grey pavements. Original CityRoadGraph accepted any triangle of a collider with road in its name and required road support only at the centre. Inspection of all seven imported road FBX files confirmed separate Color and Roads polygon material slots, so mesh-name filtering included non-asphalt geometry.
-
-CityRoadGraph now caches approved triangle ranges per collider from Mesh.GetSubMesh metadata and matching renderer material slots. Only Roads and Asphalt_Dark_Gray materials are accepted; Color, Tile_1 and unknown materials are excluded. This does not read non-readable vertex buffers or modify model import settings. Ground checks consider the closest static surface, rejecting an upper pavement even when a road exists below.
-
-Spawn nodes and route edges require centre/corners/edge-midpoint support on asphalt, with a curb margin. Each proposed NPC movement and turn repeats this footprint check using the model's normalized width. Invalid moves stop, and invalid spawns release reservations and are discarded. The PC status now says NPC traffic: N vehicles (asphalt only). Restart Play mode to rebuild routes and remove the old runtime NPC instances. Existing static demo cars remain unchanged.
-
-Validation: Editor/Android source paths compiled. Plain-C# road-mask checks passed for asphalt ranges, rejected pavement ranges, boundary indices, allowed material names and unknown-material rejection. Raw FBX inspection confirmed the two material groups across all seven imported roads. Live Unity route/visual verification remains pending; observe corners, curb edges, spawn positions and turning after restarting Play. The stricter mask can reduce traffic count where no full vehicle footprint fits. No Android rebuild required.
+The current Unity Console contained zero errors. A Unity Account API connectivity/focus warning was unrelated to the traffic scripts. Temporary probes, obstacles and capture assets were removed after validation.

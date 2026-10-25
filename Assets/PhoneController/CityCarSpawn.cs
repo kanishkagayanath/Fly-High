@@ -7,6 +7,7 @@ namespace FlyHigh.PhoneController
     {
         private void OnDrawGizmos()
         {
+            if (Application.isPlaying) return;
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireCube(transform.position, new Vector3(1.8f, 0.8f, 3.6f));
             Gizmos.DrawRay(transform.position, transform.forward * 4);

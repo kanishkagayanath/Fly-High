@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffffcad02eb5e79428a9e751a70aa6fa, type: 3}
+  m_Name: FlyHighMenu
+  m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.MenuVisualSettings
+  background: {fileID: 2800000, guid: 4b61d857f5a2afc4f9b5e519099f9ab5, type: 3}
+  playButton: {fileID: 21300000, guid: c21593ade6f490b429460d54248307bb, type: 3}
+  optionsButton: {fileID: 21300000, guid: e7c6ed87fbfff3f48a9752a77c239e56, type: 3}
+  exitButton: {fileID: 21300000, guid: 34671ecffb3ef3e4d964a2a52281a889, type: 3}

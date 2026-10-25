@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 
 namespace FlyHigh.PhoneController
 {
+    [DisallowMultipleComponent]
     public sealed class PrototypeBootstrap : MonoBehaviour
     {
+        private static PrototypeBootstrap instance;
         private TMP_Text status;
         private PhoneSender sender;
         private WifiReceiver receiver;
@@ -18,11 +20,22 @@ namespace FlyHigh.PhoneController
         private string addresses;
         private RectTransform safeArea;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetSession() { instance = null; }
+        private void Awake()
+        {
+            if (instance != null && instance != this) { enabled = false; return; }
+            instance = this;
+        }
+        private void OnDestroy() { if (instance == this) instance = null; }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
         {
             string scene = SceneManager.GetActiveScene().name;
             if (scene != "GameScene" && scene != "CityDrive") return;
+            foreach (var existing in FindObjectsByType<PrototypeBootstrap>(FindObjectsSortMode.None))
+                if (existing.isActiveAndEnabled) return;
             new GameObject("Phone controller prototype").AddComponent<PrototypeBootstrap>();
         }
 
@@ -44,8 +57,8 @@ namespace FlyHigh.PhoneController
             Label("FLY HIGH / PHONE CONTROLLER", 0.05f, 0.82f, 0.9f, 0.12f, 36);
             var ip = Input("PC Wi-Fi IPv4 address", "", 0.06f, 0.64f, 0.48f);
             var code = Input("Six-digit pairing code", "", 0.57f, 0.64f, 0.36f);
-            Button("CONNECT", 0.06f, 0.47f, 0.4f, 0.12f, () => sender.Connect(ip.text, code.text));
-            Button("CALIBRATE TILT", 0.53f, 0.47f, 0.4f, 0.12f, sender.Calibrate);
+            Button("CONNECT", 0.36f, 0.47f, 0.27f, 0.12f, () => sender.Connect(ip.text, code.text));
+            Button("CALIBRATE TILT", 0.66f, 0.47f, 0.27f, 0.12f, sender.Calibrate);
             var reverse = Button("REVERSE", 0.05f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
             reverse.Changed = held => sender.Reverse = held ? 1 : 0;
             var stop = Button("BRAKE", 0.36f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
@@ -53,20 +66,34 @@ namespace FlyHigh.PhoneController
             var gas = Button("ACCELERATE", 0.67f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
             gas.Changed = held => sender.Throttle = held ? 1 : 0;
             status = Label("", 0.05f, 0.34f, 0.9f, 0.1f, 22);
+            gameObject.AddComponent<PhonePairingPanel>().Initialize(safeArea, sender, ip, code);
 #else
-            receiver = gameObject.AddComponent<WifiReceiver>();
+            foreach (var existing in FindObjectsByType<WifiReceiver>(FindObjectsSortMode.None))
+                if (existing.isActiveAndEnabled) { receiver = existing; break; }
+            if (receiver == null) receiver = gameObject.AddComponent<WifiReceiver>();
             driving = gameObject.AddComponent<RacingPrototype>();
             driving.Initialize(receiver, SceneManager.GetActiveScene().name == "CityDrive");
+            CityDayNight environment = null;
             if (SceneManager.GetActiveScene().name == "CityDrive")
             {
                 traffic = gameObject.AddComponent<CityTrafficSystem>();
                 traffic.Initialize(driving.PlayerCar);
+                environment = gameObject.AddComponent<CityDayNight>();
+                environment.Initialize(driving.PlayerCar,receiver);
             }
             addresses = "";
             foreach (var ip in Dns.GetHostAddresses(Dns.GetHostName()))
                 if (ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip)) addresses += ip + "  ";
             status = Label("", 0.02f, 0.59f, 0.96f, 0.39f, 24);
-            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, status.gameObject);
+            var drivingHud = new GameObject("Driving HUD", typeof(RectTransform)).GetComponent<RectTransform>();
+            drivingHud.SetParent(safeArea, false);
+            drivingHud.anchorMin = Vector2.zero; drivingHud.anchorMax = Vector2.one;
+            drivingHud.offsetMin = drivingHud.offsetMax = Vector2.zero;
+            status.transform.SetParent(drivingHud, false);
+            if (SceneManager.GetActiveScene().name == "CityDrive")
+                gameObject.AddComponent<CityMinimap>().Initialize(driving.PlayerCar, drivingHud);
+            gameObject.AddComponent<CarSpeedometer>().Initialize(driving.PlayerCar, drivingHud);
+            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, drivingHud.gameObject,environment,receiver);
 #endif
         }
         private void Update()

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FlyHigh.PhoneController
@@ -12,6 +13,8 @@ namespace FlyHigh.PhoneController
         private float contactTime = -100;
         private BoxCollider body;
         private PhysicsMaterial material;
+        private readonly List<Mesh> pavementMeshes = new List<Mesh>();
+        private readonly List<GameObject> pavementBarriers = new List<GameObject>();
         private Quaternion approvedHeading;
         private float lastObstacleTime = -100;
         public bool HoldingHeading => Time.fixedTime - lastObstacleTime <= 0.12f;
@@ -98,32 +101,79 @@ namespace FlyHigh.PhoneController
             if (body != null && body.attachedRigidbody != null) approvedHeading = body.attachedRigidbody.rotation;
         }
         private void OnDisable() => Clear();
-        private void OnDestroy() { if (material != null) Destroy(material); }
-
-        public static void AddPavementBarriers()
+        private void OnDestroy()
         {
-            // Snapshot once before adding children; keep each imported sidewalk's X/Z footprint.
+            foreach (var barrier in pavementBarriers) if (barrier != null) Destroy(barrier);
+            foreach (var mesh in pavementMeshes) if (mesh != null) Destroy(mesh);
+            if (material != null) Destroy(material);
+        }
+
+        public void AddPavementBarriers()
+        {
+            // Road tiles include their own kerbs/pavements in the non-asphalt submeshes.
+            // Extrude top faces instead of stretching Y: flat paving has no height to stretch.
             foreach (var surface in Object.FindObjectsByType<MeshCollider>(FindObjectsSortMode.None))
             {
-                if (!surface.enabled || surface.isTrigger || surface.sharedMesh == null || surface.attachedRigidbody != null) continue;
+                if (!surface.enabled || surface.isTrigger || surface.sharedMesh == null || surface.attachedRigidbody != null || surface.name == "Pavement driving barrier") continue;
+                if (surface.transform.Find("Pavement driving barrier") != null) continue;
                 bool pavement = false;
                 for (Transform node = surface.transform; node != null; node = node.parent)
                 {
                     string name = node.name.ToLowerInvariant();
                     if (name.Contains("sidewalk") || name.Contains("set_b_tiles") || name.Contains("pavement")) { pavement = true; break; }
                 }
-                if (!pavement || Vector3.Dot(surface.transform.up, Vector3.up) < 0.99f) continue;
-                Bounds bounds = surface.sharedMesh.bounds;
-                float height = bounds.size.y * Mathf.Abs(surface.transform.lossyScale.y);
-                if (height < 0.001f || height >= 1.2f) continue;
-                float stretch = 1.2f / height;
+                var renderer = surface.GetComponent<MeshRenderer>();
+                var materials = renderer != null ? renderer.sharedMaterials : new Material[0];
+                bool road = false;
+                if (!pavement && (surface.name + surface.sharedMesh.name).ToLowerInvariant().Contains("road"))
+                    foreach (var roadMaterial in materials)
+                        if (roadMaterial != null && RoadTriangleMask.AsphaltMaterial(roadMaterial.name)) { road = true; break; }
+                if ((!pavement && !road) || Vector3.Dot(surface.transform.up, Vector3.up) < 0.99f) continue;
+                Mesh source = surface.sharedMesh;
+                if (!source.isReadable)
+                {
+                    Debug.LogWarning("[Pavement guard] Read/Write is required for pavement mesh: " + surface.name);
+                    continue;
+                }
+                var vertices = new List<Vector3>();
+                var triangles = new List<int>();
+                Vector3[] sourceVertices = source.vertices;
+                for (int sub = 0; sub < source.subMeshCount; sub++)
+                {
+                    if (source.GetTopology(sub) != MeshTopology.Triangles) continue;
+                    if (road && (sub >= materials.Length || materials[sub] == null || RoadTriangleMask.AsphaltMaterial(materials[sub].name))) continue;
+                    int[] indices = source.GetTriangles(sub);
+                    for (int i = 0; i < indices.Length; i += 3)
+                    {
+                        Vector3 a = surface.transform.TransformPoint(sourceVertices[indices[i]]);
+                        Vector3 b = surface.transform.TransformPoint(sourceVertices[indices[i+1]]);
+                        Vector3 c = surface.transform.TransformPoint(sourceVertices[indices[i+2]]);
+                        if (Vector3.Cross(b-a,c-a).y <= 0.00001f) continue;
+                        // Closed triangular prisms preserve concave and curved pavement
+                        // outlines without a bounding box that would obstruct the road.
+                        int start = vertices.Count;
+                        vertices.Add(surface.transform.InverseTransformPoint(a - Vector3.up * 0.5f));
+                        vertices.Add(surface.transform.InverseTransformPoint(b - Vector3.up * 0.5f));
+                        vertices.Add(surface.transform.InverseTransformPoint(c - Vector3.up * 0.5f));
+                        vertices.Add(surface.transform.InverseTransformPoint(a + Vector3.up * 1.6f));
+                        vertices.Add(surface.transform.InverseTransformPoint(b + Vector3.up * 1.6f));
+                        vertices.Add(surface.transform.InverseTransformPoint(c + Vector3.up * 1.6f));
+                        int[] prism = {2,1,0, 3,4,5, 0,1,4, 0,4,3, 1,2,5, 1,5,4, 2,0,3, 2,3,5};
+                        foreach (int index in prism) triangles.Add(start + index);
+                    }
+                }
+                if (triangles.Count == 0) continue;
+                var mesh = new Mesh {name = surface.name + " pavement exclusion", indexFormat = UnityEngine.Rendering.IndexFormat.UInt32};
+                mesh.SetVertices(vertices); mesh.SetTriangles(triangles,0); mesh.RecalculateBounds();
                 var barrier = new GameObject("Pavement driving barrier");
                 barrier.layer = surface.gameObject.layer;
                 barrier.transform.SetParent(surface.transform, false);
-                barrier.transform.localPosition = new Vector3(0, bounds.min.y * (1 - stretch), 0);
-                barrier.transform.localScale = new Vector3(1, stretch, 1);
-                barrier.AddComponent<MeshCollider>().sharedMesh = surface.sharedMesh;
+                var collider = barrier.AddComponent<MeshCollider>();
+                collider.sharedMesh = mesh;
+                collider.sharedMaterial = material;
+                pavementMeshes.Add(mesh); pavementBarriers.Add(barrier);
             }
+            Physics.SyncTransforms();
         }
     }
 }

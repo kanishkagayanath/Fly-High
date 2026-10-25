@@ -8,7 +8,7 @@ The PC runs the game. An Android Unity build runs only the phone controls. Both 
 2. Open Assets/Scenes/GameScene.unity and press Play. The prototype adds a test ground, an orange car, and a following camera at runtime. Existing scene assets are preserved.
 3. In the Unity menu choose **Fly High > Build Android controller**. The APK is written to Builds/Android/FlyHighController.apk. Android build support, SDK/JDK, and a working Unity license are required.
 4. Install that APK on the Android phone. Connect phone and PC to the same Wi-Fi. Avoid guest Wi-Fi that isolates devices.
-5. In the phone app enter the PC's Wi-Fi IPv4 address and six-digit pairing code displayed by the running PC game. When multiple addresses appear, choose the Wi-Fi adapter's address.
+5. In the updated phone app tap **Find PC**, then tap your computer to connect without typing. Manual fallback: enter the PC's Wi-Fi IPv4 address and six-digit pairing code displayed by the running PC game. When multiple addresses appear, choose the Wi-Fi adapter's address. Both phone and PC need the discovery update; see Docs/QuickPhonePairing.md.
 6. Tap Connect. Hold the phone landscape in a comfortable neutral position and tap Calibrate Tilt. Tilt left/right to steer; hold Accelerate or Brake. Both pedals support simultaneous touch.
 7. If Windows asks about network access, allow the game/Editor on your private network. The receiver uses UDP port 47777. No router port forwarding is needed.
 

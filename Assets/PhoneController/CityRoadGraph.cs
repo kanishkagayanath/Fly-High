@@ -17,7 +17,13 @@ namespace FlyHigh.PhoneController
         private readonly Dictionary<Vector2Int, int> grid = new Dictionary<Vector2Int, int>();
         private readonly RaycastHit[] groundHits = new RaycastHit[32];
         private const float Spacing = 4;
-        private static readonly Vector2Int[] Directions = { Vector2Int.right, Vector2Int.up };
+        private readonly Collider[] clearanceHits = new Collider[48];
+        private readonly List<int>[] districts = new List<int>[9];
+        private int[] destinations;
+        private Bounds mapBounds;
+        private readonly Dictionary<long,float> laneCosts = new Dictionary<long,float>();
+        private static readonly Vector2Int[] Directions =
+            { Vector2Int.right, Vector2Int.up, new Vector2Int(1, 1), new Vector2Int(-1, 1) };
 
         public void Build()
         {
@@ -73,9 +79,10 @@ namespace FlyHigh.PhoneController
                     Vector3 delta = b - a;
                     Quaternion rotation = Quaternion.LookRotation(delta);
                     bool clear = true;
-                    for (int step = 0; step <= 4; step++)
+                    int steps = Mathf.Max(4, Mathf.CeilToInt(delta.magnitude));
+                    for (int step = 0; step <= steps; step++)
                     {
-                        Vector3 p = Vector3.Lerp(a, b, step / 4f);
+                        Vector3 p = Vector3.Lerp(a, b, step / (float)steps);
                         if (!RoadFootprint(p, rotation) || Physics.CheckBox(p, new Vector3(0.95f, 0.33f, 1.9f), rotation, ~0, QueryTriggerInteraction.Ignore))
                         { clear = false; break; }
                     }
@@ -83,6 +90,97 @@ namespace FlyHigh.PhoneController
                     nodes[from].neighbours.Add(other); nodes[other].neighbours.Add(from);
                 }
             Reservations = new TrafficReservations(nodes.Count);
+            destinations = new int[nodes.Count];
+            for (int i = 0; i < districts.Length; i++) districts[i] = new List<int>();
+            if (nodes.Count > 0)
+            {
+                mapBounds = new Bounds(nodes[0].position,Vector3.zero);
+                foreach (var node in nodes) mapBounds.Encapsulate(node.position);
+                for (int i = 0; i < nodes.Count; i++) if (nodes[i].neighbours.Count >= 2) districts[District(nodes[i].position)].Add(i);
+                for (int i = 0; i < nodes.Count; i++) foreach (int next in nodes[i].neighbours)
+                {
+                    Vector3 direction=(nodes[next].position-nodes[i].position).normalized;
+                    Vector3 right=Vector3.Cross(Vector3.up,direction);
+                    Vector3 centre=(nodes[i].position+nodes[next].position)*0.5f;
+                    // Prefer the right side of each street, reducing opposing traffic
+                    // meeting head-on in the same strip of sampled road points.
+                    laneCosts[((long)i<<32)|(uint)next]=HasRoadBelow(centre+right*4.5f)?Vector3.Distance(nodes[i].position,nodes[next].position)*4:0;
+                }
+            }
+        }
+
+        public int District(Vector3 position)
+        {
+            int x = Mathf.Clamp(Mathf.FloorToInt(Mathf.InverseLerp(mapBounds.min.x,mapBounds.max.x,position.x)*3),0,2);
+            int z = Mathf.Clamp(Mathf.FloorToInt(Mathf.InverseLerp(mapBounds.min.z,mapBounds.max.z,position.z)*3),0,2);
+            return z*3+x;
+        }
+        public int NearestNode(Vector3 position)
+        {
+            int best=-1;float distance=float.PositiveInfinity;
+            for(int i=0;i<nodes.Count;i++) {float d=(nodes[i].position-position).sqrMagnitude;if(d<distance){best=i;distance=d;}}
+            return best;
+        }
+        public bool ClearPose(Vector3 position, Quaternion rotation, Vector3 halfSize)
+        {
+            if (!RoadFootprint(position,rotation,halfSize.x+0.12f,halfSize.z+0.12f)) return false;
+            int count=Physics.OverlapBoxNonAlloc(position,halfSize+new Vector3(0.06f,0.01f,0.06f),clearanceHits,rotation,~0,QueryTriggerInteraction.Ignore);
+            if(count==clearanceHits.Length)return false;
+            for(int i=0;i<count;i++)if(clearanceHits[i].attachedRigidbody==null)return false;
+            return true;
+        }
+        public bool ClearSegment(Vector3 a, Vector3 b, Vector3 halfSize)
+        {
+            if((b-a).sqrMagnitude<0.0001f)return true;
+            Quaternion facing=Quaternion.LookRotation(b-a);
+            int steps=Mathf.Max(1,Mathf.CeilToInt(Vector3.Distance(a,b)/0.75f));
+            for(int i=0;i<=steps;i++)if(!ClearPose(Vector3.Lerp(a,b,i/(float)steps),facing,halfSize))return false;
+            return true;
+        }
+        public bool PlanRoute(int start, Vector3 heading, ref int district, object owner, List<int> route)
+        {
+            route.Clear();
+            if(start<0 || start>=nodes.Count)return false;
+            // Cycle through all nine map districts, rather than making a random local turn.
+            var candidates=districts[district];
+            int goal=-1;float best=float.NegativeInfinity;
+            foreach(int candidate in candidates)
+            {
+                if(nodes[candidate].neighbours.Count<6)continue;
+                float distance=Vector3.Distance(nodes[start].position,nodes[candidate].position);
+                if(distance<24 || !Reservations.Available(candidate,owner))continue;
+                float score=distance-destinations[candidate]*20+Random.Range(0f,6f);
+                if(score>best){best=score;goal=candidate;}
+            }
+            district=(district+4)%9;
+            if(goal<0)return false;
+            int count=nodes.Count;var costs=new float[count];var parents=new int[count];var closed=new bool[count];
+            for(int i=0;i<count;i++){costs[i]=float.PositiveInfinity;parents[i]=-1;}
+            costs[start]=0;
+            for(int iteration=0;iteration<count;iteration++)
+            {
+                int current=-1;float shortest=float.PositiveInfinity;
+                for(int i=0;i<count;i++)if(!closed[i])
+                {float score=costs[i]+Vector3.Distance(nodes[i].position,nodes[goal].position);if(score<shortest){shortest=score;current=i;}}
+                if(current<0)break;
+                if(current==goal)
+                {
+                    for(int node=goal;node>=0;node=parents[node])route.Add(node);
+                    route.Reverse();destinations[goal]++;return route.Count>1;
+                }
+                closed[current]=true;
+                foreach(int next in nodes[current].neighbours)
+                {
+                    if(closed[next] || !Reservations.Available(next,owner))continue;
+                    Vector3 delta=nodes[next].position-nodes[current].position;
+                    Vector3 previous=parents[current]>=0?nodes[current].position-nodes[parents[current]].position:heading;
+                    float dot=Vector3.Dot(previous.normalized,delta.normalized);
+                    if(current==start && dot < -0.1f)continue;
+                    float cost=costs[current]+delta.magnitude+(1-dot)*5+laneCosts[((long)current<<32)|(uint)next];
+                    if(cost<costs[next]){costs[next]=cost;parents[next]=current;}
+                }
+            }
+            return false;
         }
 
         private bool HasRoadBelow(Vector3 position)

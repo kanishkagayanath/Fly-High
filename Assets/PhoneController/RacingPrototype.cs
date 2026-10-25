@@ -9,9 +9,20 @@ namespace FlyHigh.PhoneController
         [SerializeField, Min(0)] private float maximumSpeed = 55f;
         [SerializeField, Min(0)] private float maximumReverseSpeed = 12f;
         [SerializeField, Min(0.1f)] private float steeringResponse = 3f;
+        [SerializeField, Range(0, 0.25f)] private float phoneSteeringDeadZone = 0.06f;
+        [SerializeField, Range(1, 3)] private float phoneSteeringExponent = 1.6f;
+        [SerializeField, Min(0.01f)] private float phoneSteeringSmoothTime = 0.14f;
+        [SerializeField, Min(0.01f)] private float phoneRecentreSmoothTime = 0.10f;
         [SerializeField, Min(0.05f)] private float releaseStopSmoothing = 0.25f;
+        [SerializeField, Min(0.01f)] private float cameraPositionSmoothTime = 0.12f;
+        [SerializeField, Min(0.01f)] private float cameraAimSmoothTime = 0.06f;
+        [SerializeField, Min(0.01f)] private float cameraHeadingSmoothTime = 0.14f;
+        private Vector3 cameraFollowVelocity, cameraAimVelocity, cameraAimPoint;
+        private float cameraHeading, cameraHeadingVelocity;
+        private bool cameraSnapPending;
         private Vector3 releaseSlowdownVelocity;
         private float smoothedSteering;
+        private float phoneSteeringVelocity;
         private CarWheelVisuals wheelVisuals;
         private CarContactGuard contactGuard;
         private WifiReceiver input;
@@ -73,11 +84,10 @@ namespace FlyHigh.PhoneController
             car.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             contactGuard = body.AddComponent<CarContactGuard>();
             contactGuard.Initialize(box);
-            if (cityMode) CarContactGuard.AddPavementBarriers();
+            if (cityMode) contactGuard.AddPavementBarriers();
             view = Camera.main;
             if (view == null) view = new GameObject("Prototype camera", typeof(Camera)).GetComponent<Camera>();
-            view.transform.position = startPosition + startRotation * new Vector3(0, 7, -12);
-            view.transform.LookAt(startPosition);
+            SnapCamera(startPosition, startRotation);
         }
 
         private void CreateCarVisual(Transform parent)
@@ -122,6 +132,7 @@ namespace FlyHigh.PhoneController
             if (car == null) return;
             float steer = input.Steering, throttle = input.Throttle, brake = input.Brake;
             var keys = Keyboard.current;
+            bool keyboardSteering = !input.Connected;
             // Keyboard fallback is for testing before installing the phone app.
             if (!input.Connected && keys != null && (keys.wKey.isPressed || keys.sKey.isPressed || keys.aKey.isPressed || keys.dKey.isPressed || keys.downArrowKey.isPressed))
             {
@@ -149,7 +160,7 @@ namespace FlyHigh.PhoneController
             velocity = contactGuard.Slide(velocity);
             car.linearVelocity = velocity;
             float speed = Vector3.Dot(velocity, car.transform.forward);
-            smoothedSteering = Mathf.MoveTowards(smoothedSteering, steer, steeringResponse * Time.fixedDeltaTime);
+            UpdateSteering(steer, keyboardSteering, Time.fixedDeltaTime);
             float speedFraction = Mathf.Clamp01(Mathf.Abs(speed) / Mathf.Max(1, maximumSpeed));
             // Hold the opposite pedal to brake first, then change direction near standstill.
             if (throttle * speed < -0.5f) { brake = 1; throttle = 0; }
@@ -168,14 +179,39 @@ namespace FlyHigh.PhoneController
             if (car.position.y < startPosition.y - 30 || (!cityMode && (Mathf.Abs(car.position.x) > 98 || Mathf.Abs(car.position.z) > 98)))
                 ResetCar();
         }
+        private void UpdateSteering(float raw, bool keyboard, float deltaTime)
+        {
+            if (deltaTime <= 0) return;
+            if (keyboard)
+            {
+                smoothedSteering = Mathf.MoveTowards(smoothedSteering, raw, steeringResponse * deltaTime);
+                phoneSteeringVelocity = 0;
+                return;
+            }
+            // Shape phone input on the PC so existing controller APKs gain the same feel.
+            // Remove hand tremor around neutral, then build steering progressively.
+            float magnitude = Mathf.Clamp01((Mathf.Abs(raw) - phoneSteeringDeadZone)
+                / Mathf.Max(0.01f, 1 - phoneSteeringDeadZone));
+            float target = Mathf.Sign(raw) * Mathf.Pow(magnitude, phoneSteeringExponent);
+            float smoothing = target == 0 ? phoneRecentreSmoothTime : phoneSteeringSmoothTime;
+            smoothedSteering = Mathf.SmoothDamp(smoothedSteering, target, ref phoneSteeringVelocity,
+                smoothing, Mathf.Infinity, deltaTime);
+            if (target == 0 && Mathf.Abs(smoothedSteering) < 0.0005f)
+            {
+                smoothedSteering = 0;
+                phoneSteeringVelocity = 0;
+            }
+        }
         private void ResetCar()
         {
             car.position = startPosition; car.rotation = startRotation;
             car.linearVelocity = Vector3.zero; car.angularVelocity = Vector3.zero;
             smoothedSteering = 0;
+            phoneSteeringVelocity = 0;
             releaseSlowdownVelocity = Vector3.zero;
             contactGuard.Clear();
             if (wheelVisuals != null) wheelVisuals.ResetPose();
+            cameraSnapPending = true;
         }
         private void Update()
         {
@@ -190,9 +226,34 @@ namespace FlyHigh.PhoneController
                 float fraction = Mathf.Clamp01(Mathf.Abs(speed) / Mathf.Max(1, maximumSpeed));
                 wheelVisuals.Animate(speed, smoothedSteering * Mathf.Lerp(28f, 8f, fraction), Time.deltaTime);
             }
-            Vector3 target = car.position + car.transform.TransformDirection(new Vector3(0, 7, -12));
-            view.transform.position = Vector3.Lerp(view.transform.position, target, 1 - Mathf.Exp(-5 * Time.deltaTime));
-            view.transform.LookAt(car.position + Vector3.up);
+            // The visible Transform is interpolated between physics steps. Rigidbody.position
+            // is the fixed-step pose: aiming at that pose makes the rendered car jitter.
+            Transform renderedCar = car.transform;
+            Vector3 renderedPosition = renderedCar.position;
+            if (cameraSnapPending || (renderedPosition - cameraAimPoint).sqrMagnitude > 1600f)
+                SnapCamera(renderedPosition, renderedCar.rotation);
+            float dt = Time.deltaTime;
+            if (dt <= 0) return;
+            cameraHeading = Mathf.SmoothDampAngle(cameraHeading, renderedCar.eulerAngles.y,
+                ref cameraHeadingVelocity, cameraHeadingSmoothTime, Mathf.Infinity, dt);
+            Vector3 target = renderedPosition + Quaternion.Euler(0, cameraHeading, 0) * new Vector3(0, 7, -12);
+            view.transform.position = Vector3.SmoothDamp(view.transform.position, target,
+                ref cameraFollowVelocity, cameraPositionSmoothTime, Mathf.Infinity, dt);
+            cameraAimPoint = Vector3.SmoothDamp(cameraAimPoint, renderedPosition + Vector3.up,
+                ref cameraAimVelocity, cameraAimSmoothTime, Mathf.Infinity, dt);
+            Vector3 direction = cameraAimPoint - view.transform.position;
+            if (direction.sqrMagnitude > 0.0001f)
+                view.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        }
+        private void SnapCamera(Vector3 position, Quaternion rotation)
+        {
+            cameraHeading = rotation.eulerAngles.y;
+            cameraHeadingVelocity = 0;
+            cameraFollowVelocity = cameraAimVelocity = Vector3.zero;
+            cameraAimPoint = position + Vector3.up;
+            view.transform.position = position + Quaternion.Euler(0, cameraHeading, 0) * new Vector3(0, 7, -12);
+            view.transform.rotation = Quaternion.LookRotation(cameraAimPoint - view.transform.position, Vector3.up);
+            cameraSnapPending = false;
         }
     }
 }
