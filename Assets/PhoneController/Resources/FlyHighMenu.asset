@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FlyHighMenu
   m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.MenuVisualSettings
   background: {fileID: 2800000, guid: 4b61d857f5a2afc4f9b5e519099f9ab5, type: 3}
-  playButton: {fileID: 21300000, guid: c21593ade6f490b429460d54248307bb, type: 3}
-  optionsButton: {fileID: 21300000, guid: e7c6ed87fbfff3f48a9752a77c239e56, type: 3}
-  exitButton: {fileID: 21300000, guid: 34671ecffb3ef3e4d964a2a52281a889, type: 3}
+  playButton: {fileID: 21300000, guid: 17dda5e49b4409d46a8f9c20eb90aee5, type: 3}
+  optionsButton: {fileID: 21300000, guid: 0d393aef1f0f574458e7eb4324423368, type: 3}
+  exitButton: {fileID: 21300000, guid: 5506ac54022677047aae44bc8b399c6d, type: 3}

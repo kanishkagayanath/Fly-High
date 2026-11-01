@@ -51,7 +51,7 @@ namespace FlyHigh.PhoneController
                 root.transform.SetParent(transform);
                 var driver = root.AddComponent<NpcTrafficCar>();
                 if (!graph.Reservations.TryReserve(index, driver)) { Destroy(root); continue; }
-                if (!driver.Initialize(graph, index, prefab, settings.cruisingSpeed * Random.Range(0.8f, 1.1f)))
+                if (!driver.Initialize(graph, index, prefab, settings.cruisingSpeed * Random.Range(0.8f, 1.1f), player))
                 { graph.Reservations.ReleaseAll(driver); root.SetActive(false); Destroy(root); continue; }
                 spawnPoints.Add(position); VehicleCount++;
             }
@@ -61,3 +61,4 @@ namespace FlyHigh.PhoneController
         }
     }
 }
+

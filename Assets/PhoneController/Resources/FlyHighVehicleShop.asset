@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7094599c9cdf6428b80c6b94bcfe47, type: 3}
+  m_Name: FlyHighVehicleShop
+  m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.VehicleShopCatalog
+  vehicles:
+  - id: starter
+    title: Sunset Sport
+    description: Your original city ride
+    price: 0
+    prefab: {fileID: 400323601965181187, guid: fc1e359a90d4e6542b4d8022c50429ce, type: 3}
+    thumbnail: {fileID: 21300000, guid: 039a7fc9e8a749941b3efc2671566afa, type: 3}
+  - id: hatchback
+    title: City Hatch
+    description: Compact and ready to explore
+    price: 100
+    prefab: {fileID: 52932905164622209, guid: 640b94cf88de4ef459ce14645b2736d9, type: 3}
+    thumbnail: {fileID: 21300000, guid: 8bbfb72a0e7ce5b45aa34253cc7bb6bb, type: 3}
+  - id: classic
+    title: Coastal Classic
+    description: A classic shape for the coast
+    price: 180
+    prefab: {fileID: 5272454072200437660, guid: 4be47a48b47d6224ebb6430561872389, type: 3}
+    thumbnail: {fileID: 21300000, guid: 566b7a5fb1dd1c54a98fd11f6798f9e2, type: 3}
+  - id: coupe
+    title: Gold Coupe
+    description: Stand out in bright gold
+    price: 300
+    prefab: {fileID: 6797269430195769530, guid: 0f2505a3f5e77fa44a6703470cc30543, type: 3}
+    thumbnail: {fileID: 21300000, guid: 4b4b33cf991bb7b4998784ee172dfebf, type: 3}
+  - id: van
+    title: Town Cruiser
+    description: Take the scenic route
+    price: 250
+    prefab: {fileID: 787257008305991662, guid: 6fda6d14dbbf5c54fb01d830757a8d1f, type: 3}
+    thumbnail: {fileID: 21300000, guid: aa4b1c3352c5fa244abf9ba855181309, type: 3}
+  - id: future
+    title: Neon Concept
+    description: A futuristic city silhouette
+    price: 450
+    prefab: {fileID: 1049787233113196042, guid: ff60e6cbfd0ed6e4bace0ea2a2f5a238, type: 3}
+    thumbnail: {fileID: 21300000, guid: 0b74262a357c60e4aafcd9f47b061559, type: 3}

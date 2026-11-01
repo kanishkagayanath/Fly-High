@@ -137,7 +137,7 @@ namespace FlyHigh.PhoneController
             for(int i=0;i<=steps;i++)if(!ClearPose(Vector3.Lerp(a,b,i/(float)steps),facing,halfSize))return false;
             return true;
         }
-        public bool PlanRoute(int start, Vector3 heading, ref int district, object owner, List<int> route)
+        public bool PlanRoute(int start, Vector3 heading, ref int district, object owner, List<int> route, Bounds? avoid = null)
         {
             route.Clear();
             if(start<0 || start>=nodes.Count)return false;
@@ -173,6 +173,11 @@ namespace FlyHigh.PhoneController
                 {
                     if(closed[next] || !Reservations.Available(next,owner))continue;
                     Vector3 delta=nodes[next].position-nodes[current].position;
+                    if(avoid.HasValue)
+                    {
+                        Bounds blocked=avoid.Value;
+                        if(blocked.Contains(nodes[next].position) || (blocked.IntersectRay(new Ray(nodes[current].position,delta.normalized),out float hit) && hit<=delta.magnitude))continue;
+                    }
                     Vector3 previous=parents[current]>=0?nodes[current].position-nodes[parents[current]].position:heading;
                     float dot=Vector3.Dot(previous.normalized,delta.normalized);
                     if(current==start && dot < -0.1f)continue;
@@ -232,3 +237,4 @@ namespace FlyHigh.PhoneController
         }
     }
 }
+

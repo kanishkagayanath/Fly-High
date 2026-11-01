@@ -101,14 +101,16 @@ namespace FlyHigh.PhoneController
             foreach(var light in headlights){light.intensity=local*(player?42:24);light.enabled=light.intensity>.01f;}
             if(tailSpill!=null){tailSpill.intensity=local*(.9f+brakeGlow*1.3f);tailSpill.enabled=tailSpill.intensity>.01f;}
         }
-        private void OnDestroy()
+        public void Release()
         {
-            if(bodyRenderer!=null&&original!=null)bodyRenderer.sharedMaterials=original;
-            if(lightRoot!=null)Destroy(lightRoot);
-            if(fallbackLenses!=null)Destroy(fallbackLenses);
+            cycle=null;
+            if(bodyRenderer!=null && original!=null)bodyRenderer.sharedMaterials=original;original=null;
+            if(lightRoot!=null){lightRoot.SetActive(false);Destroy(lightRoot);lightRoot=null;}
+            if(fallbackLenses!=null){Destroy(fallbackLenses);fallbackLenses=null;}
             foreach(var mat in frontMaterials)if(mat!=null)Destroy(mat);
             foreach(var mat in rearMaterials)if(mat!=null)Destroy(mat);
+            frontMaterials.Clear();rearMaterials.Clear();headlights.Clear();tailSpill=null;
         }
+        private void OnDestroy(){Release();}
     }
 }
-

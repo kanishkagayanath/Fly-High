@@ -17,6 +17,16 @@ namespace FlyHigh.PhoneController
         private uint sequence;
         private float nextSend, lastAck = -100, centre;
         private bool active = true;
+        private float lastMissionState = -100, startUntil, nextStartSend;
+        private string requestedToken;
+        public MissionPhoneSnapshot MissionState { get; private set; }
+        public bool HasMissionState => Connected && Time.realtimeSinceStartup - lastMissionState < 1;
+        public bool MissionStartPending => requestedToken != null && Time.realtimeSinceStartup < startUntil;
+        public void StartMission()
+        {
+            if (!HasMissionState || MissionState.phase != CoinMissionPhase.Available || MissionStartPending) return;
+            requestedToken = MissionState.token; startUntil = Time.realtimeSinceStartup + 1.5f; nextStartSend = 0;
+        }
         private UdpClient discoverySocket;
         private readonly List<DiscoveredPC> games = new List<DiscoveredPC>();
         private readonly List<IPEndPoint> broadcastTargets = new List<IPEndPoint>();
@@ -172,7 +182,14 @@ namespace FlyHigh.PhoneController
                 for (int i = 0; i < 64 && socket.Available > 0; i++)
                 {
                     IPEndPoint peer = server;
-                    if (Encoding.ASCII.GetString(socket.Receive(ref peer)) == "FH1|OK|" + code) lastAck = Time.realtimeSinceStartup;
+                    byte[] reply = socket.Receive(ref peer);
+                    if (Encoding.ASCII.GetString(reply) == "FH1|OK|" + code) lastAck = Time.realtimeSinceStartup;
+                    else if (MissionPhoneProtocol.TryStatus(reply, code, out var state) &&
+                        (lastMissionState < 0 || state.revision == MissionState.revision || ControllerPacket.IsNewer(state.revision, MissionState.revision)))
+                    {
+                        MissionState = state; lastMissionState = Time.realtimeSinceStartup;
+                        if (state.phase != CoinMissionPhase.Available || state.token != requestedToken) requestedToken = null;
+                    }
                 }
                 if (Time.realtimeSinceStartup >= nextSend)
                 {
@@ -180,6 +197,12 @@ namespace FlyHigh.PhoneController
                     byte[] data = ControllerPacket.Encode(code, ++sequence, Steering, Throttle - Reverse, Brake);
                     socket.Send(data, data.Length);
                 }
+                if (MissionStartPending && HasMissionState && Time.realtimeSinceStartup >= nextStartSend)
+                {
+                    nextStartSend = Time.realtimeSinceStartup + 0.15f;
+                    byte[] request = MissionPhoneProtocol.Start(code, requestedToken); socket.Send(request, request.Length);
+                }
+                if (!HasMissionState || Time.realtimeSinceStartup >= startUntil) requestedToken = null;
                 Status = Connected ? "Connected — tilt to steer" : "Waiting for PC — check Wi-Fi, address and code";
                 if (Accelerometer.current == null) Status += " (no accelerometer detected)";
             }
@@ -189,11 +212,12 @@ namespace FlyHigh.PhoneController
         public void Disconnect()
         {
             CancelDiscovery();
+            lastMissionState = -100; requestedToken = null; MissionState = default;
             socket?.Close(); socket = null; lastAck = -100; Throttle = Reverse = Brake = Steering = 0;
             Status = "Disconnected";
         }
-        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; if (!focus) CancelDiscovery(); }
-        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; if (pause) CancelDiscovery(); }
+        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; if (!focus) { CancelDiscovery(); requestedToken = null; lastMissionState = -100; } }
+        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; if (pause) { CancelDiscovery(); requestedToken = null; lastMissionState = -100; } }
         private void OnDisable() { Disconnect(); Screen.sleepTimeout = SleepTimeout.SystemSetting; }
     }
 }

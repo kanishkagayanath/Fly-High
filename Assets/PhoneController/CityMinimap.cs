@@ -10,6 +10,9 @@ namespace FlyHigh.PhoneController
     {
         [SerializeField, Min(20)] private float viewRadius = 55;
         private const float Diameter = 212;
+        public RectTransform MissionClip => content != null ? content.parent as RectTransform : null;
+        public RectTransform MissionContent => content;
+        public Vector2 MissionPoint(Vector3 world) => Point(world);
         private Transform player;
         private RectTransform root, content, arrow;
         private MinimapGraphic roads;
@@ -28,7 +31,7 @@ namespace FlyHigh.PhoneController
             pixelsPerMetre = Diameter / (2 * viewRadius);
             root = Element(hud,"Circular minimap",new Vector2(220,220));
             root.anchorMin = root.anchorMax = root.pivot = Vector2.one;
-            root.anchoredPosition = new Vector2(-20,-20);
+            root.anchoredPosition = new Vector2(-20,-78);
             var shadow = Disc(root,"Map shadow",232,new Color(0,0,0,0.4f));
             shadow.rectTransform.anchoredPosition = new Vector2(2,-3);
             Disc(root,"Map border",224,new Color(0.025f,0.065f,0.09f));

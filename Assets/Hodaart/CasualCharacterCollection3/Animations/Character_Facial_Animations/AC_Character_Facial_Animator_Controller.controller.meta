@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca81c7cb5a9c6bb46bedb4b191f0ba81
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 399046
+  packageName: Casual Character Collection 3
+  packageVersion: 1.0
+  assetPath: Assets/Hodaart/CasualCharacterCollection3/Animations/Character_Facial_Animations/AC_Character_Facial_Animator_Controller.controller
+  uploadId: 969896

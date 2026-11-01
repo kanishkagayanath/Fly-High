@@ -189,7 +189,19 @@ namespace FlyHigh.PhoneController
                 if(!headlights)continue;
                 var body=renderer.GetComponentInParent<Rigidbody>();Transform owner=body!=null?body.transform:renderer.transform;
                 if(!seen.Add(owner))continue;
+                if(owner.GetComponent<VehicleLights>()!=null)continue;
                 var lighting=owner.gameObject.AddComponent<VehicleLights>();lighting.Initialize(this,renderer,body,owner==player?controls:null,owner==player);vehicles.Add(lighting);
+            }
+        }
+        public void RefreshPlayerVehicleLights()
+        {
+            if(player==null)return;
+            foreach(var old in player.GetComponents<VehicleLights>()){old.enabled=false;old.Release();vehicles.Remove(old);Destroy(old);}
+            foreach(var renderer in player.GetComponentsInChildren<MeshRenderer>())
+            {
+                bool lenses=false;foreach(var material in renderer.sharedMaterials)if(material!=null && (material.name=="Car_Headlights" || material.name=="Car_Taillights"))lenses=true;
+                if(!lenses)continue;
+                var lighting=player.gameObject.AddComponent<VehicleLights>();lighting.Initialize(this,renderer,player.GetComponent<Rigidbody>(),controls,true);vehicles.Add(lighting);break;
             }
         }
         private void OnDestroy()
@@ -208,3 +220,4 @@ namespace FlyHigh.PhoneController
         }
     }
 }
+

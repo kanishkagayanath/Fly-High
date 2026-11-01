@@ -18,6 +18,12 @@ namespace FlyHigh.PhoneController
         private float nextDiscoveryReply;
         private string discoveryId, discoveryName;
         private int received, rejected;
+        private byte[] missionStatus;
+        private MissionPhoneSnapshot? missionState;
+        private float nextMissionReply;
+        public event Action<string> StartMissionRequested;
+        public void SetMissionState(MissionPhoneSnapshot state) { missionState = state; missionStatus = MissionPhoneProtocol.Status(PairingCode, state); nextMissionReply = 0; }
+        public void ClearMissionState() { missionStatus = null; missionState = null; }
         private string lastResult = "No phone messages received";
         public string Diagnostics => "Messages: " + received + " | Rejected: " + rejected + " | " + lastResult;
         public string PairingCode { get; private set; }
@@ -51,6 +57,12 @@ namespace FlyHigh.PhoneController
         }
 #endif
 
+#if UNITY_EDITOR
+        private void CloseBeforePlayStops(UnityEditor.PlayModeStateChange state)
+        {
+            if (state == UnityEditor.PlayModeStateChange.ExitingPlayMode) CloseSocket();
+        }
+#endif
         private void OnEnable()
         {
             if (activeReceiver == null && activeSocket != null) CloseActiveSocket();
@@ -62,7 +74,14 @@ namespace FlyHigh.PhoneController
                 return;
             }
             CloseSocket();
+#if UNITY_EDITOR
+            // Bind cleanup to the live play-session instance, before runtime teardown.
+            // An editor-load static callback can outlive the domain that owned the socket.
+            UnityEditor.EditorApplication.playModeStateChanged -= CloseBeforePlayStops;
+            UnityEditor.EditorApplication.playModeStateChanged += CloseBeforePlayStops;
+#endif
             PairingCode = UnityEngine.Random.Range(100000, 1000000).ToString();
+            if (missionState.HasValue) missionStatus = MissionPhoneProtocol.Status(PairingCode, missionState.Value);
             discoveryId = Guid.NewGuid().ToString("N");
             discoveryName = Environment.MachineName;
             nextDiscoveryReply = 0;
@@ -113,6 +132,11 @@ namespace FlyHigh.PhoneController
                         }
                         continue;
                     }
+                    if (MissionPhoneProtocol.TryStart(data, PairingCode, out string missionToken))
+                    {
+                        if (Connected && owner != null && owner.Equals(peer)) StartMissionRequested?.Invoke(missionToken);
+                        continue;
+                    }
                     received++;
                     if (!ControllerPacket.TryDecode(data, PairingCode, out uint next, out float steer, out float gas, out float brake))
                     {
@@ -132,6 +156,12 @@ namespace FlyHigh.PhoneController
                 }
             }
             catch (SocketException e) { Status = "Network: " + e.SocketErrorCode; }
+            if (Connected && owner != null && missionStatus != null && Time.realtimeSinceStartup >= nextMissionReply)
+            {
+                nextMissionReply = Time.realtimeSinceStartup + 0.2f;
+                try { socket.Send(missionStatus, missionStatus.Length, owner); }
+                catch (SocketException) { }
+            }
         }
 
         private static void CloseActiveSocket()
@@ -156,8 +186,15 @@ namespace FlyHigh.PhoneController
             ClearInput();
             owned?.Close();
         }
-        private void OnDisable() => CloseSocket();
-        private void OnDestroy() => CloseSocket();
+        private void OnDisable()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.playModeStateChanged -= CloseBeforePlayStops;
+#endif
+            CloseSocket();
+        }
+        private void OnDestroy() => OnDisable();
         private void OnApplicationQuit() => CloseSocket();
     }
 }
+

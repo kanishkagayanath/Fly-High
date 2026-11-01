@@ -24,6 +24,8 @@ namespace FlyHigh.PhoneController
         private float smoothedSteering;
         private float phoneSteeringVelocity;
         private CarWheelVisuals wheelVisuals;
+        private VehicleGarage garage;
+        private GameObject activeVisual;
         private CarContactGuard contactGuard;
         private WifiReceiver input;
         private Rigidbody car;
@@ -34,9 +36,9 @@ namespace FlyHigh.PhoneController
         public float RawSteering { get; private set; }
         public Transform PlayerCar => car != null ? car.transform : null;
         public string CollisionDiagnostics => contactGuard != null ? contactGuard.Diagnostics : "Contact guard initializing";
-        public void Initialize(WifiReceiver receiver, bool useCity = false)
+        public void Initialize(WifiReceiver receiver, bool useCity = false, VehicleGarage progress = null)
         {
-            input = receiver;
+            input = receiver; garage = progress;
             cityMode = useCity;
             startPosition = Vector3.up;
             if (cityMode)
@@ -88,44 +90,37 @@ namespace FlyHigh.PhoneController
             view = Camera.main;
             if (view == null) view = new GameObject("Prototype camera", typeof(Camera)).GetComponent<Camera>();
             SnapCamera(startPosition, startRotation);
+            if(garage!=null)garage.SelectionChanged+=ChangeVehicle;
         }
 
-        private void CreateCarVisual(Transform parent)
+        private void ChangeVehicle(ShopVehicle entry)
         {
-            var settings = Resources.Load<CarVisualSettings>("FlyHighCarVisual");
-            if (settings == null || settings.prefab == null)
-            {
-                var fallback = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                fallback.transform.SetParent(parent, false);
-                fallback.transform.localScale = new Vector3(1.8f, 0.8f, 3.6f);
-                fallback.GetComponent<Collider>().enabled = false;
-                fallback.GetComponent<Renderer>().material.color = new Color(1, 0.35f, 0.08f);
-                Debug.LogWarning("[Car visual] Car settings missing. Wait for Editor import, then restart Play mode.");
-                return;
-            }
-            var visual = Instantiate(settings.prefab, parent, false);
-            visual.name = "Car_13 visual";
-            visual.transform.localPosition = Vector3.zero;
-            visual.transform.localRotation = Quaternion.identity;
-            foreach (var collider in visual.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
-            foreach (var rigidbody in visual.GetComponentsInChildren<Rigidbody>(true))
-            {
-                rigidbody.isKinematic = true;
-                rigidbody.detectCollisions = false;
-                Destroy(rigidbody);
-            }
-            var renderers = visual.GetComponentsInChildren<Renderer>();
-            if (renderers.Length == 0) return;
-            Bounds bounds = renderers[0].bounds;
-            foreach (var renderer in renderers) bounds.Encapsulate(renderer.bounds);
-            if (bounds.size.z < 0.001f) return;
-            visual.transform.localScale *= 3.6f / bounds.size.z;
-            bounds = renderers[0].bounds;
-            foreach (var renderer in renderers) bounds.Encapsulate(renderer.bounds);
-            visual.transform.localPosition -= new Vector3(bounds.center.x, bounds.min.y + 0.4f, bounds.center.z);
-            wheelVisuals = gameObject.AddComponent<CarWheelVisuals>();
-            wheelVisuals.Initialize(visual.transform, parent);
+            if(car==null || entry==null)return;
+            CreateCarVisual(car.transform,entry.prefab);
+            var environment=GetComponent<CityDayNight>();if(environment!=null)environment.RefreshPlayerVehicleLights();
         }
+        private void CreateCarVisual(Transform parent,GameObject prefab=null)
+        {
+            if(prefab==null)prefab=garage?.Selected?.prefab;
+            if(prefab==null)prefab=Resources.Load<CarVisualSettings>("FlyHighCarVisual")?.prefab;
+            if(prefab==null){Debug.LogWarning("[Car visual] Player vehicle model unavailable.");return;}
+            // Normalise at the origin, then attach in car-local space. World bounds
+            // cannot be subtracted from a car that has moved or turned in the city.
+            var root=new GameObject("Player vehicle visual");var visual=Instantiate(prefab,root.transform,false);visual.name=prefab.name;
+            foreach(var collider in visual.GetComponentsInChildren<Collider>(true))collider.enabled=false;
+            foreach(var physics in visual.GetComponentsInChildren<Rigidbody>(true)){physics.isKinematic=true;physics.detectCollisions=false;Destroy(physics);}
+            var renderers=visual.GetComponentsInChildren<Renderer>();
+            if(renderers.Length==0){Destroy(root);return;}
+            Bounds bounds=renderers[0].bounds;foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);
+            if(bounds.size.z<.001f || bounds.size.x<.001f){Destroy(root);return;}
+            visual.transform.localScale*=Mathf.Min(3.6f/bounds.size.z,1.8f/bounds.size.x);
+            bounds=renderers[0].bounds;foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);
+            visual.transform.localPosition-=new Vector3(bounds.center.x,bounds.min.y+.4f,bounds.center.z);
+            root.transform.SetParent(parent,false);
+            if(activeVisual!=null){activeVisual.SetActive(false);Destroy(activeVisual);}activeVisual=root;
+            if(wheelVisuals==null)wheelVisuals=gameObject.AddComponent<CarWheelVisuals>();wheelVisuals.Initialize(root.transform,parent);
+        }
+        private void OnDestroy(){if(garage!=null)garage.SelectionChanged-=ChangeVehicle;}
 
         private void FixedUpdate()
         {
@@ -257,3 +252,4 @@ namespace FlyHigh.PhoneController
         }
     }
 }
+

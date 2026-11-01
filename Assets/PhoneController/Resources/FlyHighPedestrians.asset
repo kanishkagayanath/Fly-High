@@ -1,0 +1,7201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd919d293bc1334a920d8cc693101fd, type: 3}
+  m_Name: FlyHighPedestrians
+  m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.PedestrianSettings
+  characters:
+  - {fileID: 6992360245988857, guid: e7960ca7e82a51144ac57591496310c6, type: 3}
+  - {fileID: 7873621286350765, guid: 67940ab91e14440409bfe800dcb3ed43, type: 3}
+  - {fileID: 6157916868785764055, guid: 927c723bc1d858245994b6f3977c5f6a, type: 3}
+  - {fileID: 7025317360818597346, guid: c789233b8f1e0db45819b1105599e47b, type: 3}
+  - {fileID: 3613509038339085887, guid: e5e7ee9e267ceab4c82af64dcce4e420, type: 3}
+  - {fileID: 6811592647384369502, guid: 6d535459e860e5e4a848937305732499, type: 3}
+  - {fileID: 2168590115626787667, guid: 833822f34cc798143afe014bc4743ff2, type: 3}
+  - {fileID: 6128125313740500714, guid: 8e2407cfbae80e044bae21b813043ac3, type: 3}
+  - {fileID: 1585272512566830274, guid: 8415c15ca6ae0194fb7b22a9f13c5224, type: 3}
+  - {fileID: 8916784938708422293, guid: 3d6a1920cc4fcbc44bf765a76a7d1327, type: 3}
+  navigation: {fileID: 23800000, guid: 766a78952e180c44c880892529b03683, type: 2}
+  waypoints:
+  - position: {x: -89.17931, y: -0.20000005, z: -89.64828}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -51.20001}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -89.600006, y: -0.20000005, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -89.964, y: -0.20000005, z: 29.952002}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 57.2}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -90, y: -0.20000005, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -89.21644, y: -0.20000005, z: 95.64384}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19924727, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19203633, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18138295, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18551342, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18906195, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19556957, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18487278, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17491703, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17391837, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968749, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18571432, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18571432, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.1857143, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18620694, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19898903, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18909091, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.1826144, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18030368, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.1731708, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.16829269, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17024799, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968749, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18161385, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18555558, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18053384, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18940973, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19765778, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.19205725, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.18277991, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17735104, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17384641, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.16976747, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.16976747, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.17968747, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.1828125, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.20000005, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.20000005, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -87, y: -0.20000005, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.19910184, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.18829839, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.17993957, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.168876, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15744677, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624996, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624997, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16207589, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16888893, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16888893, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.164375, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624996, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16562477, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16431628, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.1565738, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.14883132, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15048075, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624996, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624996, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16922985, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.1692308, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16970488, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16297741, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.17272726, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.17272726, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15917687, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15686613, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.14996189, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.14756952, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15817632, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16780823, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16888894, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16888893, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15709631, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16597219, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.16923073, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.167404, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.1593424, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15391351, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15040888, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.14690423, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.14675328, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15624994, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.15937495, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.18281248, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.20000005, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.20000005, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -84, y: -0.20000005, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -80.64, y: -0.20000005, z: -98.28001}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1901198, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.17734951, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1678428, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15677924, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14506045, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13351056, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13863836, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14834824, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15222228, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14093746, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281243, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14074068, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13407667, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1272727, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1272727, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.12704314, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15364589, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15299483, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14626735, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13953988, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14242417, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14242417, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14242417, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1334286, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.12666667, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281243, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281243, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281243, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281243, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1347388, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1443707, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15400262, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14635417, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13365877, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14038454, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14038454, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.14038454, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13590488, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13047598, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.12697135, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1272727, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1272727, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13281241, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.13593744, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.15937497, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.1828125, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.20000005, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -81, y: -0.20000005, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -80.64, y: -0.20000005, z: 104.28001}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.19893377, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.1840823, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.16923083, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.15579388, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.14468248, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.13296369, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12124489, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10957436, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11520084, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.122222126, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.122222126, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12051256, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937489, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11157955, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10779212, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10779212, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10779212, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.107792124, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937489, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937489, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.122221045, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12068957, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12068957, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11610236, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.112121105, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.112121105, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.1121211, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11048119, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.109374896, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937489, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937489, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.111301266, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.122222126, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12222211, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.12222215, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.1102213, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11153835, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11153835, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11153835, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11153835, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.107792124, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10779212, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10779212, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.107792124, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.10937488, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.11249991, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.13593744, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.15937497, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.1828125, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.20000005, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -78, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.19573727, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.18168321, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.16683175, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.15198031, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.11906019, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.10130162, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.08958287, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078548536, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078543775, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854527, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854528, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07856448, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.0794217, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857364, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857363, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857956, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07937818, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078612946, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07861295, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07861294, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.079419196, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07860395, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07860395, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078603946, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078577325, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07859584, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854403, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854402, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07867665, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07885989, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078595415, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07859541, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07859541, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07991062, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07855982, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857587, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857587, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.08045955, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07858146, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07860394, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07860393, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07862532, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.079687305, z: 39.000004}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854276, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854277, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07854277, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.0797501, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07857125, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07855454, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07855455, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07909758, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07856165, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07856164, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.07856164, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.078594916, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.099999905, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -75, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.19388424, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.18158635, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.16683175, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.15198028, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.1190602, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.083360404, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.019636523, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.048403606, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.04866014, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.048582084, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.049999952, z: -69}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.048413813, z: -66}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.014534786, z: -63}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.072710946, z: -60}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09942208, z: -57}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.038046647, z: -54}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.046232287, z: -51}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: -0.018447407, z: -48}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.08776016, z: -45}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.0885165, z: -42}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.047508813, z: -39}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09990357, z: -36}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.057994954, z: -33}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09991092, z: -30}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09870157, z: -27}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09488785, z: -24}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09955136, z: -21}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.05461297, z: -18}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.07724838, z: -15}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.05784861, z: -12}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099999905, z: -9}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099999905, z: -6}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.04983315, z: -3}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.03571455, z: 0}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09866831, z: 3}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09985808, z: 6}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099925935, z: 9}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.005900942, z: 12}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.06913691, z: 15}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099244, z: 18}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099999905, z: 21}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.06668514, z: 24}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.07667979, z: 27}
+    region: 4085
+    beach: 0
+  - position: {x: -72.4, y: -0.099999905, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: -72.4, y: -0.099999905, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: 0.048349075, z: 36}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.0107145915, z: 39}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099180885, z: 42}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099970624, z: 45}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09758815, z: 48}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.03958188, z: 51}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099999905, z: 54}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.098504506, z: 57}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099936575, z: 60}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.036197957, z: 63}
+    region: 4085
+    beach: 0
+  - position: {x: -72.25001, y: -0.099999905, z: 66.25}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: 0.099999905, z: 69}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.099999905, z: 72}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.09954516, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: -72, y: 0.07648049, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: -72.412025, y: -0.099999905, z: 80.99376}
+    region: 4085
+    beach: 1
+  - position: {x: -72.45747, y: -0.099999905, z: 83.99307}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -72, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.1797333, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.16683176, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.1519803, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.1190602, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.08335647, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.00074673817, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06580625, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.052193716, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06871663, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.057660673, z: -69}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: -66}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: -63}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.08623458, z: -60}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.08952952, z: -57}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.09285717, z: -54}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.09447094, z: -51}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: -48}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.050658777, z: -45}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.07823628, z: -42}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: -39}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.07514781, z: -36}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.050898295, z: -33}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06467573, z: -30}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.089080736, z: -27}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.08694321, z: -24}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06171407, z: -21}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: -18}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.011728516, z: -15}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: -12}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06977568, z: -9}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.059072465, z: -6}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.048369315, z: -3}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 0}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.087736756, z: 3}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.07057494, z: 6}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.053833567, z: 9}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.031666696, z: 12}
+    region: 4085
+    beach: 0
+  - position: {x: -69.3, y: 0.02079204, z: 15.007921}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.063921005, z: 18}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.08132233, z: 21}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.09872365, z: 24}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 27}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 28.9}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: 36}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.03595238, z: 39}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.05273835, z: 42}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06938946, z: 45}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.088303134, z: 48}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 51}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.09121608, z: 54}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.07476262, z: 57}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.058308315, z: 60}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.049999952, z: 63}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.07379999, z: 66}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 69}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 72}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.099999905, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.06309305, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.040034305, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: 0.0198412, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -69, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -69, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.1519803, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.119054504, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.08332042, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: 0.00000047683716, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.06580624, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.058891155, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.0811514, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.07693312, z: -69}
+    region: 4085
+    beach: 0
+  - position: {x: -66.209526, y: 0.1500001, z: -66.13769}
+    region: 4085
+    beach: 0
+  - position: {x: -66.13875, y: 0.1500001, z: 72.07433}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.0947175, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.048487905, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.033024, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: 0.01756009, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -66, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -66, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.1906665, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.16249976, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.1500001, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.11905753, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.08258565, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: 0.0004257746, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.06578673, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.07196538, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.09422562, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: -63.781708, y: 0.1500001, z: -69.73285}
+    region: 4085
+    beach: 0
+  - position: {x: -63.829315, y: 0.1500001, z: 75.70173}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.06001661, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.03733851, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: 0.021874601, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -63, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.10377351, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.13469392, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.15487811, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.17500007, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.19705886, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -63, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.17437418, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.1500001, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.11901887, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.08327148, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.00004375726, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -60, y: 0.07712968, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -60, y: 0.0902573, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: -60.500008, y: 0.1500001, z: -72.9}
+    region: 4085
+    beach: 0
+  - position: {x: -60.60834, y: 0.1500001, z: 78.923775}
+    region: 4085
+    beach: 0
+  - position: {x: -60, y: 0.060669623, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: -60, y: 0.026041584, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -60, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.10377353, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.13207552, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.15454021, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.17500007, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.19705886, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -60, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.15808186, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.11901887, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.08327139, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: 0.00077566504, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -57, y: 0.09197296, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -57.072083, y: 0.1500001, z: -75.13145}
+    region: 4085
+    beach: 0
+  - position: {x: -57.137802, y: 0.1500001, z: 81.20925}
+    region: 4085
+    beach: 0
+  - position: {x: -57, y: 0.026041595, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -57, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.103773504, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.12955487, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.1529924, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.17500007, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -57, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.119018875, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.083285026, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: 0.00029274076, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -54, y: 0.099999905, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -53.473457, y: 0.1500001, z: -62.39824}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11254559, z: -60}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11208359, z: -57}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11218298, z: -54}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.123819314, z: -51}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.043641217, z: -48}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.049999952, z: -45}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.07377757, z: -42}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11231309, z: -39}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.09873997, z: -36}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.07141702, z: -33}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.080768526, z: -30}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11212149, z: -27}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.08926822, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -54.100006, y: 0.049999952, z: -20.899996}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.04299908, z: -18}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.04250602, z: -15}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.11007143, z: -12}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.09341733, z: -9}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.07676324, z: -6}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.07407546, z: -3}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.13235283, z: 0}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.09332208, z: 3}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.07133507, z: 6}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.05376793, z: 9}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.048749723, z: 12}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.08996697, z: 15}
+    region: 2330
+    beach: 0
+  - position: {x: -54, y: 0.06202517, z: 36}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.055641863, z: 39}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.052760843, z: 42}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.07312649, z: 45}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.11009315, z: 48}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.12573437, z: 51}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.10001471, z: 54}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.08469488, z: 57}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.07083544, z: 60}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.062399995, z: 63}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.094591826, z: 66}
+    region: 3241
+    beach: 0
+  - position: {x: -53.399464, y: 0.115871936, z: 68.40054}
+    region: 3241
+    beach: 0
+  - position: {x: -54, y: 0.026041584, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -54, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.10377352, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.12800707, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.15144458, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.17488211, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -54, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.1959404, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.18205132, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.16816245, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.1530001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.119066745, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.082251854, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: 0.047292046, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -51, y: 0.089934476, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -51, y: 0.113938116, z: -63}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.089547835, z: -60}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.06515755, z: -57}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -54}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -51}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -48}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -45}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -42}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -39}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -36}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -33}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -30}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -27}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -21}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -18}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -15}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -12}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -9}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -6}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.049999952, z: -3}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.045454483, z: 0}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.045454483, z: 3}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.045454487, z: 6}
+    region: 2330
+    beach: 0
+  - position: {x: -51, y: 0.045454487, z: 9}
+    region: 2330
+    beach: 0
+  - position: {x: -51.40001, y: 0, z: 12}
+    region: 2330
+    beach: 0
+  - position: {x: -51.04368, y: 0.04022981, z: 15.319541}
+    region: 2330
+    beach: 0
+  - position: {x: -51.40001, y: 0, z: 36}
+    region: 3241
+    beach: 0
+  - position: {x: -51.40001, y: 0, z: 39}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.044736784, z: 42}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.044736784, z: 45}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.044736784, z: 48}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.04892468, z: 51}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.047265567, z: 54}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.035546966, z: 57}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.023828156, z: 60}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.008270666, z: 63}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.032935366, z: 66}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.11475327, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -51, y: 0.11201568, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -50.750004, y: -0.099999905, z: 87.25}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -51, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.19800003, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.1742858, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.15285724, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.120176874, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.08337182, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.017077513, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -48, y: 0.074371114, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -47.999557, y: 0.0051422636, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -48, y: 0.049999952, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.049999952, z: -21}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.049999952, z: -18}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.049999952, z: -15}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.046875767, z: -12.000208}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.035157207, z: -9.000254}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.023438646, z: -6.000299}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.011720086, z: -3.000345}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0.0000015258527, z: -0.00039061866}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0, z: 3.0000005}
+    region: 2330
+    beach: 0
+  - position: {x: -49, y: 0, z: 6}
+    region: 2330
+    beach: 0
+  - position: {x: -48.7, y: 0, z: 9.1}
+    region: 2330
+    beach: 0
+  - position: {x: -48, y: 0.071902595, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -48, y: 0.049999952, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -48, y: -0.037114345, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -48, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.19975333, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -48, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.19370858, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.1742858, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.15285724, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.12265354, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.08519399, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.0005719289, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -45, y: 0.076893374, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -44.999622, y: 0.019160638, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -45, y: 0.049999952, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -45, y: 0.065631, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -45, y: 0.06285766, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -45, y: -0.04543631, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -45, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.17631578, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.20000005, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -45, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.18718834, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.17311837, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.15285724, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.12513022, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.08683393, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: 0.00039278343, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -42, y: 0.09783885, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -41.999687, y: 0.033179007, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -42, y: 0.049999952, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -42, y: 0.071870744, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -42, y: 0.08225935, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -42, y: -0.050005905, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -42, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.14813834, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.1627162, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.19596775, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -42, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.19473809, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.1806681, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.16659811, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.15252814, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.12947243, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.0881024, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: 0.030870326, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -39, y: 0.10409315, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -38.999752, y: 0.04719738, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -39, y: 0.049999952, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -39, y: 0.07811042, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -39, y: 0.11030284, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -39, y: -0.027709037, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -39, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.11936132, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.13393919, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.14851707, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.18991938, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -39, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.12613475, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.085553125, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: 0.05435718, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -36, y: 0.09473868, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -36, y: 0.049999952, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -36, y: 0.0359364, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -36, y: 0.07404959, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -36, y: 0.09402347, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -36, y: -0.050094906, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -36, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.12353312, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.13788268, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.15223223, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.19047624, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -36, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.17962968, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.12374023, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.086625315, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: 0.024582747, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -33, y: 0.103003204, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -33, y: 0.049999952, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -33, y: 0.018695038, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -33, y: 0.06661156, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -33, y: 0.085475214, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -33, y: -0.05018445, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -33, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.14697066, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.16132021, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.19047618, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -33, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.19351855, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.17962968, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.121345714, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.08423079, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.000038594007, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -30, y: 0.10306309, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -30, y: 0.049999952, z: -63.500008}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0.039286844, z: -60.00027}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0.02589427, z: -57.00033}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0.012501694, z: -54.00039}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -51}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -48}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -45.3}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -42}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -39}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -36}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -33}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -30}
+    region: 2330
+    beach: 0
+  - position: {x: -29.400002, y: 0, z: -27}
+    region: 2330
+    beach: 0
+  - position: {x: -30, y: 0.0014536782, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0, z: -21}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0, z: -18}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0, z: -15}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.003126476, z: -11.999621}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.014845037, z: -8.999667}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.026563596, z: -5.9997134}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.038282156, z: -2.9997587}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.049999952, z: 0}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.03295668, z: 2.999619}
+    region: 2330
+    beach: 0
+  - position: {x: -29.600002, y: 0.015911791, z: 5.999522}
+    region: 2330
+    beach: 0
+  - position: {x: -29.900002, y: 0, z: 9.1}
+    region: 2330
+    beach: 0
+  - position: {x: -30, y: 0.059173528, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -30, y: 0.076925844, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -30, y: -0.050146926, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -30, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.1704082, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.19047624, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -30, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.19516142, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.17962968, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.1190618, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.08329098, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: 0.0011188909, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -27, y: 0.049999952, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -27, y: 0.049999952, z: -63}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.04914279, z: -60}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.032584198, z: -57}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.015730277, z: -54}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -51}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -48}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -45}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -42}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -39}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -36}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -33}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -30}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -27}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -24}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -21}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -18}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0, z: -15}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.0031250045, z: -12}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.014843736, z: -9}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.026562478, z: -6}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.038281217, z: -3}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.049999952, z: 0}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.049999952, z: 3}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.049999952, z: 6}
+    region: 2330
+    beach: 0
+  - position: {x: -27.191177, y: 0.1500001, z: 8.885294}
+    region: 2330
+    beach: 0
+  - position: {x: -27, y: 0.051735487, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -27, y: 0.055784382, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -27, y: -0.050044853, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -27, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.1938457, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -27, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.19608071, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.18069209, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.16469797, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.1257582, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.087724894, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.015571147, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -24, y: 0.0026253066, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -24, y: 0.027862966, z: -63}
+    region: 2330
+    beach: 0
+  - position: {x: -24, y: 0, z: -60.40001}
+    region: 2330
+    beach: 0
+  - position: {x: -22.9, y: 0, z: 66.4}
+    region: 3241
+    beach: 0
+  - position: {x: -24, y: 0.028963884, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -24, y: 0, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -24, y: -0.01368868, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -24, y: -0.1039215, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -24, y: -0.20000005, z: 104.700005}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.18888894, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.17426307, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.15826894, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.13414633, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.104075655, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: 0.008711968, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -21, y: 0.004500674, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -21, y: 0.073930554, z: -63}
+    region: 2330
+    beach: 0
+  - position: {x: -20.749994, y: 0, z: -60.250004}
+    region: 2330
+    beach: 0
+  - position: {x: -20.6, y: 0.044487305, z: 66.00154}
+    region: 3241
+    beach: 0
+  - position: {x: -21, y: 0.05770001, z: 69}
+    region: 3241
+    beach: 0
+  - position: {x: -20.990768, y: 0.026153812, z: 84.299995}
+    region: 4085
+    beach: 0
+  - position: {x: -21, y: -0.049100377, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -21, y: -0.1039215, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.12815823, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -21, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.18888894, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.16507944, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.15183993, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.13414633, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.11585357, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: 0.032995015, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -18.579403, y: 0.0136272535, z: -78.596375}
+    region: 4085
+    beach: 0
+  - position: {x: -18, y: 0.072683446, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -18, y: -0.048604622, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -18, y: -0.1039215, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.1333334, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.15159576, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -18, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.18888894, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.16507944, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.1500001, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.13414633, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.11585357, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.099999905, z: -81.40001}
+    region: 4085
+    beach: 1
+  - position: {x: -13.900001, y: 0.099999905, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -15, y: 0.10534958, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -15, y: -0.050047256, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -15, y: -0.1039215, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.1333334, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.1553182, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.17503329, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -15, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.19482268, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.18093382, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.16704494, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.15327878, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.11903346, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.08328342, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: 0.0011303686, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -12, y: 0.103152856, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -12, y: 0.099999905, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -12, y: -0.049631625, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: -12, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -12, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.19971314, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.18582426, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.17369117, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.1532788, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.11901887, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.08328046, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: 0.00004046783, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -9, y: 0.112038985, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -9, y: 0.099999905, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: -9, y: -0.06512174, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -9, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.19332466, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.1778689, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.1532788, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.119018875, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.08327141, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.00017118081, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -6, y: 0.11225019, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -7.1, y: 0.14053044, z: 84.00064}
+    region: 4085
+    beach: 0
+  - position: {x: -6, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -6, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: -3.442308, y: -0.20000005, z: -99.08846}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.1988646, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.1778689, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.15327878, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.119018875, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.08314295, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: 0.019585755, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -3, y: 0.11265724, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: -3, y: -0.099999905, z: 87.399994}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: -3, y: -0.19837138, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: -2.557692, y: -0.20000005, z: 105.08846}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.19351858, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.17962965, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.1657408, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.15185192, z: -89.99999}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.117980264, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.08103442, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: 0.032759994, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: -0.0000037550926, y: 0.050001092, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 0, y: 0.049999956, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999952, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999952, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999952, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 0.4115019, y: 0.044249, z: -12.006368}
+    region: 3314
+    beach: 0
+  - position: {x: 0.1764721, y: 0.049999952, z: 36.294117}
+    region: 3314
+    beach: 0
+  - position: {x: 0.4, y: 0.038024783, z: 38.99876}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999956, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.049999952, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: -0.39999962, y: 0.049999952, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: -0.19200134, y: 0, z: 66.256}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 0, y: 0.09112886, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 0, y: 0.011289705, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 0, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.12656243, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.17343712, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.19687492, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 0, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.12087761, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.083268665, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.015771009, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 3, y: 0, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 3, y: 0.0151161775, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 3.0000002, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.042112123, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.049999952, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.049999952, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.045249987, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.022684198, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.0007246369, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.049086876, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.011393093, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.023201035, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.03748674, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.049999952, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.045774616, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.009473687, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.014036509, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 3.0006535, y: 0.026791524, z: 66.4}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 3, y: 0.029974658, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 3, y: -0.011417329, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 3, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.18947369, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 3, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.1245718, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.08670648, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: 0.009880051, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 6, y: 0.051926263, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 6, y: 0.05810807, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 6.0000005, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 6.2360616, y: 0.1500001, z: -53.80328}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.03461536, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.0072465898, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.042469654, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.025092721, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.049999952, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.049999952, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.04671259, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.024146795, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.13835892, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.0007246025, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.0021126643, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.040819462, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.023588203, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.027539885, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.040185146, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.049999952, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.04577462, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.024647867, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 5.8, y: 0.049999952, z: 66.1}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.054862555, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 6, y: 0.05684928, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 6, y: -0.050092522, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 6, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.16110496, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.18947372, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 6, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.16574083, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.13026139, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.0879644, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: 0.018431392, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 9, y: 0.07118791, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 9, y: 0.09095052, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.08568764, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.034615353, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.028985761, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.045564603, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.023349544, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.02385503, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.049999952, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.048175186, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.036033828, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.036149107, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.022463761, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.02323941, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.088329785, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.03578331, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.038420092, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.044412147, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.049999952, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.045774616, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.023015222, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.006912153, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.09291757, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 9, y: 0.09840384, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 9, y: -0.05001966, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 9, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.13766742, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.14796022, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.1894737, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 9, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.16574083, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.1211389, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.08425358, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: 0.027153503, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 12, y: 0.09618507, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 12, y: 0.111114696, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.011481589, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.036499973, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.049999952, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.03971248, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.034589715, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 11.793074, y: 0.03850406, z: -18.631025}
+    region: 3314
+    beach: 0
+  - position: {x: 11.92, y: 0.049999952, z: -11.96}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.039200716, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.023736808, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.008272904, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.044202853, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.04436615, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.044366155, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.04797842, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.049999952, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 11.900001, y: 0.049999952, z: 32.9}
+    region: 3314
+    beach: 0
+  - position: {x: 11.8, y: 0, z: 39.4}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.0340439, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.016602064, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.09545462, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 12, y: 0.12401788, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 12, y: -0.05004648, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 12, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.12081925, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.14425671, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.16769436, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.1894737, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 12, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.19705218, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.18316332, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.1681819, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.11905531, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.083272226, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.012401234, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 15, y: 0.017591067, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 15, y: 0.08298238, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.0025000072, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.039999973, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.04140621, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.043281205, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.04679683, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 15.928559, y: 0.032139786, z: -14.892754}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.040128864, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.02641794, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.0127070155, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.041406214, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.041406214, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.041406214, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.049999952, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 15.939642, y: 0.015089534, z: 35.886955}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.021815162, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.040312476, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.025208322, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.010104171, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.018750079, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 15, y: 0.0733308, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 15, y: -0.050056987, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 15, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 15, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.20000005, z: -98.700005}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.18275869, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.119056225, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.08335185, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: 0.0011528134, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 18, y: 0.0626973, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 18, y: 0.0742376, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.0025000072, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.029687483, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.029687474, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.03156247, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.035078097, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.03471758, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.037654284, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.03330561, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.049999952, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.038136676, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.02442575, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.029687475, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.029687475, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.029687472, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.04131877, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.049999952, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.049999952, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.027075544, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.039430458, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.03692706, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.021822909, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.018750105, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 18, y: 0.05960857, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 18, y: -0.04893315, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 18, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 18, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.19737636, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.11905623, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.08335185, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: 0.00010835007, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 21, y: 0.07561172, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 21, y: 0.08837727, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.0025000072, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.017968763, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.017968733, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.019843735, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.020673055, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.01898853, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.01913579, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.016847827, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.032575734, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.04985541, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.03614449, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.017968737, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.017968737, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.017968737, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.029600034, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.049999952, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.018979358, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.018751878, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.014104599, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.048645798, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.033541646, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.0731247, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 21, y: 0.07746838, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 21, y: -0.050079066, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 21, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 21, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.119054675, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.08332625, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: 0.0008733459, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 24, y: 0.09044816, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 24, y: 0.1062738, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0025000072, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.006250024, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0062499978, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0071906303, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0031145425, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0006172946, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0006172918, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0005434677, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.009848479, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.032575727, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.04786323, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0062500015, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0062499866, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0062499903, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.017881293, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.13843647, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.0010084945, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.00078101485, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.007846583, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.029508943, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.045260385, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.08768808, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 24, y: 0.095328204, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 24, y: -0.034841515, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 24, y: -0.10312492, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 24, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.18868165, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.17479277, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.1609039, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.11904004, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.08332894, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: 0.00040523708, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 27, y: 0.09401943, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 27, y: 0.10637972, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.0032258139, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.009589028, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.103532836, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.045911897, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.044849828, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.029139271, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.114340775, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.060000252, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.031249845, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.09545462, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 27, y: 0.09527499, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 27, y: -0.048833214, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 27, y: -0.10408157, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.12775877, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.1511963, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.17463383, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 27, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.18793108, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.16442794, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.15053907, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.119040035, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.083316974, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: 0.0004902519, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 30, y: 0.05396305, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 30, y: 0.08858845, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.0032258164, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.03013695, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.07209865, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.03419316, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.033131093, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.029162223, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.08157207, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.045561723, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 29.815386, y: 0.049999952, z: 47.723076}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.09545462, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 30, y: 0.07744714, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 30, y: -0.05014499, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 30, y: -0.10408156, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.13362065, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.15375985, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.17500007, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 30, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.18793109, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.16206907, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.1500001, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.119040035, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.08332276, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.0000035464764, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 33, y: 0.065234534, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 33, y: 0.074196436, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.0032258127, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 32.9965, y: 0.04396892, z: -48.100002}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.040668823, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.022113005, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.021412356, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: 18.7}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.02917134, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.04880141, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.032479428, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.036217272, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.09545505, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 33, y: 0.05961928, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 33, y: -0.050071906, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 33, y: -0.10408156, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.13469394, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.15294127, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.17500007, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 33, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.18793109, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.16970907, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.15582019, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.1500001, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.11904356, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.08334623, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: 0.0067237318, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 36, y: 0.079882935, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 36, y: 0.08363811, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.0032258108, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.009828009, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.009828006, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.009693615, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: 18.9}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.029171346, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.01603309, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.015584408, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.015584409, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.09545479, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 36, y: 0.07334079, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 36, y: -0.049680084, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 36, y: -0.104081556, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.12939271, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.15283024, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.17626776, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.19705887, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 36, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.19629575, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.17698419, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.1531747, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.11901608, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.0821974, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: 0.048446573, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 39, y: 0.107978754, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 39, y: 0.11205928, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0037570223, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0062499787, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0044117495, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0044117495, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0038059503, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0047618886, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0047618886, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.0047618886, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.02758214, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.003846135, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.09545462, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 39, y: 0.099999905, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 39, y: -0.050111946, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 39, y: -0.10317452, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.12692298, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.15036051, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.173798, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.19723567, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 39, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.19751856, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.17698419, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.1531747, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.119364716, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.08362272, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.0015280535, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 42, y: 0.12510672, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 42, y: 0.11274826, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.049999952, z: -60.40001}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.026145058, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.008108089, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.030158719, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.030407764, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.02647055, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.02619399, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.006044762, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.028571393, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.028571393, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.03421048, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.041132696, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.0026361328, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.004166703, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.09545462, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 42, y: 0.099999905, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 42, y: -0.050020237, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 42, y: -0.10317452, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.12698409, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.15079364, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.17460321, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.19800006, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 42, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.20000005, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.19168523, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.17698419, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.15317471, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.119364716, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.0840163, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.013211019, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 45, y: 0.123288326, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 45, y: 0.12774085, z: -63}
+    region: 3314
+    beach: 0
+  - position: {x: 45.250008, y: 0.049999952, z: -60.250004}
+    region: 3314
+    beach: 0
+  - position: {x: 45.4, y: 0.049999952, z: -57}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.048780613, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.052334085, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.01997713, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -45}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -42}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -39}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -36}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -33}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: -30}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.05432095, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.061657734, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.048529357, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 45.5, y: 0.0018855035, z: -18.001816}
+    region: 3314
+    beach: 0
+  - position: {x: 45.454693, y: 0.022654146, z: -14.987666}
+    region: 3314
+    beach: 0
+  - position: {x: 45.4, y: 0.049999952, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.048582025, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.027269872, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.008537468, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.049999952, z: 0}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.038281217, z: 3}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.026562478, z: 6}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.01484374, z: 9}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.0031250045, z: 12}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.022448953, z: 15}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.05139746, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.059292693, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.06546045, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.070916176, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 45.489307, y: 0.049999952, z: 30.005205}
+    region: 3314
+    beach: 0
+  - position: {x: 45.457397, y: 0.049999952, z: 33.004868}
+    region: 3314
+    beach: 0
+  - position: {x: 45.425484, y: 0.049999952, z: 36.004524}
+    region: 3314
+    beach: 0
+  - position: {x: 45.4, y: 0.049999952, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 45.01081, y: 0.035134695, z: 42.100002}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.042307645, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.0041667027, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.046173688, z: 51.001034}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.039063394, z: 53.999763}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.027344834, z: 56.999718}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.015626274, z: 59.999672}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.0039077103, z: 62.999626}
+    region: 3314
+    beach: 0
+  - position: {x: 45.300003, y: 0.023820313, z: 66.00091}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.09545459, z: 69}
+    region: 3314
+    beach: 0
+  - position: {x: 45, y: 0.10035953, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 45, y: -0.050091736, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 45, y: -0.10317452, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.12698409, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.15079364, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 45, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.19974078, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.1858519, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.17196304, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.1531747, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.11936472, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.0840163, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.015337966, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 48, y: 0.099999905, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 47.469273, y: 0.11154541, z: -62.405098}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09876446, z: -60}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09904706, z: -57}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.097536325, z: -54}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.10443245, z: -51}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.0979061, z: -48}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09856042, z: -45}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09921473, z: -42}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09986905, z: -39}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.06963838, z: -36}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.031686634, z: -33}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.004545491, z: -30}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09987161, z: -27}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09021855, z: -24}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.06858565, z: -21}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.04577533, z: -18}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.05757618, z: -15}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09545547, z: -12}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.077492274, z: -9}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.059529085, z: -6}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.049811408, z: -3}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.099999905, z: 0}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09739242, z: 3}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.08288453, z: 6}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.06837662, z: 9}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.053868722, z: 12}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.058552712, z: 15}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.07021556, z: 18}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.08187842, z: 21}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09354128, z: 24}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.08968214, z: 27}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.063801005, z: 30}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.05041513, z: 33}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.053990684, z: 36}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09874992, z: 39}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09874992, z: 42}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09218725, z: 45}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.0492962, z: 48}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.066783085, z: 51}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.09802135, z: 54}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.08334219, z: 57}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.06866303, z: 60}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.053983863, z: 63}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.057768576, z: 66}
+    region: 3314
+    beach: 0
+  - position: {x: 47.471924, y: 0.12149024, z: 68.39957}
+    region: 3314
+    beach: 0
+  - position: {x: 48, y: 0.12820365, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 48, y: -0.03190243, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 48, y: -0.10317452, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.12698409, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 48, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.19390745, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.18001859, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.16612972, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.15224084, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.11889646, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.08206605, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: 0.050050437, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 51, y: 0.06553843, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 51.0728, y: 0.1500001, z: -75.15845}
+    region: 4085
+    beach: 0
+  - position: {x: 51.0634, y: 0.16422936, z: 81.15122}
+    region: 4085
+    beach: 0
+  - position: {x: 51, y: 0.114440635, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 51, y: 0.01666876, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 51, y: -0.103124924, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.12656245, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.14999998, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.1734375, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.19687504, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 51, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.123311296, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.08881244, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.032353625, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: 0.06583648, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: 0.049999952, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: 54.652977, y: 0.1500001, z: -72.897835}
+    region: 4085
+    beach: 0
+  - position: {x: 54.5, y: 0.1500001, z: 78.899994}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: 0.12080945, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: 0.099999905, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: -0.05002942, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 54, y: -0.10202012, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.11717169, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.13437504, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.15781258, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.18888889, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 54, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.16574082, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.12959963, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.0889848, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.019631539, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.065783754, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.049999952, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.049999952, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: 57.879772, y: 0.1500001, z: -69.6703}
+    region: 4085
+    beach: 0
+  - position: {x: 57.82331, y: 0.1803721, z: 75.68231}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.16088699, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.07841884, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: 0.08857298, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: -0.05002308, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 57, y: -0.10202012, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.11717169, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.13232327, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.14712653, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.18888889, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 57, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.16574083, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.12350465, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.08652222, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.006643582, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.065783754, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.049999952, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.049999952, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.049999952, z: -69}
+    region: 4085
+    beach: 0
+  - position: {x: 60.143124, y: 0.1500001, z: -66.077065}
+    region: 4085
+    beach: 0
+  - position: {x: 60.197613, y: 0.20000005, z: 72.115845}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.11417584, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.046399735, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.043859623, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: 0.039640095, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: -0.049346894, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 60, y: -0.10202012, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.11717169, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.13283451, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.15627205, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.18888889, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 60, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.19351856, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.1796297, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.16574083, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.15185195, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.1193376, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.08247459, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: 0.041471142, z: -81}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.0657838, z: -78}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.049999952, z: -75}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.049999952, z: -72}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.049999952, z: -69}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.049999952, z: -66}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.09858312, z: -63}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.11202558, z: -60}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.11202702, z: -57}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.11202756, z: -54}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.11093759, z: -51}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.09000012, z: -48}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.09000012, z: -45}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.10138893, z: -42}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.11231353, z: -39}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.06428568, z: -36}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.052258797, z: -33}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.038969513, z: -30}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.08541681, z: -27}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.100216806, z: -24}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.077185646, z: -21}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.074054845, z: -18}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07440763, z: -15}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.10769501, z: -12}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.08967595, z: -9}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07424728, z: -6}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07429453, z: -3}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.1125, z: 0}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.10457753, z: 3}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.08390667, z: 6}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07218767, z: 9}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.06264348, z: 12}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.06571717, z: 15}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07787241, z: 18}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.09154123, z: 21}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.105210066, z: 24}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.10175223, z: 27}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07872107, z: 30}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.074054584, z: 33}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07437946, z: 36}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.1088963, z: 39}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.090877235, z: 42}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07424728, z: 45}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07426637, z: 48}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.10004017, z: 51}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.09867339, z: 54}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.08385904, z: 57}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07017342, z: 60}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.06235757, z: 63}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.07500005, z: 66}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.035562605, z: 69}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.03329009, z: 72}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.025814056, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.0108379, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.008297781, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: 0.005757656, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: -0.033335, z: 87}
+    region: 4085
+    beach: 0
+  - position: {x: 63, y: -0.102020115, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.122271076, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.1457086, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.16914614, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.19258367, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 63, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.19392113, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.18003227, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.16663742, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.15270281, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.121090986, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.087734364, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.053203274, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.038774285, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.042590044, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.046625935, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.042537697, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.03779956, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.038938712, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: 0.047716122, z: -60}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04362788, z: -57}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.039169583, z: -54}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.035183005, z: -51}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.05052157, z: -48}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.056433786, z: -45}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.08375838, z: -42}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: -0.0017970493, z: -39}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: -0.0040545724, z: -36}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.01533377, z: -33}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.0031066388, z: -30}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.039171755, z: -27}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04167721, z: -24}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.046898488, z: -21}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04281025, z: -18}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.038142074, z: -15}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.038025834, z: -12}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04798868, z: -9}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.043900445, z: -6}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.039512105, z: -3}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.034374475, z: 0}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.049090706, z: 3}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.03245931, z: 6}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.015759453, z: 9}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.0042236336, z: 12}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.029811792, z: 15}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.050441805, z: 18}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.050671104, z: 21}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.040488113, z: 24}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04076436, z: 27}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.047171038, z: 30}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.0430828, z: 33}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.03848458, z: 36}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.03711299, z: 39}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.048261233, z: 42}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.044172995, z: 45}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.03985462, z: 48}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.034716982, z: 51}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.04803606, z: 54}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.03095062, z: 57}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.011571905, z: 60}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.0073913597, z: 63}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.012184929, z: 66}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.010161657, z: 69}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.0021578968, z: 72}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: -0.004631579, z: 75}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.009741275, z: 78}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.017571684, z: 81}
+    region: 4085
+    beach: 0
+  - position: {x: 66, y: 0.025329355, z: 84}
+    region: 4085
+    beach: 0
+  - position: {x: 66.25, y: -0.099999905, z: 86.74999}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.11093745, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.13437498, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.1578125, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.18125004, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.19843754, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 66, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.19539224, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.18272957, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.1712814, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.15270281, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.121090986, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.087734394, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075047806, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07532187, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07514697, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505473, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075203694, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075393975, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075313106, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505474, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07515295, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07534324, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07547101, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07472348, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08403947, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08518739, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08614196, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07550166, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07712315, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07728816, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.076189235, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07518869, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505473, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075191006, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07538129, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075354606, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505472, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07514027, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07533055, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07552045, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505357, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075053364, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07628441, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075633354, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08955045, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08715825, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08286494, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07519376, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07523009, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075054735, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075178325, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.0753686, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07539621, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505475, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07512758, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07531786, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07550815, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07505475, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07507683, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07526712, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.0754574, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07511923, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.082838744, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.087166965, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.08785047, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.075336345, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.07496656, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.074963786, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.09561111, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.12265624, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.14609377, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.1695313, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.1867188, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.19843754, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 69, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.19882171, z: -99}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.18734848, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.17297305, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.15270281, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.12109098, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387559, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387559, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103967726, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387987, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387986, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10403983, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10395904, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387987, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387987, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10398909, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10411686, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10746118, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.116956465, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.12577993, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.117521524, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10441132, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10525428, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10525427, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10483509, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387986, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387987, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.104027145, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10400054, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387984, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103976406, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.104166515, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879005, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387901, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103958264, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10427925, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.12044712, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.13000208, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.11672569, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10383962, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10401446, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10404208, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387986, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387987, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10396372, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.104154, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10387986, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103879854, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10391298, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10410325, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.1056284, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.114101484, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.12257457, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.12926838, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.103982225, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10382559, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.1038256, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.10381833, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.13437504, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.15781257, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.17500007, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.1867188, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.19843754, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 72, y: -0.20000005, z: 105}
+    region: 4085
+    beach: 1
+  - position: {x: 74.64, y: -0.20000005, z: -98.28}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.19310838, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.17297305, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.15270281, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1327034, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1327034, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1327034, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1327034, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.132705, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.132705, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.132705, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13276273, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14037816, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14987345, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1500001, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14605011, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1332204, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13322039, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13322039, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13322039, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270497, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270497, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13281256, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270468, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270468, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270468, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13302447, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14909299, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1500001, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1500001, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13695416, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.132705, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.132705, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13279986, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13270499, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13274913, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13689114, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14536422, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1500001, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1500001, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13268463, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13268465, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13268465, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.13268465, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.14609382, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.16328134, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.17500007, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.1867188, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 75, y: -0.19843754, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 74.64, y: -0.20000005, z: 104.28}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.20000005, z: -96}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.18234807, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16207783, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15937512, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15937513, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15937512, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15738551, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15327743, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15080112, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16315801, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16250013, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16250013, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16250011, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15794128, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15845083, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15845084, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15845083, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15845083, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15317334, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16500014, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16500013, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16500016, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1588689, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15752758, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15585025, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1500001, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15639049, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16463429, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16463429, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16463429, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.1604086, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15705894, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.15783145, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.16648582, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.17808044, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.18979917, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 78, y: -0.20000005, z: 102}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.20000005, z: -93}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18551531, z: -90}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1828126, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18068188, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17584899, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17480978, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17092445, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.16462195, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1622808, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.16844817, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1767718, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18858281, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19772752, z: -51}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1909616, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18441185, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1800001, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17558834, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17957757, z: -24}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17957757, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17505671, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.16532269, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1647542, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1669348, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17082039, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19938363, z: 3}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19009058, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18330327, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17651594, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17924958, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17692181, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17349729, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.16745377, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1641668, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.1641668, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17403753, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19400007, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19827592, z: 57}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18810466, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17805564, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17470598, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.17590371, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18105273, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.18962865, z: 96}
+    region: 4085
+    beach: 1
+  - position: {x: 81, y: -0.19948578, z: 99}
+    region: 4085
+    beach: 1
+  - position: {x: 83.22902, y: -0.20000005, z: -89.55026}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19879267, z: -87}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19431245, z: -84}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19271635, z: -81}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19245683, z: -78}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916677, z: -75}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916675, z: -72}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18859658, z: -69}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916675, z: -66}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -63}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -60}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -57}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -54}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -51.20001}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -48}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: -45}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19764714, z: -42}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19323537, z: -39}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -36}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235304, z: -33}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -30}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235304, z: -27}
+    region: 4085
+    beach: 1
+  - position: {x: 83.97076, y: -0.20000005, z: -23.95451}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -21}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -18}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: -15}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18951622, z: -12}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18934435, z: -9}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18934435, z: -6}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18934435, z: -3}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235194, z: 0}
+    region: 4085
+    beach: 1
+  - position: {x: 84.35, y: -0.20000005, z: 2.6500053}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: 6}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: 9}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19416298, z: 12}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 15}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 18}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 21}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 24}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19689664, z: 27}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19976984, z: 30}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19631608, z: 33}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.1928623, z: 36}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19114432, z: 39}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916677, z: 42}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916677, z: 45}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.18916677, z: 48}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19168457, z: 51}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: 54}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: 57.2}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.20000005, z: 60}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19570269, z: 63}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 66}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 69}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 72}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 75}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 78}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 81}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235303, z: 84}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19235301, z: 87}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19397597, z: 90}
+    region: 4085
+    beach: 1
+  - position: {x: 84, y: -0.19849405, z: 93}
+    region: 4085
+    beach: 1
+  - position: {x: 83.28, y: -0.20000005, z: 95.64}
+    region: 4085
+    beach: 1
+  cityPopulation: 20
+  beachPopulation: 12
+  walkSpeed: {x: 1.05, y: 1.4}
+  characterScale: 0.9

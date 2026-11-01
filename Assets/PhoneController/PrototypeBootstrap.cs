@@ -54,7 +54,7 @@ namespace FlyHigh.PhoneController
             safeArea.SetParent(canvas.transform, false);
 #if UNITY_ANDROID && !UNITY_EDITOR
             sender = gameObject.AddComponent<PhoneSender>();
-            Label("FLY HIGH / PHONE CONTROLLER", 0.05f, 0.82f, 0.9f, 0.12f, 36);
+            Label("FLY HIGH / PHONE CONTROLLER", 0.05f, 0.87f, 0.9f, 0.08f, 32);
             var ip = Input("PC Wi-Fi IPv4 address", "", 0.06f, 0.64f, 0.48f);
             var code = Input("Six-digit pairing code", "", 0.57f, 0.64f, 0.36f);
             Button("CONNECT", 0.36f, 0.47f, 0.27f, 0.12f, () => sender.Connect(ip.text, code.text));
@@ -67,17 +67,20 @@ namespace FlyHigh.PhoneController
             gas.Changed = held => sender.Throttle = held ? 1 : 0;
             status = Label("", 0.05f, 0.34f, 0.9f, 0.1f, 22);
             gameObject.AddComponent<PhonePairingPanel>().Initialize(safeArea, sender, ip, code);
+            gameObject.AddComponent<PhoneMissionPanel>().Initialize(safeArea,sender);
 #else
             foreach (var existing in FindObjectsByType<WifiReceiver>(FindObjectsSortMode.None))
                 if (existing.isActiveAndEnabled) { receiver = existing; break; }
             if (receiver == null) receiver = gameObject.AddComponent<WifiReceiver>();
+            var garage=gameObject.AddComponent<VehicleGarage>(); garage.Initialize();
             driving = gameObject.AddComponent<RacingPrototype>();
-            driving.Initialize(receiver, SceneManager.GetActiveScene().name == "CityDrive");
+            driving.Initialize(receiver, SceneManager.GetActiveScene().name == "CityDrive",garage);
             CityDayNight environment = null;
             if (SceneManager.GetActiveScene().name == "CityDrive")
             {
                 traffic = gameObject.AddComponent<CityTrafficSystem>();
                 traffic.Initialize(driving.PlayerCar);
+                gameObject.AddComponent<CityPedestrianSystem>().Initialize(driving.PlayerCar);
                 environment = gameObject.AddComponent<CityDayNight>();
                 environment.Initialize(driving.PlayerCar,receiver);
             }
@@ -91,9 +94,15 @@ namespace FlyHigh.PhoneController
             drivingHud.offsetMin = drivingHud.offsetMax = Vector2.zero;
             status.transform.SetParent(drivingHud, false);
             if (SceneManager.GetActiveScene().name == "CityDrive")
-                gameObject.AddComponent<CityMinimap>().Initialize(driving.PlayerCar, drivingHud);
+            {
+                var minimap=gameObject.AddComponent<CityMinimap>(); minimap.Initialize(driving.PlayerCar, drivingHud);
+                gameObject.AddComponent<CoinMissionSystem>().Initialize(driving.PlayerCar,receiver,drivingHud,minimap,garage);
+                status.fontSize=13;
+                var diagnostics=status.rectTransform; diagnostics.anchorMin=diagnostics.anchorMax=diagnostics.pivot=Vector2.zero;
+                diagnostics.anchoredPosition=new Vector2(20,16);diagnostics.sizeDelta=new Vector2(780,105);
+            }
             gameObject.AddComponent<CarSpeedometer>().Initialize(driving.PlayerCar, drivingHud);
-            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, drivingHud.gameObject,environment,receiver);
+            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, drivingHud.gameObject,environment,receiver,garage);
 #endif
         }
         private void Update()
@@ -150,3 +159,4 @@ namespace FlyHigh.PhoneController
         }
     }
 }
+

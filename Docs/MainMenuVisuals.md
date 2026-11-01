@@ -1,6 +1,6 @@
 # Illustrated main menu
 
-The desktop main menu uses the supplied artwork in `Assets/UI`: MainMenu.jpg is the city/car/title backdrop, pbtn.jpg is the cyan Play/Resume frame, Sbtn.jpg the purple Options frame, and Ebtn.jpg the orange Exit frame. The menu keeps the existing gameplay state and controls.
+The desktop main menu uses the supplied artwork in `Assets/UI`: MainMenu.jpg is the city/car/title backdrop, Group1.png is the cyan Play/Resume frame, Document.png the purple Options frame, and Group.png the orange Exit frame. The menu keeps the existing gameplay state and controls.
 
 Play is the largest action, with a secondary caption. Buttons have smooth hover, keyboard-focus and pressed scaling, plus brightness transitions. Main and Options panels ease in over 0.28 seconds using unscaled time, so presentation continues while gameplay is paused. A feathered left gradient improves text readability without hiding the car or baked title. The full illustration fits inside the available safe area; ultrawide and 4:3 screens use a dark surround rather than cropping the title/car.
 
@@ -21,3 +21,14 @@ Options has matching framed controls, a volume meter, fullscreen choice and city
 - The actual Exit button stopped Editor Play mode. Afterward CityDrive was not dirty, its Android build target was unchanged, timeScale was restored to 1, temporary layout objects were gone and the controller UDP port was free. Final current Console had zero errors; an existing Account API warning was unrelated. A fresh menu session was captured with the initial Play label, then returned to Edit mode.
 
 Use Unity Play mode to see the updated menu. Rebuild the PC game before distributing it. The existing phone APK is compatible; no Android rebuild is needed. No standalone PC executable or new APK was built for this visual update.
+
+
+## Updated imported PNG buttons — 2026-10-29
+
+FlyHighMenu now references Group1.png (cyan Play), Document.png (purple Options), and Group.png (orange Exit). Their transparent full-rect sprites retain the supplied artwork and GUIDs, with mipmaps off, NPOT proportions retained and borders configured for nine-slice scaling. The user had removed the older JPEG button files; those files were not restored or deleted by this change.
+
+The three actual menu controls rendered the assigned sprites. Play/Resume, Options, Back, one EventSystem and zero-drift traffic pause passed. The actual orange Exit button stopped Play. Preview: the Codex chat outputs/Main-menu-new-buttons.png. No phone APK update is required.
+
+## Main-menu vehicle shop — 2026-10-29
+
+The home menu now has Play, Shop, Options and Exit, reusing the imported button frames. Shop displays six actual vehicle previews with saved balance, purchase prices, owned/selected states and Buy/Select actions. It hides the home phone card while open. Back and Escape return home. The city remains paused while shopping; hover/focus presentation continues in unscaled time. See VehicleShop.md for catalog configuration and persistence.
