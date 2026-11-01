@@ -95,3 +95,7 @@ The PC car now zeros horizontal velocity at the next physics step after neutral 
 ## Smooth pedal-release stop — 2026-10-19
 Replaced the abrupt neutral-input horizontal velocity reset with fixed-step Vector3.SmoothDamp toward rest (0.25-second smoothing parameter, not a fixed stop duration). Residual horizontal speed below 0.05 units/second settles to zero. Smoothing state clears on throttle/reverse and reset. Gravity, collision filtering and the brake button are preserved. Source compiled for Editor/Android; verify release from forward/reverse and immediate re-acceleration in Play Mode. No Android rebuild required.
 
+
+## Phone dashboard update — 2026-11-01
+
+The Android app now opens a dedicated PC connection panel and switches to a styled landscape dashboard after pairing. Driving controls, the live steering indicator, missions, pause and sound screens are described in PhoneControllerUi.md. Install the rebuilt Builds/Android/FlyHighController.apk over the existing app to receive this design.

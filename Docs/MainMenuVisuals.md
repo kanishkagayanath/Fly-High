@@ -32,3 +32,7 @@ The three actual menu controls rendered the assigned sprites. Play/Resume, Optio
 ## Main-menu vehicle shop — 2026-10-29
 
 The home menu now has Play, Shop, Options and Exit, reusing the imported button frames. Shop displays six actual vehicle previews with saved balance, purchase prices, owned/selected states and Buy/Select actions. It hides the home phone card while open. Back and Escape return home. The city remains paused while shopping; hover/focus presentation continues in unscaled time. See VehicleShop.md for catalog configuration and persistence.
+
+## In-game pause — 2026-11-01
+
+The top-left PAUSE button and Escape now open an in-game menu with Resume, Settings (master sound control) and Home. It uses the same imported cyan/purple/orange button frames as the main menu. Home returns to the menu while keeping the current drive/mission; the existing Play/Resume button continues it. The rebuilt phone controller mirrors pause actions and sound settings. See PauseMenu.md for installation and validation.

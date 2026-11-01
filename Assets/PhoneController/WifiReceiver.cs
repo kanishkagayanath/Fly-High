@@ -21,6 +21,20 @@ namespace FlyHigh.PhoneController
         private byte[] missionStatus;
         private MissionPhoneSnapshot? missionState;
         private float nextMissionReply;
+        private MenuPhoneSnapshot? menuState;
+        private byte[] menuStatus;
+        private float nextMenuReply;
+        private bool drivingEnabled = true, awaitingNeutral;
+        public event Action<DriveMenuAction> MenuRequested;
+        public void SetMenuState(MenuPhoneSnapshot state)
+        { menuState = state; menuStatus = MenuPhoneProtocol.Status(PairingCode, state); nextMenuReply = 0; }
+        public void ClearMenuState() { menuState = null; menuStatus = null; }
+        public void SetDrivingEnabled(bool value)
+        {
+            if (drivingEnabled == value) return;
+            drivingEnabled = value; awaitingNeutral = true;
+            Steering = Throttle = 0; Brake = 1;
+        }
         public event Action<string> StartMissionRequested;
         public void SetMissionState(MissionPhoneSnapshot state) { missionState = state; missionStatus = MissionPhoneProtocol.Status(PairingCode, state); nextMissionReply = 0; }
         public void ClearMissionState() { missionStatus = null; missionState = null; }
@@ -82,6 +96,7 @@ namespace FlyHigh.PhoneController
 #endif
             PairingCode = UnityEngine.Random.Range(100000, 1000000).ToString();
             if (missionState.HasValue) missionStatus = MissionPhoneProtocol.Status(PairingCode, missionState.Value);
+            if (menuState.HasValue) menuStatus = MenuPhoneProtocol.Status(PairingCode, menuState.Value);
             discoveryId = Guid.NewGuid().ToString("N");
             discoveryName = Environment.MachineName;
             nextDiscoveryReply = 0;
@@ -132,6 +147,12 @@ namespace FlyHigh.PhoneController
                         }
                         continue;
                     }
+                    if (MenuPhoneProtocol.TryRequest(data, PairingCode, out string menuToken, out var menuAction))
+                    {
+                        if (Connected && owner != null && owner.Equals(peer) && menuState.HasValue && menuState.Value.token == menuToken)
+                            MenuRequested?.Invoke(menuAction);
+                        continue;
+                    }
                     if (MissionPhoneProtocol.TryStart(data, PairingCode, out string missionToken))
                     {
                         if (Connected && owner != null && owner.Equals(peer)) StartMissionRequested?.Invoke(missionToken);
@@ -149,13 +170,21 @@ namespace FlyHigh.PhoneController
                     }
                     if (owner != null && (!owner.Equals(peer) || !ControllerPacket.IsNewer(next, sequence))) continue;
                     owner = peer; sequence = next; lastInput = Time.realtimeSinceStartup;
-                    Steering = steer; Throttle = gas; Brake = brake; Status = "Phone connected";
+                    if (drivingEnabled && (!awaitingNeutral || Mathf.Abs(gas) < .01f))
+                    { awaitingNeutral = false; Steering = steer; Throttle = gas; Brake = brake; }
+                    else { Steering = Throttle = 0; Brake = 1; }
+                    Status = "Phone connected";
                     byte[] ack = Encoding.ASCII.GetBytes("FH1|OK|" + PairingCode);
                     socket.Send(ack, ack.Length, peer);
                     lastResult = "Valid input received; reply sent";
                 }
             }
             catch (SocketException e) { Status = "Network: " + e.SocketErrorCode; }
+            if (Connected && owner != null && menuStatus != null && Time.realtimeSinceStartup >= nextMenuReply)
+            {
+                nextMenuReply = Time.realtimeSinceStartup + .2f;
+                try { socket.Send(menuStatus, menuStatus.Length, owner); } catch (SocketException) { }
+            }
             if (Connected && owner != null && missionStatus != null && Time.realtimeSinceStartup >= nextMissionReply)
             {
                 nextMissionReply = Time.realtimeSinceStartup + 0.2f;

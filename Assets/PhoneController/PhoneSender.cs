@@ -27,6 +27,21 @@ namespace FlyHigh.PhoneController
             if (!HasMissionState || MissionState.phase != CoinMissionPhase.Available || MissionStartPending) return;
             requestedToken = MissionState.token; startUntil = Time.realtimeSinceStartup + 1.5f; nextStartSend = 0;
         }
+        private float lastMenuState = -100, menuUntil, nextMenuSend;
+        private string requestedMenuToken;
+        private DriveMenuAction requestedMenuAction;
+        public MenuPhoneSnapshot MenuState { get; private set; }
+        public bool HasMenuState => Connected && Time.realtimeSinceStartup - lastMenuState < 1;
+        public bool MenuPending => requestedMenuToken != null && Time.realtimeSinceStartup < menuUntil;
+        public bool DrivingControlsAvailable => Connected && !MenuPending &&
+            (lastMenuState < 0 || (HasMenuState && MenuState.view == DriveMenuView.Driving));
+        public void RequestMenu(DriveMenuAction action)
+        {
+            if (!HasMenuState || MenuPending) return;
+            requestedMenuToken = MenuState.token; requestedMenuAction = action;
+            menuUntil = Time.realtimeSinceStartup + 1.5f; nextMenuSend = 0;
+            Throttle = Reverse = Brake = 0;
+        }
         private UdpClient discoverySocket;
         private readonly List<DiscoveredPC> games = new List<DiscoveredPC>();
         private readonly List<IPEndPoint> broadcastTargets = new List<IPEndPoint>();
@@ -184,6 +199,13 @@ namespace FlyHigh.PhoneController
                     IPEndPoint peer = server;
                     byte[] reply = socket.Receive(ref peer);
                     if (Encoding.ASCII.GetString(reply) == "FH1|OK|" + code) lastAck = Time.realtimeSinceStartup;
+                    else if (MenuPhoneProtocol.TryStatus(reply, code, out var menu) &&
+                        (lastMenuState < 0 || menu.revision == MenuState.revision || ControllerPacket.IsNewer(menu.revision, MenuState.revision)))
+                    {
+                        if (lastMenuState < 0 || menu.view != MenuState.view) Throttle = Reverse = Brake = 0;
+                        MenuState = menu; lastMenuState = Time.realtimeSinceStartup;
+                        if (menu.token != requestedMenuToken) requestedMenuToken = null;
+                    }
                     else if (MissionPhoneProtocol.TryStatus(reply, code, out var state) &&
                         (lastMissionState < 0 || state.revision == MissionState.revision || ControllerPacket.IsNewer(state.revision, MissionState.revision)))
                     {
@@ -191,10 +213,18 @@ namespace FlyHigh.PhoneController
                         if (state.phase != CoinMissionPhase.Available || state.token != requestedToken) requestedToken = null;
                     }
                 }
+                if (!DrivingControlsAvailable) Throttle = Reverse = Brake = 0;
+                if (MenuPending && HasMenuState && Time.realtimeSinceStartup >= nextMenuSend)
+                {
+                    nextMenuSend = Time.realtimeSinceStartup + .15f;
+                    byte[] request = MenuPhoneProtocol.Request(code, requestedMenuToken, requestedMenuAction); socket.Send(request, request.Length);
+                }
+                if (!HasMenuState || Time.realtimeSinceStartup >= menuUntil) requestedMenuToken = null;
                 if (Time.realtimeSinceStartup >= nextSend)
                 {
                     nextSend = Time.realtimeSinceStartup + 1f / 30;
-                    byte[] data = ControllerPacket.Encode(code, ++sequence, Steering, Throttle - Reverse, Brake);
+                    bool canDrive = DrivingControlsAvailable;
+                    byte[] data = ControllerPacket.Encode(code, ++sequence, canDrive ? Steering : 0, canDrive ? Throttle - Reverse : 0, canDrive ? Brake : 1);
                     socket.Send(data, data.Length);
                 }
                 if (MissionStartPending && HasMissionState && Time.realtimeSinceStartup >= nextStartSend)
@@ -213,11 +243,12 @@ namespace FlyHigh.PhoneController
         {
             CancelDiscovery();
             lastMissionState = -100; requestedToken = null; MissionState = default;
+            lastMenuState = -100; requestedMenuToken = null; MenuState = default;
             socket?.Close(); socket = null; lastAck = -100; Throttle = Reverse = Brake = Steering = 0;
             Status = "Disconnected";
         }
-        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; if (!focus) { CancelDiscovery(); requestedToken = null; lastMissionState = -100; } }
-        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; if (pause) { CancelDiscovery(); requestedToken = null; lastMissionState = -100; } }
+        private void OnApplicationFocus(bool focus) { active = focus; Throttle = Reverse = Brake = 0; if (!focus) { CancelDiscovery(); requestedToken = requestedMenuToken = null; lastMissionState = -100; } }
+        private void OnApplicationPause(bool pause) { active = !pause; Throttle = Reverse = Brake = 0; if (pause) { CancelDiscovery(); requestedToken = requestedMenuToken = null; lastMissionState = -100; } }
         private void OnDisable() { Disconnect(); Screen.sleepTimeout = SleepTimeout.SystemSetting; }
     }
 }

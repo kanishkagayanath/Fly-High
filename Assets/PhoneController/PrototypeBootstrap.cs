@@ -54,20 +54,7 @@ namespace FlyHigh.PhoneController
             safeArea.SetParent(canvas.transform, false);
 #if UNITY_ANDROID && !UNITY_EDITOR
             sender = gameObject.AddComponent<PhoneSender>();
-            Label("FLY HIGH / PHONE CONTROLLER", 0.05f, 0.87f, 0.9f, 0.08f, 32);
-            var ip = Input("PC Wi-Fi IPv4 address", "", 0.06f, 0.64f, 0.48f);
-            var code = Input("Six-digit pairing code", "", 0.57f, 0.64f, 0.36f);
-            Button("CONNECT", 0.36f, 0.47f, 0.27f, 0.12f, () => sender.Connect(ip.text, code.text));
-            Button("CALIBRATE TILT", 0.66f, 0.47f, 0.27f, 0.12f, sender.Calibrate);
-            var reverse = Button("REVERSE", 0.05f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
-            reverse.Changed = held => sender.Reverse = held ? 1 : 0;
-            var stop = Button("BRAKE", 0.36f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
-            stop.Changed = held => sender.Brake = held ? 1 : 0;
-            var gas = Button("ACCELERATE", 0.67f, 0.05f, 0.28f, 0.28f, null).gameObject.AddComponent<HoldPedal>();
-            gas.Changed = held => sender.Throttle = held ? 1 : 0;
-            status = Label("", 0.05f, 0.34f, 0.9f, 0.1f, 22);
-            gameObject.AddComponent<PhonePairingPanel>().Initialize(safeArea, sender, ip, code);
-            gameObject.AddComponent<PhoneMissionPanel>().Initialize(safeArea,sender);
+            gameObject.AddComponent<PhoneControllerView>().Initialize(safeArea,sender);
 #else
             foreach (var existing in FindObjectsByType<WifiReceiver>(FindObjectsSortMode.None))
                 if (existing.isActiveAndEnabled) { receiver = existing; break; }
@@ -135,28 +122,5 @@ namespace FlyHigh.PhoneController
             label.text = text; label.fontSize = size; label.color = Color.white; label.raycastTarget = false;
             label.alignment = TextAlignmentOptions.MidlineLeft; return label;
         }
-        private UnityEngine.UI.Button Button(string title, float x, float y, float w, float h, UnityEngine.Events.UnityAction clicked)
-        {
-            var rect = Rect(title, x, y, w, h);
-            var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(0.1f, 0.34f, 0.48f);
-            var button = rect.gameObject.AddComponent<UnityEngine.UI.Button>(); button.targetGraphic = image;
-            if (clicked != null) button.onClick.AddListener(clicked);
-            var label = Label(title, x, y, w, h, 30); label.alignment = TextAlignmentOptions.Center;
-            return button;
-        }
-        private TMP_InputField Input(string hint, string value, float x, float y, float w)
-        {
-            var rect = Rect(hint, x, y, w, 0.13f);
-            var image = rect.gameObject.AddComponent<UnityEngine.UI.Image>(); image.color = new Color(0.08f, 0.13f, 0.2f);
-            var field = rect.gameObject.AddComponent<TMP_InputField>(); field.targetGraphic = image;
-            var textRect = new GameObject("Text", typeof(RectTransform)).GetComponent<RectTransform>();
-            textRect.SetParent(rect, false); textRect.anchorMin = Vector2.zero; textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = new Vector2(12, 4); textRect.offsetMax = new Vector2(-12, -4);
-            var text = textRect.gameObject.AddComponent<TextMeshProUGUI>(); text.fontSize = 28; text.color = Color.white;
-            var placeholder = Instantiate(text, rect); placeholder.text = hint; placeholder.color = Color.gray;
-            field.textViewport = rect; field.textComponent = text; field.placeholder = placeholder;
-            field.lineType = TMP_InputField.LineType.SingleLine; field.text = value; return field;
-        }
     }
 }
-
