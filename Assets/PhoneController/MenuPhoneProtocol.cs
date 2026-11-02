@@ -5,7 +5,7 @@ using System.Text;
 namespace FlyHigh.PhoneController
 {
     public enum DriveMenuView { Home, Driving, Paused, Settings }
-    public enum DriveMenuAction { Pause, Resume, Settings, Back, Home, VolumeDown, VolumeUp }
+    public enum DriveMenuAction { Pause, Resume, Settings, Back, Home, VolumeDown, VolumeUp, Play, Shop, Options, CycleLighting }
     public struct MenuPhoneSnapshot
     {
         public uint revision;
@@ -28,7 +28,7 @@ namespace FlyHigh.PhoneController
             if (bytes == null || bytes.Length > 96) return false;
             var p = Encoding.ASCII.GetString(bytes).Split('|');
             if (p.Length != 5 || p[0] != "FH1" || p[1] != "MENU" || p[2] != code || !ValidToken(p[3]) ||
-                !int.TryParse(p[4], NumberStyles.None, CultureInfo.InvariantCulture, out int value) || value < 0 || value > 6) return false;
+                !int.TryParse(p[4], NumberStyles.None, CultureInfo.InvariantCulture, out int value) || value < 0 || value > 10) return false;
             token = p[3]; action = (DriveMenuAction)value; return true;
         }
         public static bool TryStatus(byte[] bytes, string code, out MenuPhoneSnapshot state)
@@ -42,7 +42,7 @@ namespace FlyHigh.PhoneController
                 !int.TryParse(p[5], NumberStyles.None, CultureInfo.InvariantCulture, out int volume) || volume < 0 || volume > 100 || !ValidToken(p[6])) return false;
             state = new MenuPhoneSnapshot { revision = revision, view = (DriveMenuView)view, volume = volume, token = p[6] }; return true;
         }
-        private static bool ValidToken(string value)
+        internal static bool ValidToken(string value)
         {
             if (value == null || value.Length != 16) return false;
             foreach (char c in value) if (!(c >= '0' && c <= '9') && !(c >= 'a' && c <= 'f')) return false;

@@ -36,3 +36,7 @@ The home menu now has Play, Shop, Options and Exit, reusing the imported button 
 ## In-game pause — 2026-11-01
 
 The top-left PAUSE button and Escape now open an in-game menu with Resume, Settings (master sound control) and Home. It uses the same imported cyan/purple/orange button frames as the main menu. Home returns to the menu while keeping the current drive/mission; the existing Play/Resume button continues it. The rebuilt phone controller mirrors pause actions and sound settings. See PauseMenu.md for installation and validation.
+
+## Marked content cleanup — 2026-11-01
+
+Removed the home FREE ROAM/Your city captions, shared keyboard/help footer and exploration slogan, plus the Options Display row. The four home buttons now sit slightly higher with consistent spacing. Options retains sound, city lighting and Back, reflowed into the available space. The saved startup fullscreen preference remains intact. The shop's default persistence sentence is removed; purchase/select/error feedback is still shown when an action needs it.

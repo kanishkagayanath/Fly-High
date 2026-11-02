@@ -30,6 +30,17 @@ namespace FlyHigh.PhoneController
         private float lastMenuState = -100, menuUntil, nextMenuSend;
         private string requestedMenuToken;
         private DriveMenuAction requestedMenuAction;
+        private string requestedGarageId;
+        private bool requestedGarageBuy;
+        private float lastHomeState=-100;
+        public HomePhoneSnapshot HomeState {get;private set;}
+        public bool HasHomeState=>HasMenuState&&HomeState!=null&&Time.realtimeSinceStartup-lastHomeState<1.5f&&HomeState.token==MenuState.token;
+        public void RequestVehicle(string id,bool buy)
+        {
+            if(!HasHomeState||HomeState.page!=PhoneHomePage.Shop||MenuPending||!HomePhoneProtocol.ValidId(id))return;
+            requestedGarageId=id;requestedGarageBuy=buy;requestedMenuToken=MenuState.token;
+            menuUntil=Time.realtimeSinceStartup+1.5f;nextMenuSend=0;Throttle=Reverse=Brake=0;
+        }
         public MenuPhoneSnapshot MenuState { get; private set; }
         public bool HasMenuState => Connected && Time.realtimeSinceStartup - lastMenuState < 1;
         public bool MenuPending => requestedMenuToken != null && Time.realtimeSinceStartup < menuUntil;
@@ -38,7 +49,7 @@ namespace FlyHigh.PhoneController
         public void RequestMenu(DriveMenuAction action)
         {
             if (!HasMenuState || MenuPending) return;
-            requestedMenuToken = MenuState.token; requestedMenuAction = action;
+            requestedGarageId=null;requestedMenuToken = MenuState.token; requestedMenuAction = action;
             menuUntil = Time.realtimeSinceStartup + 1.5f; nextMenuSend = 0;
             Throttle = Reverse = Brake = 0;
         }
@@ -204,8 +215,11 @@ namespace FlyHigh.PhoneController
                     {
                         if (lastMenuState < 0 || menu.view != MenuState.view) Throttle = Reverse = Brake = 0;
                         MenuState = menu; lastMenuState = Time.realtimeSinceStartup;
-                        if (menu.token != requestedMenuToken) requestedMenuToken = null;
+                        if (menu.token != requestedMenuToken){requestedMenuToken = null;requestedGarageId=null;}
                     }
+                    else if(HomePhoneProtocol.TryStatus(reply,code,out var home)&&
+                        (lastHomeState<0||home.revision==HomeState.revision||ControllerPacket.IsNewer(home.revision,HomeState.revision)))
+                    {HomeState=home;lastHomeState=Time.realtimeSinceStartup;}
                     else if (MissionPhoneProtocol.TryStatus(reply, code, out var state) &&
                         (lastMissionState < 0 || state.revision == MissionState.revision || ControllerPacket.IsNewer(state.revision, MissionState.revision)))
                     {
@@ -217,7 +231,7 @@ namespace FlyHigh.PhoneController
                 if (MenuPending && HasMenuState && Time.realtimeSinceStartup >= nextMenuSend)
                 {
                     nextMenuSend = Time.realtimeSinceStartup + .15f;
-                    byte[] request = MenuPhoneProtocol.Request(code, requestedMenuToken, requestedMenuAction); socket.Send(request, request.Length);
+                    byte[] request = requestedGarageId!=null?HomePhoneProtocol.Request(code,requestedMenuToken,requestedGarageId,requestedGarageBuy):MenuPhoneProtocol.Request(code, requestedMenuToken, requestedMenuAction); socket.Send(request, request.Length);
                 }
                 if (!HasMenuState || Time.realtimeSinceStartup >= menuUntil) requestedMenuToken = null;
                 if (Time.realtimeSinceStartup >= nextSend)
@@ -243,7 +257,8 @@ namespace FlyHigh.PhoneController
         {
             CancelDiscovery();
             lastMissionState = -100; requestedToken = null; MissionState = default;
-            lastMenuState = -100; requestedMenuToken = null; MenuState = default;
+            lastMenuState = -100; requestedMenuToken = requestedGarageId = null; MenuState = default;
+            lastHomeState=-100;HomeState=null;
             socket?.Close(); socket = null; lastAck = -100; Throttle = Reverse = Brake = Steering = 0;
             Status = "Disconnected";
         }

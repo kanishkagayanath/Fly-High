@@ -13,7 +13,7 @@ namespace FlyHigh.PhoneController
         private static readonly Color Mint = new Color(.40f, .96f, 1);
         private static readonly Color SoftWhite = new Color(.79f, .85f, .93f);
         private GameObject overlay, home, options, hud;
-        private TMP_Text volumeLabel, fullscreenLabel, timeLabel, playCaption, phoneLabel, phoneHint;
+        private TMP_Text volumeLabel, timeLabel, playCaption, phoneLabel, phoneHint;
         private UnityEngine.UI.Image phoneIndicator;
         private RectTransform volumeFill, revealPanel;
         private CanvasGroup revealGroup;
@@ -34,6 +34,7 @@ namespace FlyHigh.PhoneController
         private UnityEngine.UI.Button resumeButton, pauseBackButton;
         private bool savedAudioPause;
         private uint menuRevision;
+        private string menuToken,phoneShopMessage="";
         public DriveMenuView View => overlay != null && overlay.activeSelf ? DriveMenuView.Home :
             pauseOverlay != null && pauseOverlay.activeSelf ? (pauseSettings.activeSelf ? DriveMenuView.Settings : DriveMenuView.Paused) : DriveMenuView.Driving;
 
@@ -61,15 +62,13 @@ namespace FlyHigh.PhoneController
             shade.Initialize(new Color(.014f,.027f,.065f,.86f),new Color(.014f,.027f,.065f,0));
 
             home = Area(composition, "Home", 0, 0, 1, 1).gameObject;
-            Text(home.transform, "FREE ROAM  /  COASTAL CITY", .065f,.72f,.43f,.765f,17,Mint).characterSpacing = 2;
-            Text(home.transform, "Your city. Your drive.", .065f,.665f,.43f,.72f,24,Color.white);
-            playButton = Button(home.transform,"PLAY",.058f,.50f,.35f,.66f,StartDriving,visuals!=null?visuals.playButton:null,true);
+            playButton = Button(home.transform,"PLAY",.058f,.55f,.35f,.71f,StartDriving,visuals!=null?visuals.playButton:null,true);
             var playVisual = playButton.transform.GetChild(0);
             playCaption = Text(playVisual,"ENTER THE CITY",.10f,.18f,.90f,.37f,14,SoftWhite);
             playCaption.alignment = TextAlignmentOptions.Center; playCaption.characterSpacing = 3;
-            if(garage!=null) Button(home.transform,"SHOP",.058f,.355f,.35f,.49f,ShowShop,visuals!=null?visuals.optionsButton:null);
-            Button(home.transform,"OPTIONS",.058f,.21f,.35f,.345f,ShowOptions,visuals!=null?visuals.optionsButton:null);
-            Button(home.transform,"EXIT",.058f,.065f,.35f,.20f,Exit,visuals!=null?visuals.exitButton:null);
+            if(garage!=null) Button(home.transform,"SHOP",.058f,.40f,.35f,.535f,ShowShop,visuals!=null?visuals.optionsButton:null);
+            Button(home.transform,"OPTIONS",.058f,.25f,.35f,.385f,ShowOptions,visuals!=null?visuals.optionsButton:null);
+            Button(home.transform,"EXIT",.058f,.10f,.35f,.235f,Exit,visuals!=null?visuals.exitButton:null);
 
             options = Area(composition,"Options",.055f,.105f,.465f,.69f).gameObject;
             Panel(options.transform,"Options glass",0,0,1,1,new Color(.025f,.045f,.095f,.96f));
@@ -78,18 +77,15 @@ namespace FlyHigh.PhoneController
             volumeLabel = Text(options.transform,"",.055f,.65f,.64f,.81f,21,SoftWhite);
             Button(options.transform,"−",.67f,.665f,.79f,.795f,()=>ChangeVolume(-.1f),null);
             Button(options.transform,"+",.82f,.665f,.94f,.795f,()=>ChangeVolume(.1f),null);
-            Panel(options.transform,"Volume track",.06f,.62f,.94f,.635f,new Color(.16f,.21f,.30f));
-            volumeFill = Panel(options.transform,"Volume fill",.06f,.62f,.94f,.635f,Mint);
-            Text(options.transform,"DISPLAY",.06f,.44f,.4f,.57f,17,SoftWhite);
-            var fullscreen = Button(options.transform,"",.42f,.425f,.94f,.585f,ToggleFullscreen,visuals!=null?visuals.optionsButton:null);
-            fullscreenLabel = fullscreen.GetComponentInChildren<TMP_Text>();
+            Panel(options.transform,"Volume track",.06f,.59f,.94f,.605f,new Color(.16f,.21f,.30f));
+            volumeFill = Panel(options.transform,"Volume fill",.06f,.59f,.94f,.605f,Mint);
             if(environment!=null)
             {
-                Text(options.transform,"CITY LIGHTING",.06f,.245f,.42f,.39f,17,SoftWhite);
-                var time = Button(options.transform,"",.42f,.23f,.94f,.39f,()=>{environment.CycleMode();RefreshOptions();},visuals!=null?visuals.playButton:null);
+                Text(options.transform,"CITY LIGHTING",.06f,.38f,.40f,.53f,17,SoftWhite);
+                var time = Button(options.transform,"",.42f,.375f,.94f,.535f,CycleLighting,visuals!=null?visuals.playButton:null);
                 timeLabel = time.GetComponentInChildren<TMP_Text>();
             }
-            backButton = Button(options.transform,"BACK",.055f,.045f,.51f,.205f,ShowHome,visuals!=null?visuals.optionsButton:null);
+            backButton = Button(options.transform,"BACK",.055f,.075f,.51f,.245f,ShowHome,visuals!=null?visuals.optionsButton:null);
 
             var connection = Panel(composition,"Phone connection card",.635f,.075f,.945f,.248f,new Color(.02f,.045f,.08f,.93f));
             connectionCard=connection.gameObject;
@@ -98,8 +94,6 @@ namespace FlyHigh.PhoneController
             phoneIndicator = Panel(connection,"Connection dot",.06f,.44f,.085f,.54f,Color.white).GetComponent<UnityEngine.UI.Image>();
             phoneLabel = Text(connection,"",.115f,.34f,.95f,.64f,24,Color.white);
             phoneHint = Text(connection,"",.06f,.10f,.96f,.32f,16,SoftWhite);
-            Text(composition,"ENTER  SELECT    /    ESC  MENU & BACK",.065f,.015f,.60f,.052f,13,SoftWhite).characterSpacing=1;
-            Text(composition,"EXPLORE AT YOUR OWN PACE",.65f,.015f,.945f,.052f,13,SoftWhite).alignment=TextAlignmentOptions.Right;
             if(garage!=null)
             {
                 garageLabel=Text(composition,"",.635f,.255f,.945f,.3f,17,new Color(1,.8f,.35f));
@@ -108,7 +102,7 @@ namespace FlyHigh.PhoneController
             }
             options.SetActive(false);
             BuildPauseMenu(uiParent);
-            if(receiver!=null)receiver.MenuRequested+=OnPhoneMenu;
+            if(receiver!=null){receiver.MenuRequested+=OnPhoneMenu;receiver.GarageRequested+=OnPhoneGarage;}
             Pause(); ShowHome(); UpdatePhoneCard();
         }
 
@@ -132,15 +126,15 @@ namespace FlyHigh.PhoneController
             else if (overlay.activeSelf && started) StartDriving();
             else if (!overlay.activeSelf) OpenPause();
         }
-        private void RefreshGarage(){if(garageLabel!=null)garageLabel.text=garage.Coins.ToString("N0")+" COINS   /   "+(garage.Selected!=null?garage.Selected.title:"");}
+        private void RefreshGarage(){if(garageLabel!=null)garageLabel.text=garage.Coins.ToString("N0")+" COINS   /   "+(garage.Selected!=null?garage.Selected.title:"");if(menuToken!=null&&View==DriveMenuView.Home)PublishMenu();}
         private void ShowShop()
         {
-            showingOptions=false;home.SetActive(false);options.SetActive(false);if(connectionCard!=null)connectionCard.SetActive(false);if(garageLabel!=null)garageLabel.gameObject.SetActive(false);shop.Show();Reveal(shop.Root.gameObject);Select(shop.BackButton);
+            showingOptions=false;home.SetActive(false);options.SetActive(false);if(connectionCard!=null)connectionCard.SetActive(false);if(garageLabel!=null)garageLabel.gameObject.SetActive(false);shop.Show();phoneShopMessage="";Reveal(shop.Root.gameObject);Select(shop.BackButton);PublishMenu();
         }
         private void OnDestroy()
         {
             if(garage!=null)garage.Changed-=RefreshGarage;
-            if(receiver!=null){receiver.MenuRequested-=OnPhoneMenu;receiver.ClearMenuState();}
+            if(receiver!=null){receiver.MenuRequested-=OnPhoneMenu;receiver.GarageRequested-=OnPhoneGarage;receiver.ClearMenuState();receiver.ClearHomeState();}
             if(shop!=null)Destroy(shop);
         }
         private void BuildPauseMenu(Transform parent)
@@ -194,22 +188,41 @@ namespace FlyHigh.PhoneController
         {
             if(receiver==null)return;
             receiver.SetDrivingEnabled(View==DriveMenuView.Driving);
+            menuToken=System.Guid.NewGuid().ToString("N").Substring(0,16);
             receiver.SetMenuState(new MenuPhoneSnapshot { revision=++menuRevision,view=View,
-                volume=Mathf.RoundToInt(AudioListener.volume*100),token=System.Guid.NewGuid().ToString("N").Substring(0,16) });
+                volume=Mathf.RoundToInt(AudioListener.volume*100),token=menuToken });
+            if(garage!=null&&garage.Catalog!=null)
+            {
+                var entries=garage.Catalog.vehicles;var vehicles=new HomeVehicleSnapshot[Mathf.Min(entries.Length,HomePhoneProtocol.MaximumVehicles)];
+                for(int i=0;i<vehicles.Length;i++){var v=entries[i];vehicles[i]=new HomeVehicleSnapshot{id=v.id,title=v.title,price=v.price,owned=garage.IsOwned(v.id)};}
+                receiver.SetHomeState(new HomePhoneSnapshot{revision=menuRevision,token=menuToken,page=shop!=null&&shop.IsOpen?PhoneHomePage.Shop:showingOptions?PhoneHomePage.Options:PhoneHomePage.Home,
+                    coins=garage.Coins,selected=garage.Selected!=null?garage.Selected.id:"starter",canPurchase=garage.CanPurchase,vehicles=vehicles,lighting=environment!=null?(int)environment.Mode:-1,message=phoneShopMessage});
+            }
         }
         private void OnPhoneMenu(DriveMenuAction action)
         {
             switch(action)
             {
+                case DriveMenuAction.Play: if(View==DriveMenuView.Driving)PublishMenu();else StartDriving();break;
+                case DriveMenuAction.Shop: if(View!=DriveMenuView.Home)ReturnHome();if(shop!=null)ShowShop();break;
+                case DriveMenuAction.Options: if(View!=DriveMenuView.Home)ReturnHome();ShowOptions();break;
+                case DriveMenuAction.CycleLighting: if(View==DriveMenuView.Home&&showingOptions)CycleLighting();break;
                 case DriveMenuAction.Pause: if(View==DriveMenuView.Driving)OpenPause();break;
                 case DriveMenuAction.Resume: if(View==DriveMenuView.Paused||View==DriveMenuView.Settings)StartDriving();break;
                 case DriveMenuAction.Settings: if(View==DriveMenuView.Paused)ShowPauseSettings();break;
-                case DriveMenuAction.Back: if(View==DriveMenuView.Settings)ShowPauseHome();break;
-                case DriveMenuAction.Home: if(View==DriveMenuView.Paused||View==DriveMenuView.Settings)ReturnHome();break;
-                case DriveMenuAction.VolumeDown: if(View==DriveMenuView.Settings)ChangeVolume(-.1f);break;
-                case DriveMenuAction.VolumeUp: if(View==DriveMenuView.Settings)ChangeVolume(.1f);break;
+                case DriveMenuAction.Back: if(View==DriveMenuView.Settings)ShowPauseHome();else if(View==DriveMenuView.Home)ShowHome();break;
+                case DriveMenuAction.Home: if(View!=DriveMenuView.Home)ReturnHome();else ShowHome();break;
+                case DriveMenuAction.VolumeDown: if(View==DriveMenuView.Settings||(View==DriveMenuView.Home&&showingOptions))ChangeVolume(-.1f);break;
+                case DriveMenuAction.VolumeUp: if(View==DriveMenuView.Settings||(View==DriveMenuView.Home&&showingOptions))ChangeVolume(.1f);break;
             }
         }
+        private void OnPhoneGarage(string id,bool buy)
+        {
+            if(View!=DriveMenuView.Home||shop==null||!shop.IsOpen||garage==null)return;
+            string result;bool success=buy?garage.TryBuy(id,out result):garage.TrySelect(id,out result);
+            phoneShopMessage=result;shop.ShowResult(result,success);PublishMenu();
+        }
+        private void CycleLighting(){if(environment==null)return;environment.CycleMode();RefreshOptions();PublishMenu();}
         private void UpdatePhoneCard()
         {
             bool connected=receiver!=null&&receiver.Connected;
@@ -242,7 +255,7 @@ namespace FlyHigh.PhoneController
         private void ShowOptions()
         {
             showingOptions = true; if(shop!=null)shop.Hide(); home.SetActive(false); options.SetActive(true);
-            RefreshOptions(); Reveal(options); Select(backButton);
+            RefreshOptions(); Reveal(options); Select(backButton);PublishMenu();
         }
         private void ShowHome()
         {
@@ -253,27 +266,13 @@ namespace FlyHigh.PhoneController
             AudioListener.volume = Mathf.Clamp01(Mathf.Round((AudioListener.volume + amount) * 10) / 10);
             PlayerPrefs.SetFloat(VolumeKey, AudioListener.volume); PlayerPrefs.Save(); RefreshOptions(); PublishMenu();
         }
-        private void ToggleFullscreen()
-        {
-#if !UNITY_EDITOR
-            bool enabled = !Screen.fullScreen;
-            Screen.fullScreen = enabled;
-            PlayerPrefs.SetInt(FullscreenKey, enabled ? 1 : 0); PlayerPrefs.Save();
-#endif
-            RefreshOptions();
-        }
         private void RefreshOptions()
         {
             volumeLabel.text = "MASTER VOLUME   " + Mathf.RoundToInt(AudioListener.volume * 100) + "%";
             if(pauseVolumeLabel!=null)pauseVolumeLabel.text="MASTER VOLUME   "+Mathf.RoundToInt(AudioListener.volume*100)+"%";
             if(pauseVolumeFill!=null)pauseVolumeFill.anchorMax=new Vector2(Mathf.Lerp(.35f,.65f,AudioListener.volume),.445f);
-            volumeFill.anchorMax=new Vector2(Mathf.Lerp(.06f,.94f,AudioListener.volume),.635f);
+            volumeFill.anchorMax=new Vector2(Mathf.Lerp(.06f,.94f,AudioListener.volume),.605f);
             if(timeLabel!=null)timeLabel.text=(environment.Mode==CityTimeMode.Automatic?"AUTO":environment.Mode.ToString().ToUpperInvariant())+"  >";
-#if UNITY_EDITOR
-            fullscreenLabel.text = "PC BUILD ONLY";
-#else
-            fullscreenLabel.text = Screen.fullScreen?"FULLSCREEN":"WINDOWED";
-#endif
         }
         private static void Exit()
         {

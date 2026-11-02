@@ -12,6 +12,7 @@ namespace FlyHigh.PhoneController
         private TMP_Text connectionLabel, guidance, steeringLabel;
         private PhonePanelGraphic connectionBadge;
         private PhonePairingPanel pairing;
+        private PhoneHomePanel home;
         private readonly UnityEngine.UI.Button[] pedals=new UnityEngine.UI.Button[3];
         private readonly HoldPedal[] holds=new HoldPedal[3];
         private bool? controlsReady;
@@ -47,8 +48,8 @@ namespace FlyHigh.PhoneController
             guidance=PhoneUi.Text(root,"Controller guidance","Connect your phone to begin",.04f,.045f,.96f,.092f,15,PhoneUi.Muted,false,TextAlignmentOptions.Center);
             pairing=gameObject.AddComponent<PhonePairingPanel>();pairing.Initialize(root,sender);
             gameObject.AddComponent<PhoneMissionPanel>().Initialize(root,sender);
-            gameObject.AddComponent<PhonePausePanel>().Initialize(root,sender);
-            pairing.Open();
+            home=gameObject.AddComponent<PhoneHomePanel>();home.Initialize(root,sender,pairing);
+            gameObject.AddComponent<PhonePausePanel>().Initialize(root,sender,()=>!home.IsVisible&&!pairing.IsOpen);
         }
         private UnityEngine.UI.Button Pedal(string name,string title,string subtitle,float x0,float y0,float x1,float y1,Color fill,Color edge,bool tall)
         {
@@ -63,7 +64,7 @@ namespace FlyHigh.PhoneController
         private void Update()
         {
             if(root==null)return;
-            bool ready=sender.DrivingControlsAvailable&&!pairing.IsOpen;
+            bool ready=sender.DrivingControlsAvailable&&!pairing.IsOpen&&!home.IsVisible;
             if(controlsReady!=ready)
             {
                 controlsReady=ready;
@@ -78,7 +79,7 @@ namespace FlyHigh.PhoneController
             connectionLabel.text=connected?sender.HasMenuState&&sender.MenuState.view!=DriveMenuView.Driving?"CONNECTED / MENU":"CONNECTED / READY":sender.Searching?"SEARCHING…":"OFFLINE";
             connectionLabel.color=connected?PhoneUi.Cyan:PhoneUi.Amber;
             guidance.text=Time.realtimeSinceStartup<calibratedUntil?"Steering centred. You're ready to drive.":!connected?sender.Status:
-                sender.HasMenuState&&sender.MenuState.view==DriveMenuView.Home?"Press PLAY on your PC to begin your drive":"Hold landscape. Tilt gently to steer. Release pedals to slow down.";
+                sender.HasMenuState&&sender.MenuState.view==DriveMenuView.Home?"Tap PLAY on the phone home screen to begin":"Hold landscape. Tilt gently to steer. Release pedals to slow down.";
         }
         private void OnDestroy(){if(root!=null)Destroy(root.gameObject);if(background!=null)Destroy(background);}
     }

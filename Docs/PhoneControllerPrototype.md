@@ -99,3 +99,7 @@ Replaced the abrupt neutral-input horizontal velocity reset with fixed-step Vect
 ## Phone dashboard update — 2026-11-01
 
 The Android app now opens a dedicated PC connection panel and switches to a styled landscape dashboard after pairing. Driving controls, the live steering indicator, missions, pause and sound screens are described in PhoneControllerUi.md. Install the rebuilt Builds/Android/FlyHighController.apk over the existing app to receive this design.
+
+## Full phone home — 2026-11-01
+
+The controller now starts on Home with Play, Shop, Options and Exit. Play opens the connection popup, pairing starts/resumes the PC game, and pause Home returns to this full menu. Shop and Options operate on PC-authoritative progress/settings after pairing. Keep the updated PC game/server running. See PhoneHomeMenu.md and install the newest controller APK.

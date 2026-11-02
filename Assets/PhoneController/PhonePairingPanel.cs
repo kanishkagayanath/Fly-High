@@ -13,6 +13,9 @@ namespace FlyHigh.PhoneController
         private readonly TMP_Text[] labels=new TMP_Text[ControllerDiscovery.MaximumGames];
         private int revision=-1;
         private bool connecting;
+        private UnityEngine.UI.Button continueButton;
+        public event System.Action ConnectionCompleted;
+        public event System.Action Cancelled;
         public bool IsOpen=>overlay!=null&&overlay.gameObject.activeSelf;
         public void Initialize(RectTransform parent,PhoneSender phone)
         {
@@ -21,6 +24,8 @@ namespace FlyHigh.PhoneController
             PhoneUi.Text(overlay,"Connection heading","LET'S CONNECT",.04f,.84f,.72f,.96f,40,PhoneUi.White,true);
             PhoneUi.Text(overlay,"Connection hint","Your phone and PC must use the same Wi-Fi.",.04f,.76f,.80f,.84f,20,PhoneUi.Muted);
             PhoneUi.Button(overlay,"Connection back","BACK",.84f,.85f,.96f,.95f,Close,PhoneUi.Surface,PhoneUi.Edge);
+            continueButton=PhoneUi.Button(overlay,"Connection continue","CONTINUE",.65f,.85f,.81f,.95f,CompleteConnection,PhoneUi.Cyan,PhoneUi.Cyan,PhoneUi.Ink);
+            continueButton.gameObject.SetActive(false);
             var nearby=PhoneUi.Panel(overlay,"Nearby PC card",.04f,.185f,.58f,.735f,PhoneUi.Surface,PhoneUi.Edge).rectTransform;
             PhoneUi.Text(nearby,"Nearby title","NEARBY PCs",.04f,.83f,.96f,.96f,22,PhoneUi.Cyan,true);
             searchStatus=PhoneUi.Text(nearby,"Search status","",.04f,.64f,.96f,.83f,18,PhoneUi.Muted);searchStatus.textWrappingMode=TextWrappingModes.Normal;
@@ -50,7 +55,8 @@ namespace FlyHigh.PhoneController
         }
         public void Open(){overlay.SetAsLastSibling();overlay.gameObject.SetActive(true);sender.Throttle=sender.Reverse=sender.Brake=0;connecting=false;if(!sender.Connected)Search();}
         private void Search(){connecting=false;sender.FindPCs();revision=-1;}
-        private void Close(){sender.CancelDiscovery();overlay.gameObject.SetActive(false);connecting=false;}
+        private void Close(){if(connecting&&!sender.Connected)sender.Disconnect();else sender.CancelDiscovery();overlay.gameObject.SetActive(false);connecting=false;Cancelled?.Invoke();}
+        private void CompleteConnection(){if(!sender.Connected)return;sender.CancelDiscovery();overlay.gameObject.SetActive(false);connecting=false;ConnectionCompleted?.Invoke();}
         private void ConnectManual(){sender.Connect(address.text,code.text);connecting=true;}
         private void Choose(int index)
         {
@@ -60,7 +66,8 @@ namespace FlyHigh.PhoneController
         private void Update()
         {
             if(!IsOpen)return;
-            if(connecting&&sender.Connected){Close();return;}
+            continueButton.gameObject.SetActive(sender.Connected);
+            if(connecting&&sender.Connected){CompleteConnection();return;}
             if(searchStatus.text!=sender.Status)searchStatus.text=sender.Status;
             emptyStatus.gameObject.SetActive(sender.Games.Count==0);emptyStatus.text=sender.Searching?"Looking for your PC…\nIt will appear here.":"No PC found yet.\nTry Find PCs Again or connect manually.";
             if(revision==sender.DiscoveryVersion)return;revision=sender.DiscoveryVersion;

@@ -43,7 +43,7 @@ namespace FlyHigh.PhoneController
             message=Label(root,"",.265f,.02f,.97f,.12f,16,new Color(.73f,.86f,.91f));
             garage.Changed+=Refresh;Refresh();root.gameObject.SetActive(false);
         }
-        public void Show(){root.SetAsLastSibling();root.gameObject.SetActive(true);message.text="Buy once. Keep your vehicles and coin balance between sessions.";Refresh();}
+        public void Show(){root.SetAsLastSibling();root.gameObject.SetActive(true);message.text="";Refresh();}
         public void Hide(){if(root!=null)root.gameObject.SetActive(false);}
         private void Activate(string id)
         {
@@ -51,6 +51,7 @@ namespace FlyHigh.PhoneController
             message.text=result;message.color=success?new Color(.4f,1,.79f):new Color(1,.77f,.36f);Refresh();
             if(success && EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(BackButton.gameObject);
         }
+        public void ShowResult(string value,bool success){message.text=value;message.color=success?new Color(.4f,1,.79f):new Color(1,.77f,.36f);Refresh();}
         private void Refresh()
         {
             if(balance==null)return;balance.text=garage.Coins.ToString("N0")+" COINS";
