@@ -89,7 +89,9 @@ namespace FlyHigh.PhoneController
                 diagnostics.anchoredPosition=new Vector2(20,16);diagnostics.sizeDelta=new Vector2(780,105);
             }
             gameObject.AddComponent<CarSpeedometer>().Initialize(driving.PlayerCar, drivingHud);
-            gameObject.AddComponent<DesktopMainMenu>().Initialize(safeArea, drivingHud.gameObject,environment,receiver,garage);
+            var menu=gameObject.AddComponent<DesktopMainMenu>();
+            menu.Initialize(safeArea, drivingHud.gameObject,environment,receiver,garage,addresses);
+            gameObject.AddComponent<GameAudio>().InitializeDesktop(driving,menu,environment,GetComponent<CoinMissionSystem>(),garage,receiver);
 #endif
         }
         private void Update()

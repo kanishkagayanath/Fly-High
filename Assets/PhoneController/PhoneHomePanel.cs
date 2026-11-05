@@ -9,6 +9,7 @@ namespace FlyHigh.PhoneController
         private sealed class Card {public HomeVehicleSnapshot entry;public TMP_Text title,price,caption;public UnityEngine.UI.Image preview;public UnityEngine.UI.Button action;}
         private PhoneSender sender;
         private PhonePairingPanel pairing;
+        private HowToPlayGuide guide;
         private RectTransform root,volumeFill;
         private GameObject home,shop,options;
         private TMP_Text status,balance,shopBalance,shopMessage,volume,lighting,pageLabel;
@@ -24,9 +25,9 @@ namespace FlyHigh.PhoneController
         private float intentDeadline;
         public bool IsVisible=>root!=null&&root.gameObject.activeSelf;
         public RectTransform Root=>root;
-        public void Initialize(RectTransform parent,PhoneSender connection,PhonePairingPanel connectionPanel)
+        public void Initialize(RectTransform parent,PhoneSender connection,PhonePairingPanel connectionPanel,HowToPlayGuide instructions=null)
         {
-            sender=connection;pairing=connectionPanel;visuals=Resources.Load<MenuVisualSettings>("FlyHighMenu");catalog=Resources.Load<VehicleShopCatalog>("FlyHighVehicleShop");
+            sender=connection;pairing=connectionPanel;guide=instructions;visuals=Resources.Load<MenuVisualSettings>("FlyHighMenu");catalog=Resources.Load<VehicleShopCatalog>("FlyHighVehicleShop");
             root=PhoneUi.Rect(parent,"Phone home menu",0,0,1,1);root.gameObject.AddComponent<UnityEngine.UI.Image>().color=PhoneUi.Ink;
             var frame=PhoneUi.Rect(root,"Phone menu artwork",0,0,1,1);var fit=frame.gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();fit.aspectMode=UnityEngine.UI.AspectRatioFitter.AspectMode.FitInParent;fit.aspectRatio=visuals!=null&&visuals.background!=null?(float)visuals.background.width/visuals.background.height:16f/9;
             var artwork=PhoneUi.Rect(frame,"Home artwork",0,0,1,1).gameObject.AddComponent<UnityEngine.UI.RawImage>();artwork.texture=visuals!=null?visuals.background:null;artwork.raycastTarget=false;
@@ -37,6 +38,11 @@ namespace FlyHigh.PhoneController
             shopButton=FrameButton(home.transform,"Phone home Shop","SHOP",.058f,.40f,.35f,.535f,()=>OpenPage(DriveMenuAction.Shop),visuals!=null?visuals.optionsButton:null);
             optionsButton=FrameButton(home.transform,"Phone home Options","OPTIONS",.058f,.25f,.35f,.385f,()=>OpenPage(DriveMenuAction.Options),visuals!=null?visuals.optionsButton:null);
             FrameButton(home.transform,"Phone home Exit","EXIT",.058f,.10f,.35f,.235f,Exit,visuals!=null?visuals.exitButton:null);
+            if(guide!=null)
+            {
+                var help=FrameButton(home.transform,"Phone How to Play","HOW TO PLAY",0,0,1,1,guide.Open,visuals!=null?visuals.optionsButton:null,18);
+                var helpRect=help.GetComponent<RectTransform>();helpRect.anchorMin=helpRect.anchorMax=helpRect.pivot=Vector2.one;helpRect.anchoredPosition=new Vector2(-24,-24);helpRect.sizeDelta=new Vector2(190,52);
+            }
             var connectionCard=PhoneUi.Panel(home.transform,"Home PC status",.635f,.075f,.945f,.22f,PhoneUi.Surface,PhoneUi.Cyan);
             status=PhoneUi.Text(connectionCard.transform,"PC link","NOT CONNECTED",.06f,.12f,.94f,.88f,22,PhoneUi.White,true,TextAlignmentOptions.Center);
             balance=PhoneUi.Text(home.transform,"Home garage balance","",.635f,.235f,.945f,.30f,18,PhoneUi.Amber);
@@ -148,7 +154,7 @@ namespace FlyHigh.PhoneController
         {
             var rect=PhoneUi.Rect(parent,name,x0,y0,x1,y1);var visual=PhoneUi.Rect(rect,"Button visual",0,0,1,1);var image=visual.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;image.color=Color.white;
             if(sprite!=null){image.type=UnityEngine.UI.Image.Type.Sliced;image.pixelsPerUnitMultiplier=size>=27?2.6f:6f;}
-            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();button.targetGraphic=image;button.onClick.AddListener(action);var colors=button.colors;colors.highlightedColor=Color.white;colors.pressedColor=new Color(.65f,.8f,.9f);colors.disabledColor=new Color(.4f,.45f,.5f,.8f);button.colors=colors;
+            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=image;button.onClick.AddListener(action);var colors=button.colors;colors.highlightedColor=Color.white;colors.pressedColor=new Color(.65f,.8f,.9f);colors.disabledColor=new Color(.4f,.45f,.5f,.8f);button.colors=colors;
             var nav=button.navigation;nav.mode=UnityEngine.UI.Navigation.Mode.None;button.navigation=nav;
             PhoneUi.Text(visual,"Caption",value,.10f,.12f,.90f,.88f,size,PhoneUi.White,true,TextAlignmentOptions.Center);rect.gameObject.AddComponent<MenuButtonMotion>().Initialize(visual);return button;
         }

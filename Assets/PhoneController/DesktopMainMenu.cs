@@ -35,10 +35,11 @@ namespace FlyHigh.PhoneController
         private bool savedAudioPause;
         private uint menuRevision;
         private string menuToken,phoneShopMessage="";
+        private HowToPlayGuide guide;
         public DriveMenuView View => overlay != null && overlay.activeSelf ? DriveMenuView.Home :
             pauseOverlay != null && pauseOverlay.activeSelf ? (pauseSettings.activeSelf ? DriveMenuView.Settings : DriveMenuView.Paused) : DriveMenuView.Driving;
 
-        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null)
+        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null, string localAddresses = null)
         {
             environment = cityEnvironment; receiver = phoneReceiver; hud = drivingHud; garage = playerGarage;
             visuals = Resources.Load<MenuVisualSettings>("FlyHighMenu");
@@ -69,6 +70,9 @@ namespace FlyHigh.PhoneController
             if(garage!=null) Button(home.transform,"SHOP",.058f,.40f,.35f,.535f,ShowShop,visuals!=null?visuals.optionsButton:null);
             Button(home.transform,"OPTIONS",.058f,.25f,.35f,.385f,ShowOptions,visuals!=null?visuals.optionsButton:null);
             Button(home.transform,"EXIT",.058f,.10f,.35f,.235f,Exit,visuals!=null?visuals.exitButton:null);
+            var help=Button(home.transform,"HOW TO PLAY",0,0,1,1,()=>guide.Open(),visuals!=null?visuals.optionsButton:null);
+            var helpRect=help.GetComponent<RectTransform>();helpRect.anchorMin=helpRect.anchorMax=helpRect.pivot=Vector2.one;helpRect.anchoredPosition=new Vector2(-24,-24);helpRect.sizeDelta=new Vector2(190,52);
+            var helpLabel=help.GetComponentInChildren<TMP_Text>();helpLabel.fontSizeMax=18;helpLabel.fontSize=18;helpLabel.characterSpacing=1;
 
             options = Area(composition,"Options",.055f,.105f,.465f,.69f).gameObject;
             Panel(options.transform,"Options glass",0,0,1,1,new Color(.025f,.045f,.095f,.96f));
@@ -104,6 +108,9 @@ namespace FlyHigh.PhoneController
             BuildPauseMenu(uiParent);
             if(receiver!=null){receiver.MenuRequested+=OnPhoneMenu;receiver.GarageRequested+=OnPhoneGarage;}
             Pause(); ShowHome(); UpdatePhoneCard();
+            guide=gameObject.AddComponent<HowToPlayGuide>();
+            guide.Initialize((RectTransform)uiParent,false,()=>View!=DriveMenuView.Home,()=>"PC ADDRESS: "+(string.IsNullOrWhiteSpace(localAddresses)?"Choose this PC in the phone list":localAddresses.Trim())+"\nPAIRING CODE: "+(receiver!=null?receiver.PairingCode:"Unavailable"));
+            guide.ShowFirstTime();
         }
 
         private void Update()
@@ -119,6 +126,7 @@ namespace FlyHigh.PhoneController
                     revealGroup.alpha=ease;revealPanel.anchoredPosition=new Vector2(0,Mathf.Lerp(-10,0,ease));
                 }
             }
+            if(guide!=null&&guide.ConsumesKeyboardThisFrame)return;
             if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
             if(View==DriveMenuView.Settings) ShowPauseHome();
             else if(View==DriveMenuView.Paused) StartDriving();
@@ -317,7 +325,7 @@ namespace FlyHigh.PhoneController
             var image=visual.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;
             if(sprite!=null){image.type=UnityEngine.UI.Image.Type.Sliced;image.pixelsPerUnitMultiplier=2.6f;image.color=Color.white;}
             else image.color=new Color(.10f,.22f,.34f);
-            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();button.targetGraphic=image;
+            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=image;
             var colors=button.colors;colors.normalColor=new Color(.85f,.88f,.94f);colors.highlightedColor=Color.white;colors.selectedColor=Color.white;colors.pressedColor=new Color(.66f,.77f,.88f);colors.fadeDuration=.12f;button.colors=colors;
             button.onClick.AddListener(click);
             var label=Text(visual,value,.12f,primary ? .35f : .15f,.88f,primary ? .78f : .85f,primary ? 38 : 27,Color.white);

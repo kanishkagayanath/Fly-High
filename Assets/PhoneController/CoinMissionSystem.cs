@@ -22,6 +22,8 @@ namespace FlyHigh.PhoneController
         private bool lastStartable, lastPaused;
         private VehicleGarage garage;
 
+        public event Action<CoinMissionPhase> PhaseChanged;
+        public event Action CoinCollected;
         public CoinMissionSettings Settings => settings;
         public CoinMissionPhase Phase { get; private set; }
         public Vector3 PlayerPosition => player != null ? player.position : Vector3.zero;
@@ -63,7 +65,7 @@ namespace FlyHigh.PhoneController
             if (lastStartable != CanStart || lastPaused != (Time.timeScale <= 0)) { lastStartable = CanStart; lastPaused = Time.timeScale <= 0; Publish(); }
             if (Time.timeScale <= 0) return;
             if (Phase == CoinMissionPhase.Complete && Time.time >= completionUntil)
-            { Phase = CoinMissionPhase.Exploring; offered = -1; Version++; Publish(); }
+            { Phase = CoinMissionPhase.Exploring; offered = -1; Version++; PhaseChanged?.Invoke(Phase); Publish(); }
             if (Phase == CoinMissionPhase.Exploring || Phase == CoinMissionPhase.Available)
             {
                 if (Time.time >= nextOfferScan) { nextOfferScan = Time.time + 0.1f; ScanOffers(); }
@@ -84,7 +86,7 @@ namespace FlyHigh.PhoneController
                 {
                     if (collected[i] || SegmentDistance(route.coins[i], from, here) > settings.collectRadius) continue;
                     collected[i] = true; Collected++; Award(1); Version++;
-                    presentation.Pickup(i); Publish();
+                    presentation.Pickup(i); CoinCollected?.Invoke(); Publish();
                 }
                 if (Collected == Total && SegmentDistance(route.path[route.path.Length - 1], from, here) <= 3.2f)
                     Complete();
@@ -106,7 +108,7 @@ namespace FlyHigh.PhoneController
             offered = next;
             Phase = next >= 0 ? CoinMissionPhase.Available : CoinMissionPhase.Exploring;
             offerToken = next >= 0 ? Guid.NewGuid().ToString("N").Substring(0,16) : null;
-            Version++; Publish();
+            Version++; PhaseChanged?.Invoke(Phase); Publish();
         }
 
         private bool Eligible(int index) => body != null && index >= 0 && index < settings.routes.Length &&
@@ -120,7 +122,7 @@ namespace FlyHigh.PhoneController
             collected = new bool[settings.routes[active].coins.Length]; Collected = 0;
             previousPosition = body.position;
             Phase = CoinMissionPhase.Collecting; Version++;
-            presentation.Begin(settings.routes[active]); Publish(); return true;
+            presentation.Begin(settings.routes[active]); PhaseChanged?.Invoke(Phase); Publish(); return true;
         }
 
         private void RequestStart(string token)
@@ -133,7 +135,7 @@ namespace FlyHigh.PhoneController
             Award(settings.finishBonus); SaveWallet(); lastCompleted = active;
             Phase = CoinMissionPhase.Complete; completionUntil = Time.time + 5;
             active = -1; Version++;
-            presentation.Complete(); Publish();
+            presentation.Complete(); PhaseChanged?.Invoke(Phase); Publish();
         }
 
         public int NextCoin()

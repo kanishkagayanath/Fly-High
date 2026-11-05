@@ -78,7 +78,7 @@ namespace FlyHigh.PhoneController
         private static UnityEngine.UI.Button ActionButton(Transform parent,string name,float x,float y,float right,float top,Sprite sprite)
         {
             var rect=Area(parent,name,x,y,right,top);var visual=Area(rect,"Button visual",0,0,1,1);var image=visual.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;image.color=Color.white;if(sprite!=null){image.type=UnityEngine.UI.Image.Type.Sliced;image.pixelsPerUnitMultiplier=6;}
-            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();button.targetGraphic=image;var colors=button.colors;colors.highlightedColor=Color.white;colors.selectedColor=Color.white;colors.pressedColor=new Color(.6f,.8f,.9f);colors.disabledColor=new Color(.35f,.43f,.49f,.8f);button.colors=colors;
+            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=image;var colors=button.colors;colors.highlightedColor=Color.white;colors.selectedColor=Color.white;colors.pressedColor=new Color(.6f,.8f,.9f);colors.disabledColor=new Color(.35f,.43f,.49f,.8f);button.colors=colors;
             var label=Label(visual,"",.08f,.08f,.92f,.92f,17,Color.white);label.fontStyle=FontStyles.Bold;label.alignment=TextAlignmentOptions.Center;rect.gameObject.AddComponent<MenuButtonMotion>().Initialize(visual);return button;
         }
         private void OnDestroy(){if(garage!=null)garage.Changed-=Refresh;if(root!=null)Destroy(root.gameObject);}

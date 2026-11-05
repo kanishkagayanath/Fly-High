@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace FlyHigh.PhoneController
 {
+    public enum GarageActionResult { Purchased, Selected, Rejected }
+
     /// <summary>Single owner of earned currency, vehicle ownership and selected vehicle.</summary>
     public sealed class VehicleGarage : MonoBehaviour
     {
@@ -18,6 +20,7 @@ namespace FlyHigh.PhoneController
         public bool CanPurchase => !saveLocked && Catalog!=null;
         public ShopVehicle Selected => Catalog!=null && IsOwned(selectedId)?Catalog.Find(selectedId)??Catalog.Starter:Catalog?.Starter;
         public event Action Changed;
+        public event Action<GarageActionResult> ActionCompleted;
         public event Action<ShopVehicle> SelectionChanged;
 
         public void Initialize()
@@ -50,19 +53,20 @@ namespace FlyHigh.PhoneController
         public bool TryBuy(string id,out string message)
         {
             var entry=Catalog?.Find(id);
-            if(!CanPurchase || entry==null || entry.prefab==null || entry.price<0){message="Vehicle unavailable";return false;}
-            if(IsOwned(id)){message="Already owned";return false;}
-            if(Coins<entry.price){message="Earn "+(entry.price-Coins).ToString("N0")+" more coins";return false;}
+            if(!CanPurchase || entry==null || entry.prefab==null || entry.price<0){message="Vehicle unavailable";return Result(GarageActionResult.Rejected);}
+            if(IsOwned(id)){message="Already owned";return Result(GarageActionResult.Rejected);}
+            if(Coins<entry.price){message="Earn "+(entry.price-Coins).ToString("N0")+" more coins";return Result(GarageActionResult.Rejected);}
             Coins-=entry.price;owned.Add(id);selectedId=id;dirty=true;Flush();Version++;
-            Changed?.Invoke();SelectionChanged?.Invoke(entry);message=entry.title+" purchased and selected";return true;
+            Changed?.Invoke();SelectionChanged?.Invoke(entry);message=entry.title+" purchased and selected";return Result(GarageActionResult.Purchased);
         }
         public bool TrySelect(string id,out string message)
         {
             var entry=Catalog?.Find(id);
-            if(saveLocked || entry==null || entry.prefab==null || !IsOwned(id)){message="Buy this vehicle first";return false;}
-            if(Selected==entry){message="Already selected";return false;}
-            selectedId=id;dirty=true;Flush();Version++;Changed?.Invoke();SelectionChanged?.Invoke(entry);message=entry.title+" selected";return true;
+            if(saveLocked || entry==null || entry.prefab==null || !IsOwned(id)){message="Buy this vehicle first";return Result(GarageActionResult.Rejected);}
+            if(Selected==entry){message="Already selected";return Result(GarageActionResult.Rejected);}
+            selectedId=id;dirty=true;Flush();Version++;Changed?.Invoke();SelectionChanged?.Invoke(entry);message=entry.title+" selected";return Result(GarageActionResult.Selected);
         }
+        private bool Result(GarageActionResult result){ActionCompleted?.Invoke(result);return result!=GarageActionResult.Rejected;}
         public void Credit(int amount)
         {
             if(amount<=0)return;Coins=(int)Math.Min(int.MaxValue,(long)Coins+amount);dirty=true;Version++;Changed?.Invoke();

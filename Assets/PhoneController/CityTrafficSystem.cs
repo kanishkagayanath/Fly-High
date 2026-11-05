@@ -53,6 +53,7 @@ namespace FlyHigh.PhoneController
                 if (!graph.Reservations.TryReserve(index, driver)) { Destroy(root); continue; }
                 if (!driver.Initialize(graph, index, prefab, settings.cruisingSpeed * Random.Range(0.8f, 1.1f), player))
                 { graph.Reservations.ReleaseAll(driver); root.SetActive(false); Destroy(root); continue; }
+                GetComponent<GameAudio>()?.AttachTraffic(root.transform);
                 spawnPoints.Add(position); VehicleCount++;
             }
             Status = "NPC traffic: " + VehicleCount + " vehicles (asphalt only)";

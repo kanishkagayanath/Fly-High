@@ -57,7 +57,7 @@ namespace FlyHigh.PhoneController
             var button=MissionUi.Rect(card,"Start Mission",Vector2.one,Vector2.one,new Vector2(-16,-76),new Vector2(165,30));
             button.pivot=Vector2.one; var background=MissionUi.Fill(button,Gold);
             background.raycastTarget=true;
-            startButton=button.gameObject.AddComponent<UnityEngine.UI.Button>(); startButton.targetGraphic=background;
+            startButton=button.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(startButton); startButton.targetGraphic=background;
             startButton.onClick.AddListener(()=>mission.TryStartMission());
             buttonText=MissionUi.Text(button,"Start label",new Vector2(0,0),new Vector2(165,30),15,Ink);
             buttonText.alignment=TextAlignmentOptions.Center;

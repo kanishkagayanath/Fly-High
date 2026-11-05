@@ -34,6 +34,9 @@ namespace FlyHigh.PhoneController
         private Vector3 startPosition;
         private Quaternion startRotation = Quaternion.identity;
         public float RawSteering { get; private set; }
+        public float AppliedThrottle { get; private set; }
+        public float AppliedBrake { get; private set; }
+        public float MaximumSpeed => maximumSpeed;
         public Transform PlayerCar => car != null ? car.transform : null;
         public string CollisionDiagnostics => contactGuard != null ? contactGuard.Diagnostics : "Contact guard initializing";
         public void Initialize(WifiReceiver receiver, bool useCity = false, VehicleGarage progress = null)
@@ -159,6 +162,7 @@ namespace FlyHigh.PhoneController
             float speedFraction = Mathf.Clamp01(Mathf.Abs(speed) / Mathf.Max(1, maximumSpeed));
             // Hold the opposite pedal to brake first, then change direction near standstill.
             if (throttle * speed < -0.5f) { brake = 1; throttle = 0; }
+            AppliedThrottle=throttle;AppliedBrake=brake;
             Vector3 driveForce = Vector3.zero;
             if (brake <= 0 && ((throttle > 0 && speed < maximumSpeed) || (throttle < 0 && speed > -maximumReverseSpeed)))
                 driveForce = car.transform.forward * (throttle * acceleration * (throttle < 0 ? 0.6f : 1));

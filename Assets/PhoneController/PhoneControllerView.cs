@@ -13,6 +13,7 @@ namespace FlyHigh.PhoneController
         private PhonePanelGraphic connectionBadge;
         private PhonePairingPanel pairing;
         private PhoneHomePanel home;
+        private HowToPlayGuide guide;
         private readonly UnityEngine.UI.Button[] pedals=new UnityEngine.UI.Button[3];
         private readonly HoldPedal[] holds=new HoldPedal[3];
         private bool? controlsReady;
@@ -21,6 +22,7 @@ namespace FlyHigh.PhoneController
         public void Initialize(RectTransform safeArea,PhoneSender connection)
         {
             sender=connection;
+            var audio=GetComponent<GameAudio>();if(audio==null)audio=gameObject.AddComponent<GameAudio>();audio.InitializePhone(sender);
             var full=PhoneUi.Rect(safeArea.parent,"Phone screen background",0,0,1,1);full.SetAsFirstSibling();background=full.gameObject;
             full.gameObject.AddComponent<UnityEngine.UI.Image>().color=PhoneUi.Ink;
             root=PhoneUi.Rect(safeArea,"Phone dashboard",0,0,1,1);
@@ -48,8 +50,10 @@ namespace FlyHigh.PhoneController
             guidance=PhoneUi.Text(root,"Controller guidance","Connect your phone to begin",.04f,.045f,.96f,.092f,15,PhoneUi.Muted,false,TextAlignmentOptions.Center);
             pairing=gameObject.AddComponent<PhonePairingPanel>();pairing.Initialize(root,sender);
             gameObject.AddComponent<PhoneMissionPanel>().Initialize(root,sender);
-            home=gameObject.AddComponent<PhoneHomePanel>();home.Initialize(root,sender,pairing);
-            gameObject.AddComponent<PhonePausePanel>().Initialize(root,sender,()=>!home.IsVisible&&!pairing.IsOpen);
+            guide=gameObject.AddComponent<HowToPlayGuide>();guide.Initialize(root,true,()=>sender.HasMenuState&&sender.MenuState.view==DriveMenuView.Driving);
+            home=gameObject.AddComponent<PhoneHomePanel>();home.Initialize(root,sender,pairing,guide);
+            gameObject.AddComponent<PhonePausePanel>().Initialize(root,sender,()=>!home.IsVisible&&!pairing.IsOpen&&!guide.IsOpen);
+            guide.ShowFirstTime();
         }
         private UnityEngine.UI.Button Pedal(string name,string title,string subtitle,float x0,float y0,float x1,float y1,Color fill,Color edge,bool tall)
         {
@@ -64,7 +68,7 @@ namespace FlyHigh.PhoneController
         private void Update()
         {
             if(root==null)return;
-            bool ready=sender.DrivingControlsAvailable&&!pairing.IsOpen&&!home.IsVisible;
+            bool ready=sender.DrivingControlsAvailable&&!pairing.IsOpen&&!home.IsVisible&&!guide.IsOpen;
             if(controlsReady!=ready)
             {
                 controlsReady=ready;

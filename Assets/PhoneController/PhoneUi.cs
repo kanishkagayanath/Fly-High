@@ -28,7 +28,7 @@ namespace FlyHigh.PhoneController
         internal static UnityEngine.UI.Button Button(Transform parent,string name,string label,float x0,float y0,float x1,float y1,UnityEngine.Events.UnityAction click,Color color,Color edge,Color? textColor=null)
         {
             var rect=Rect(parent,name,x0,y0,x1,y1);var graphic=Panel(rect,"Button surface",0,0,1,1,color,edge,true);
-            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();button.targetGraphic=graphic;
+            var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=graphic;
             var colors=button.colors;colors.normalColor=Color.white;colors.highlightedColor=Color.white;colors.selectedColor=Color.white;
             colors.pressedColor=new Color(.7f,.8f,.86f);colors.disabledColor=new Color(.52f,.56f,.62f,.65f);colors.fadeDuration=.09f;button.colors=colors;
             var navigation=button.navigation;navigation.mode=UnityEngine.UI.Navigation.Mode.None;button.navigation=navigation;

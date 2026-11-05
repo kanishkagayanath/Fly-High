@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d212154acc3b4e34aaafe06e93aa09f4, type: 3}
+  m_Name: FlyHighAudio
+  m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.GameAudioSettings
+  menuMusic: []
+  drivingMusic: []
+  musicVolume: 0.4
+  musicFadeSeconds: 1.2
+  phoneHomeMusic: 0
+  pausedMusicMultiplier: 0.3
+  buttonClick: {fileID: 0}
+  connected: {fileID: 0}
+  disconnected: {fileID: 0}
+  interfaceVolume: 0.65
+  engineStart: {fileID: 0}
+  engineIdleLoop: {fileID: 0}
+  engineDrivingLoop: {fileID: 0}
+  tyreSkidLoop: {fileID: 0}
+  collision: {fileID: 0}
+  reverseLoop: {fileID: 0}
+  engineVolume: 0.55
+  lowEnginePitch: 0.8
+  highEnginePitch: 2.1
+  skidMinimumSpeed: 7
+  minimumImpactSpeed: 1.5
+  cityDayLoop: {fileID: 0}
+  cityNightLoop: {fileID: 0}
+  beachWavesLoop: {fileID: 0}
+  trafficEngineLoop: {fileID: 0}
+  ambienceVolume: 0.25
+  trafficVolume: 0.16
+  islandCentre: {x: -3.0000076, y: 3}
+  islandHalfSize: {x: 69, y: 84.000015}
+  beachFadeDistance: 25
+  missionAvailable: {fileID: 0}
+  missionStart: {fileID: 0}
+  coinCollect: {fileID: 0}
+  missionComplete: {fileID: 0}
+  vehiclePurchased: {fileID: 0}
+  vehicleSelected: {fileID: 0}
+  actionDenied: {fileID: 0}
+  effectsVolume: 0.7
+  musicOutput: {fileID: 0}
+  interfaceOutput: {fileID: 0}
+  vehicleOutput: {fileID: 0}
+  ambienceOutput: {fileID: 0}
+  effectsOutput: {fileID: 0}
