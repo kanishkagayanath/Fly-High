@@ -15,8 +15,7 @@ namespace FlyHigh.PhoneController
         private GameObject overlay, home, options, hud;
         private TMP_Text volumeLabel, timeLabel, playCaption, phoneLabel, phoneHint;
         private UnityEngine.UI.Image phoneIndicator;
-        private RectTransform volumeFill, revealPanel;
-        private CanvasGroup revealGroup;
+        private RectTransform volumeFill;
         private CityDayNight environment;
         private WifiReceiver receiver;
         private MenuVisualSettings visuals;
@@ -27,8 +26,9 @@ namespace FlyHigh.PhoneController
         private UnityEngine.UI.Button playButton, backButton;
         private bool started, showingOptions, paused;
         private bool? lastConnected;
-        private float savedTimeScale, revealProgress;
-        private GameObject pauseOverlay, pauseHome, pauseSettings;
+        private float savedTimeScale;
+        private GameObject pauseHome, pauseSettings;
+        private MenuReveal pauseReveal;
         private TMP_Text pauseVolumeLabel;
         private RectTransform pauseVolumeFill;
         private UnityEngine.UI.Button resumeButton, pauseBackButton;
@@ -37,9 +37,9 @@ namespace FlyHigh.PhoneController
         private string menuToken,phoneShopMessage="";
         private HowToPlayGuide guide;
         public DriveMenuView View => overlay != null && overlay.activeSelf ? DriveMenuView.Home :
-            pauseOverlay != null && pauseOverlay.activeSelf ? (pauseSettings.activeSelf ? DriveMenuView.Settings : DriveMenuView.Paused) : DriveMenuView.Driving;
+            pauseReveal != null && pauseReveal.IsShown ? (pauseSettings.activeSelf ? DriveMenuView.Settings : DriveMenuView.Paused) : DriveMenuView.Driving;
 
-        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null, string localAddresses = null)
+        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null, string localAddresses = null, System.Action returnToController = null)
         {
             environment = cityEnvironment; receiver = phoneReceiver; hud = drivingHud; garage = playerGarage;
             visuals = Resources.Load<MenuVisualSettings>("FlyHighMenu");
@@ -50,17 +50,14 @@ namespace FlyHigh.PhoneController
 #endif
             var background = Area(uiParent, "Main menu", 0, 0, 1, 1);
             overlay = background.gameObject;
-            background.gameObject.AddComponent<UnityEngine.UI.Image>().color = new Color(.018f, .027f, .055f);
-            // Fit the entire authored title/car composition, including on ultrawide and 4:3 screens.
+            ViewportBackdrop.Create(background, new Color(.018f, .027f, .055f), visuals != null ? visuals.background : null);
+            // Fit the controls to the original composition inside the safe area.
             var composition = Area(background, "Menu artwork composition", 0, 0, 1, 1);
             var fit = composition.gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();
             fit.aspectMode = UnityEngine.UI.AspectRatioFitter.AspectMode.FitInParent;
             fit.aspectRatio = visuals != null && visuals.background != null ? (float)visuals.background.width / visuals.background.height : 16f / 9;
-            var artwork = Area(composition, "City sunset artwork", 0, 0, 1, 1).gameObject.AddComponent<UnityEngine.UI.RawImage>();
-            artwork.texture = visuals != null ? visuals.background : null; artwork.raycastTarget = false;
-            if (artwork.texture == null) { artwork.color = Color.clear; Text(composition,"FLY HIGH",.33f,.78f,.95f,.95f,68,Color.white); }
-            var shade = Area(composition, "Left readability gradient", 0, 0, .53f, .77f).gameObject.AddComponent<MenuGradient>();
-            shade.Initialize(new Color(.014f,.027f,.065f,.86f),new Color(.014f,.027f,.065f,0));
+            if (visuals == null || visuals.background == null)
+                Text(composition,"FLY HIGH",.33f,.78f,.95f,.95f,68,Color.white);
 
             home = Area(composition, "Home", 0, 0, 1, 1).gameObject;
             playButton = Button(home.transform,"PLAY",.058f,.55f,.35f,.71f,StartDriving,visuals!=null?visuals.playButton:null,true);
@@ -91,13 +88,25 @@ namespace FlyHigh.PhoneController
             }
             backButton = Button(options.transform,"BACK",.055f,.075f,.51f,.245f,ShowHome,visuals!=null?visuals.optionsButton:null);
 
-            var connection = Panel(composition,"Phone connection card",.635f,.075f,.945f,.248f,new Color(.02f,.045f,.08f,.93f));
-            connectionCard=connection.gameObject;
-            Panel(connection,"Phone card accent",0,.975f,1,1,Mint);
-            Text(connection,"PHONE CONTROLLER",.06f,.68f,.95f,.9f,14,Mint).characterSpacing=2;
-            phoneIndicator = Panel(connection,"Connection dot",.06f,.44f,.085f,.54f,Color.white).GetComponent<UnityEngine.UI.Image>();
-            phoneLabel = Text(connection,"",.115f,.34f,.95f,.64f,24,Color.white);
-            phoneHint = Text(connection,"",.06f,.10f,.96f,.32f,16,SoftWhite);
+            bool onPhone = returnToController != null;
+            if (onPhone)
+            {
+                var mobileCard = Panel(composition, "Phone play card", .635f, .075f, .945f, .248f, new Color(.02f,.045f,.08f,.93f));
+                connectionCard = mobileCard.gameObject;
+                Text(mobileCard, "ON THIS PHONE", .06f, .68f, .94f, .91f, 17, Mint);
+                Button(mobileCard, "PC CONTROLLER", .06f, .10f, .94f, .60f,
+                    () => { garage?.Flush(); returnToController(); }, visuals != null ? visuals.optionsButton : null);
+            }
+            else
+            {
+                var connection = Panel(composition,"Phone connection card",.635f,.075f,.945f,.248f,new Color(.02f,.045f,.08f,.93f));
+                connectionCard=connection.gameObject;
+                Panel(connection,"Phone card accent",0,.975f,1,1,Mint);
+                Text(connection,"PHONE CONTROLLER",.06f,.68f,.95f,.9f,14,Mint).characterSpacing=2;
+                phoneIndicator = Panel(connection,"Connection dot",.06f,.44f,.085f,.54f,Color.white).GetComponent<UnityEngine.UI.Image>();
+                phoneLabel = Text(connection,"",.115f,.34f,.95f,.64f,24,Color.white);
+                phoneHint = Text(connection,"",.06f,.10f,.96f,.32f,16,SoftWhite);
+            }
             if(garage!=null)
             {
                 garageLabel=Text(composition,"",.635f,.255f,.945f,.3f,17,new Color(1,.8f,.35f));
@@ -105,27 +114,22 @@ namespace FlyHigh.PhoneController
                 garage.Changed+=RefreshGarage;RefreshGarage();
             }
             options.SetActive(false);
-            BuildPauseMenu(uiParent);
+            MenuReveal.Attach(home);
+            MenuReveal.Attach(options);
+            if (shop != null) MenuReveal.Attach(shop.Root.gameObject);
+            BuildPauseMenu(uiParent, onPhone);
             if(receiver!=null){receiver.MenuRequested+=OnPhoneMenu;receiver.GarageRequested+=OnPhoneGarage;}
             Pause(); ShowHome(); UpdatePhoneCard();
             guide=gameObject.AddComponent<HowToPlayGuide>();
-            guide.Initialize((RectTransform)uiParent,false,()=>View!=DriveMenuView.Home,()=>"PC ADDRESS: "+(string.IsNullOrWhiteSpace(localAddresses)?"Choose this PC in the phone list":localAddresses.Trim())+"\nPAIRING CODE: "+(receiver!=null?receiver.PairingCode:"Unavailable"));
-            guide.ShowFirstTime();
+            guide.Initialize((RectTransform)uiParent,onPhone,()=>View!=DriveMenuView.Home,()=>"PC ADDRESS: "+(string.IsNullOrWhiteSpace(localAddresses)?"Choose this PC in the phone list":localAddresses.Trim())+"\nPAIRING CODE: "+(receiver!=null?receiver.PairingCode:"Unavailable"));
+            if (onPhone) StartDriving();
+            else guide.ShowFirstTime();
         }
 
         private void Update()
         {
             if(overlay == null)return;
-            if(overlay.activeSelf)
-            {
-                UpdatePhoneCard();
-                if(revealGroup!=null && revealProgress<1)
-                {
-                    revealProgress=Mathf.Min(1,revealProgress+Time.unscaledDeltaTime/.28f);
-                    float ease=1-Mathf.Pow(1-revealProgress,3);
-                    revealGroup.alpha=ease;revealPanel.anchoredPosition=new Vector2(0,Mathf.Lerp(-10,0,ease));
-                }
-            }
+            if (overlay.activeSelf) UpdatePhoneCard();
             if(guide!=null&&guide.ConsumesKeyboardThisFrame)return;
             if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
             if(View==DriveMenuView.Settings) ShowPauseHome();
@@ -137,7 +141,7 @@ namespace FlyHigh.PhoneController
         private void RefreshGarage(){if(garageLabel!=null)garageLabel.text=garage.Coins.ToString("N0")+" COINS   /   "+(garage.Selected!=null?garage.Selected.title:"");if(menuToken!=null&&View==DriveMenuView.Home)PublishMenu();}
         private void ShowShop()
         {
-            showingOptions=false;home.SetActive(false);options.SetActive(false);if(connectionCard!=null)connectionCard.SetActive(false);if(garageLabel!=null)garageLabel.gameObject.SetActive(false);shop.Show();phoneShopMessage="";Reveal(shop.Root.gameObject);Select(shop.BackButton);PublishMenu();
+            showingOptions=false;home.SetActive(false);options.SetActive(false);if(connectionCard!=null)connectionCard.SetActive(false);if(garageLabel!=null)garageLabel.gameObject.SetActive(false);shop.Show();phoneShopMessage="";Select(shop.BackButton);PublishMenu();
         }
         private void OnDestroy()
         {
@@ -145,14 +149,14 @@ namespace FlyHigh.PhoneController
             if(receiver!=null){receiver.MenuRequested-=OnPhoneMenu;receiver.GarageRequested-=OnPhoneGarage;receiver.ClearMenuState();receiver.ClearHomeState();}
             if(shop!=null)Destroy(shop);
         }
-        private void BuildPauseMenu(Transform parent)
+        private void BuildPauseMenu(Transform parent, bool onPhone)
         {
             var pause = Button(hud.transform,"PAUSE",0,0,1,1,OpenPause,visuals!=null?visuals.optionsButton:null);
             var corner=pause.GetComponent<RectTransform>();corner.anchorMin=corner.anchorMax=corner.pivot=new Vector2(0,1);
-            corner.anchoredPosition=new Vector2(20,-20);corner.sizeDelta=new Vector2(162,56);
+            corner.anchoredPosition=new Vector2(20,-20);corner.sizeDelta=new Vector2(onPhone ? 140 : 162,56);
             pause.GetComponentInChildren<TMP_Text>().characterSpacing=1;
-            var blocker=Area(parent,"Pause menu",0,0,1,1);pauseOverlay=blocker.gameObject;
-            blocker.gameObject.AddComponent<UnityEngine.UI.Image>().color=new Color(.01f,.025f,.055f,.84f);
+            var blocker=Area(parent,"Pause menu",0,0,1,1);
+            ViewportBackdrop.Create(blocker, new Color(.01f,.025f,.055f,.84f));
             var card=Area(blocker,"Pause card",.5f,.5f,.5f,.5f);card.sizeDelta=new Vector2(550,480);
             Panel(card,"Pause glass",0,0,1,1,new Color(.025f,.055f,.10f,.98f));
             Panel(card,"Pause accent",0,.99f,1,1,Mint);
@@ -170,14 +174,18 @@ namespace FlyHigh.PhoneController
             Panel(pauseSettings.transform,"Sound track",.35f,.415f,.65f,.445f,new Color(.16f,.21f,.30f));
             pauseVolumeFill=Panel(pauseSettings.transform,"Sound level",.35f,.415f,.65f,.445f,Mint);
             pauseBackButton=Button(pauseSettings.transform,"BACK",.14f,.09f,.86f,.26f,ShowPauseHome,visuals!=null?visuals.optionsButton:null);
-            pauseOverlay.SetActive(false);
+            pauseSettings.SetActive(false);
+            blocker.gameObject.SetActive(false);
+            pauseReveal = MenuReveal.Attach(blocker.gameObject, card);
+            MenuReveal.Attach(pauseHome);
+            MenuReveal.Attach(pauseSettings);
         }
         public void OpenPause()
         {
             if(View!=DriveMenuView.Driving)return;
             if(!paused){savedTimeScale=Time.timeScale;paused=true;}
             Time.timeScale=0;AudioListener.pause=true;
-            overlay.SetActive(false);hud.SetActive(false);pauseOverlay.SetActive(true);ShowPauseHome();
+            overlay.SetActive(false);hud.SetActive(false);pauseReveal.SetVisible(true);ShowPauseHome();
         }
         private void ShowPauseHome()
         {
@@ -190,7 +198,7 @@ namespace FlyHigh.PhoneController
         private void ReturnHome()
         {
             if(garage!=null)garage.Flush();
-            pauseOverlay.SetActive(false);AudioListener.pause=savedAudioPause;Pause();ShowHome();
+            pauseReveal.SetVisible(false);AudioListener.pause=savedAudioPause;Pause();ShowHome();
         }
         private void PublishMenu()
         {
@@ -233,18 +241,13 @@ namespace FlyHigh.PhoneController
         private void CycleLighting(){if(environment==null)return;environment.CycleMode();RefreshOptions();PublishMenu();}
         private void UpdatePhoneCard()
         {
+            if (phoneIndicator == null) return;
             bool connected=receiver!=null&&receiver.Connected;
             if(lastConnected==connected)return;
             lastConnected=connected;
             phoneIndicator.color=connected?new Color(.4f,1,.66f):new Color(1,.69f,.32f);
             phoneLabel.text=connected?"Ready to drive":"Connect your phone";
             phoneHint.text=connected?"Connected  /  Tilt to steer":"Same Wi-Fi  /  Phone app > FIND PC";
-        }
-        private void Reveal(GameObject panel)
-        {
-            revealPanel=panel.GetComponent<RectTransform>();
-            revealGroup=panel.GetComponent<CanvasGroup>();if(revealGroup==null)revealGroup=panel.AddComponent<CanvasGroup>();
-            revealProgress=0;revealGroup.alpha=0;revealPanel.anchoredPosition=new Vector2(0,-10);
         }
         private void Pause()
         {
@@ -257,17 +260,17 @@ namespace FlyHigh.PhoneController
             started = true; showingOptions = false; if(shop!=null)shop.Hide();
             playButton.GetComponentInChildren<TMP_Text>().text = "RESUME";
             playCaption.text="BACK TO YOUR DRIVE";
-            pauseOverlay.SetActive(false); overlay.SetActive(false); hud.SetActive(true);
+            pauseReveal.SetVisible(false); overlay.SetActive(false); hud.SetActive(true);
             AudioListener.pause=savedAudioPause;Time.timeScale = savedTimeScale; paused = false;PublishMenu();
         }
         private void ShowOptions()
         {
             showingOptions = true; if(shop!=null)shop.Hide(); home.SetActive(false); options.SetActive(true);
-            RefreshOptions(); Reveal(options); Select(backButton);PublishMenu();
+            RefreshOptions(); Select(backButton);PublishMenu();
         }
         private void ShowHome()
         {
-            showingOptions = false; if(shop!=null)shop.Hide(); if(connectionCard!=null)connectionCard.SetActive(true);if(garageLabel!=null)garageLabel.gameObject.SetActive(true); options.SetActive(false); home.SetActive(true); Reveal(home); Select(playButton); PublishMenu();
+            showingOptions = false; if(shop!=null)shop.Hide(); if(connectionCard!=null)connectionCard.SetActive(true);if(garageLabel!=null)garageLabel.gameObject.SetActive(true); options.SetActive(false); home.SetActive(true); Select(playButton); PublishMenu();
         }
         private void ChangeVolume(float amount)
         {
@@ -323,7 +326,7 @@ namespace FlyHigh.PhoneController
             var rect=Area(parent,value+" button",left,bottom,right,top);
             var visual=Area(rect,"Button visual",0,0,1,1);
             var image=visual.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;
-            if(sprite!=null){image.type=UnityEngine.UI.Image.Type.Sliced;image.pixelsPerUnitMultiplier=2.6f;image.color=Color.white;}
+            if(sprite!=null) image.color=Color.white;
             else image.color=new Color(.10f,.22f,.34f);
             var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=image;
             var colors=button.colors;colors.normalColor=new Color(.85f,.88f,.94f);colors.highlightedColor=Color.white;colors.selectedColor=Color.white;colors.pressedColor=new Color(.66f,.77f,.88f);colors.fadeDuration=.12f;button.colors=colors;

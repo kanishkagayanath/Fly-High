@@ -16,8 +16,8 @@ namespace FlyHigh.PhoneController
         public GameObject[] characters;
         public NavMeshData navigation;
         public PedestrianWaypoint[] waypoints;
-        [Min(0)] public int cityPopulation=20;
-        [Min(0)] public int beachPopulation=12;
+        [Min(0)] public int cityPopulation=32;
+        [Min(0)] public int beachPopulation=20;
         public Vector2 walkSpeed=new Vector2(1.05f,1.4f);
         [Min(.1f)] public float characterScale=.9f;
     }

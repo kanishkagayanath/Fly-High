@@ -17,14 +17,13 @@ namespace FlyHigh.PhoneController
         private TMP_Text heading,body,hint,counter,caption,nextLabel;
         private UnityEngine.UI.Button back,next;
         private GuideIllustration illustration;
-        private CanvasGroup reveal;
+        private MenuReveal reveal;
         private GameObject previousSelection;
         private Func<bool> gameplayStarted;
         private Func<string> connectionDetails;
         private bool phone,checkedFirstRun;
         private int openedFrame=-1,closedFrame=-1;
-        private float revealTime;
-        public bool IsOpen=>root!=null&&root.gameObject.activeSelf;
+        public bool IsOpen => reveal != null && reveal.IsShown;
         public bool ConsumesKeyboardThisFrame=>IsOpen||closedFrame==Time.frameCount;
         public int Page {get;private set;}
         public RectTransform Root=>root;
@@ -33,9 +32,8 @@ namespace FlyHigh.PhoneController
         {
             if(root!=null)return;phone=onPhone;gameplayStarted=hasStarted;connectionDetails=pcConnectionDetails;
             root=PhoneUi.Rect(parent,"How to Play guide",0,0,1,1);
-            var blocker=root.gameObject.AddComponent<UnityEngine.UI.Image>();blocker.color=new Color(.008f,.018f,.035f,.96f);blocker.raycastTarget=true;
+            ViewportBackdrop.Create(root, new Color(.008f,.018f,.035f,.96f));
             var card=PhoneUi.Panel(root,"Guide card",.045f,.055f,.955f,.945f,PhoneUi.Surface,PhoneUi.Cyan).rectTransform;
-            reveal=card.gameObject.AddComponent<CanvasGroup>();
             PhoneUi.Text(card,"Guide heading","HOW TO PLAY",.04f,.86f,.56f,.96f,32,PhoneUi.White,true).characterSpacing=2;
             counter=PhoneUi.Text(card,"Guide page","",.61f,.86f,.77f,.96f,20,PhoneUi.Muted,true,TextAlignmentOptions.Right);
             PhoneUi.Button(card,"Guide Skip","SKIP",.81f,.86f,.96f,.96f,()=>Close(true),PhoneUi.Ink,PhoneUi.Edge);
@@ -51,6 +49,7 @@ namespace FlyHigh.PhoneController
             back=PhoneUi.Button(card,"Guide Back","BACK",.045f,.035f,.23f,.135f,Previous,PhoneUi.Ink,PhoneUi.Edge);
             next=PhoneUi.Button(card,"Guide Next","NEXT",.755f,.035f,.95f,.135f,Next,PhoneUi.Cyan,PhoneUi.Cyan,PhoneUi.Ink);nextLabel=next.GetComponentInChildren<TMP_Text>();
             root.gameObject.SetActive(false);
+            reveal = MenuReveal.Attach(root.gameObject, card);
         }
         public void ShowFirstTime()
         {
@@ -61,13 +60,13 @@ namespace FlyHigh.PhoneController
         {
             if(root==null||IsOpen)return;
             previousSelection=EventSystem.current!=null?EventSystem.current.currentSelectedGameObject:null;
-            Page=0;root.gameObject.SetActive(true);root.SetAsLastSibling();openedFrame=Time.frameCount;revealTime=0;reveal.alpha=0;Draw();
+            Page=0;root.SetAsLastSibling();openedFrame=Time.frameCount;reveal.SetVisible(true);Draw();
         }
         public void Close(bool remember)
         {
             if(!IsOpen)return;
             if(remember){PlayerPrefs.SetInt(SeenKey,1);PlayerPrefs.Save();}
-            root.gameObject.SetActive(false);closedFrame=Time.frameCount;
+            reveal.SetVisible(false);closedFrame=Time.frameCount;
             if(EventSystem.current!=null)EventSystem.current.SetSelectedGameObject(previousSelection!=null&&previousSelection.activeInHierarchy?previousSelection:null);
             previousSelection=null;
         }
@@ -81,10 +80,22 @@ namespace FlyHigh.PhoneController
             switch(Page)
             {
                 case 0:
-                    body.text="Fly-High runs the city on your PC. Your Android phone becomes the car controller.\n\nOpen the PC game, then open the Fly-High controller app on your phone.";
-                    hint.text=phone?"Keep the PC game running while you use the controller.":"Leave this PC game open. You can start driving from your phone.";break;
+                    if (phone)
+                    {
+                        heading.text = "Choose where to play";
+                        caption.text = "PHONE OR PC";
+                        body.text = "Choose PLAY ON PHONE to drive the city on this screen with tilt and touch controls.\n\nChoose PLAY ON PC to use the phone as a controller for the PC game.";
+                        hint.text = "Phone play works offline. PC play uses your local Wi-Fi network.";
+                    }
+                    else
+                    {
+                        body.text = "Fly-High runs the city on your PC. Your Android phone becomes the car controller.\n\nOpen the PC game, then open the Fly-High controller app on your phone.";
+                        hint.text = "Leave this PC game open. You can start driving from your phone.";
+                    }
+                    break;
                 case 1:
-                    body.text="Connect your PC and phone to the same Wi-Fi network.\n\nOn your phone, tap PLAY and choose your PC from the list. Driving starts after the connection succeeds.";
+                    if (phone) heading.text = "Connect for PC play";
+                    body.text="Connect your PC and phone to the same Wi-Fi network.\n\nOn your phone, tap PLAY ON PC and choose your PC from the list. Driving starts after the connection succeeds.";
                     hint.text=!phone&&connectionDetails!=null?connectionDetails():"No PC found? Try FIND PCs AGAIN. For MANUAL CONNECTION, use the current address and code shown on the PC's How to Play connection page.";break;
                 case 2:
                     body.text="Once the driving controls appear, hold your phone in landscape in a comfortable driving position.\n\nKeep it centred and tap CALIBRATE. Tilt gently left or right to steer.";
@@ -102,14 +113,13 @@ namespace FlyHigh.PhoneController
         {
             if(!IsOpen)return;
             if(gameplayStarted!=null&&gameplayStarted()){Close(true);return;}
-            revealTime=Mathf.Min(1,revealTime+Time.unscaledDeltaTime/.18f);reveal.alpha=1-Mathf.Pow(1-revealTime,3);
             if(Time.frameCount<=openedFrame||Keyboard.current==null)return;
             if(Keyboard.current.escapeKey.wasPressedThisFrame)Close(true);
             else if(Keyboard.current.rightArrowKey.wasPressedThisFrame)Next();
             else if(Keyboard.current.leftArrowKey.wasPressedThisFrame)Previous();
         }
-        private void LateUpdate(){if(IsOpen)root.SetAsLastSibling();}
-        private void OnDisable(){Close(false);}
+        private void LateUpdate(){if(root!=null&&root.gameObject.activeSelf)root.SetAsLastSibling();}
+        private void OnDisable(){Close(false);if(root!=null)root.gameObject.SetActive(false);}
         private void OnDestroy(){if(root!=null)Destroy(root.gameObject);}
     }
 }

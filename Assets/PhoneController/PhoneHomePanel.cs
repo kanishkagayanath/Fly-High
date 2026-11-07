@@ -13,7 +13,7 @@ namespace FlyHigh.PhoneController
         private RectTransform root,volumeFill;
         private GameObject home,shop,options;
         private TMP_Text status,balance,shopBalance,shopMessage,volume,lighting,pageLabel;
-        private UnityEngine.UI.Button play,shopButton,optionsButton,minus,plus,lightButton,previous,next;
+        private UnityEngine.UI.Button mobilePlay,play,shopButton,optionsButton,minus,plus,lightButton,previous,next;
         private readonly Card[] cards=new Card[6];
         private VehicleShopCatalog catalog;
         private MenuVisualSettings visuals;
@@ -25,18 +25,27 @@ namespace FlyHigh.PhoneController
         private float intentDeadline;
         public bool IsVisible=>root!=null&&root.gameObject.activeSelf;
         public RectTransform Root=>root;
-        public void Initialize(RectTransform parent,PhoneSender connection,PhonePairingPanel connectionPanel,HowToPlayGuide instructions=null)
+        public void Initialize(RectTransform parent,PhoneSender connection,PhonePairingPanel connectionPanel,HowToPlayGuide instructions=null, System.Action playOnPhone = null)
         {
             sender=connection;pairing=connectionPanel;guide=instructions;visuals=Resources.Load<MenuVisualSettings>("FlyHighMenu");catalog=Resources.Load<VehicleShopCatalog>("FlyHighVehicleShop");
-            root=PhoneUi.Rect(parent,"Phone home menu",0,0,1,1);root.gameObject.AddComponent<UnityEngine.UI.Image>().color=PhoneUi.Ink;
+            root = PhoneUi.Rect(parent, "Phone home menu", 0, 0, 1, 1);
+            ViewportBackdrop.Create(root, PhoneUi.Ink, visuals != null ? visuals.background : null);
             var frame=PhoneUi.Rect(root,"Phone menu artwork",0,0,1,1);var fit=frame.gameObject.AddComponent<UnityEngine.UI.AspectRatioFitter>();fit.aspectMode=UnityEngine.UI.AspectRatioFitter.AspectMode.FitInParent;fit.aspectRatio=visuals!=null&&visuals.background!=null?(float)visuals.background.width/visuals.background.height:16f/9;
-            var artwork=PhoneUi.Rect(frame,"Home artwork",0,0,1,1).gameObject.AddComponent<UnityEngine.UI.RawImage>();artwork.texture=visuals!=null?visuals.background:null;artwork.raycastTarget=false;
-            if(artwork.texture==null){artwork.color=Color.clear;PhoneUi.Text(frame,"Home title","FLY HIGH",.35f,.78f,.93f,.96f,60,PhoneUi.White,true);}
-            var shade=PhoneUi.Rect(frame,"Menu readability",0,0,.53f,.77f).gameObject.AddComponent<MenuGradient>();shade.Initialize(new Color(.014f,.027f,.065f,.86f),new Color(.014f,.027f,.065f,0));
+            if (visuals == null || visuals.background == null)
+                PhoneUi.Text(frame,"Home title","FLY HIGH",.35f,.78f,.93f,.96f,60,PhoneUi.White,true);
             home=PhoneUi.Rect(frame,"Phone home actions",0,0,1,1).gameObject;
-            play=FrameButton(home.transform,"Phone home Play","PLAY",.058f,.55f,.35f,.71f,Play,visuals!=null?visuals.playButton:null,36);
-            shopButton=FrameButton(home.transform,"Phone home Shop","SHOP",.058f,.40f,.35f,.535f,()=>OpenPage(DriveMenuAction.Shop),visuals!=null?visuals.optionsButton:null);
-            optionsButton=FrameButton(home.transform,"Phone home Options","OPTIONS",.058f,.25f,.35f,.385f,()=>OpenPage(DriveMenuAction.Options),visuals!=null?visuals.optionsButton:null);
+            if (playOnPhone != null)
+            {
+                mobilePlay = FrameButton(home.transform, "Play on phone", "PLAY ON PHONE", .058f, .55f, .35f, .71f,
+                    () => playOnPhone(), visuals != null ? visuals.playButton : null, 30);
+                play = FrameButton(home.transform, "Phone home Play", "PLAY ON PC", .635f, .325f, .945f, .47f,
+                    Play, visuals != null ? visuals.optionsButton : null, 26);
+            }
+            else
+                play = FrameButton(home.transform, "Phone home Play", "PLAY", .058f, .55f, .35f, .71f,
+                    Play, visuals != null ? visuals.playButton : null, 36);
+            shopButton=FrameButton(home.transform,"Phone home Shop",playOnPhone != null ? "PC SHOP" : "SHOP",.058f,.40f,.35f,.535f,()=>OpenPage(DriveMenuAction.Shop),visuals!=null?visuals.optionsButton:null);
+            optionsButton=FrameButton(home.transform,"Phone home Options",playOnPhone != null ? "PC OPTIONS" : "OPTIONS",.058f,.25f,.35f,.385f,()=>OpenPage(DriveMenuAction.Options),visuals!=null?visuals.optionsButton:null);
             FrameButton(home.transform,"Phone home Exit","EXIT",.058f,.10f,.35f,.235f,Exit,visuals!=null?visuals.exitButton:null);
             if(guide!=null)
             {
@@ -49,6 +58,9 @@ namespace FlyHigh.PhoneController
             BuildShop(frame);BuildOptions(frame);
             pairing.ConnectionCompleted+=Connected;pairing.Cancelled+=Cancelled;
             shop.SetActive(false);options.SetActive(false);
+            MenuReveal.Attach(home);
+            MenuReveal.Attach(shop);
+            MenuReveal.Attach(options);
         }
         public void Play(){waitingAction=DriveMenuAction.Play;actionReady=launchPending=false;intentDeadline=0;pairing.Open();}
         private void OpenPage(DriveMenuAction action)
@@ -129,7 +141,7 @@ namespace FlyHigh.PhoneController
             if(launchPending&&sender.HasMenuState&&sender.MenuState.view==DriveMenuView.Driving&&!sender.MenuPending)launchPending=false;
             if(intentDeadline>0&&Time.realtimeSinceStartup>intentDeadline){waitingAction=null;actionReady=launchPending=false;intentDeadline=0;}
             bool visible=!sender.HasMenuState||sender.MenuState.view==DriveMenuView.Home||waitingAction.HasValue||launchPending||pairing.IsOpen;
-            root.gameObject.SetActive(visible);if(!visible)return;if(!pairing.IsOpen)root.SetAsLastSibling();
+            root.gameObject.SetActive(visible);if(!visible)return;if(!pairing.IsVisible)root.SetAsLastSibling();
             bool fresh=sender.HasHomeState;
             if(!sender.Connected)displayed=null;
             if(fresh&&(displayed==null||drawnRevision!=sender.HomeState.revision))
@@ -138,6 +150,7 @@ namespace FlyHigh.PhoneController
             home.SetActive(page==PhoneHomePage.Home);shop.SetActive(page==PhoneHomePage.Shop);options.SetActive(page==PhoneHomePage.Options);
             bool busy=waitingAction.HasValue||launchPending||sender.MenuPending;
             play.interactable=shopButton.interactable=optionsButton.interactable=!busy;
+            if (mobilePlay != null) mobilePlay.interactable = !busy;
             status.text=sender.Connected?(sender.HasMenuState?"PC CONNECTED":"SYNCING PC…"):"NOT CONNECTED";
             balance.text=displayed!=null?displayed.coins.ToString("N0")+" COINS   /   "+SelectedTitle():"";
             if(displayed!=null)
@@ -153,7 +166,6 @@ namespace FlyHigh.PhoneController
         private static UnityEngine.UI.Button FrameButton(Transform parent,string name,string value,float x0,float y0,float x1,float y1,UnityEngine.Events.UnityAction action,Sprite sprite,int size=27)
         {
             var rect=PhoneUi.Rect(parent,name,x0,y0,x1,y1);var visual=PhoneUi.Rect(rect,"Button visual",0,0,1,1);var image=visual.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;image.color=Color.white;
-            if(sprite!=null){image.type=UnityEngine.UI.Image.Type.Sliced;image.pixelsPerUnitMultiplier=size>=27?2.6f:6f;}
             var button=rect.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(button);button.targetGraphic=image;button.onClick.AddListener(action);var colors=button.colors;colors.highlightedColor=Color.white;colors.pressedColor=new Color(.65f,.8f,.9f);colors.disabledColor=new Color(.4f,.45f,.5f,.8f);button.colors=colors;
             var nav=button.navigation;nav.mode=UnityEngine.UI.Navigation.Mode.None;button.navigation=nav;
             PhoneUi.Text(visual,"Caption",value,.10f,.12f,.90f,.88f,size,PhoneUi.White,true,TextAlignmentOptions.Center);rect.gameObject.AddComponent<MenuButtonMotion>().Initialize(visual);return button;

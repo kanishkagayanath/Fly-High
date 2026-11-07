@@ -18,14 +18,21 @@ namespace FlyHigh.PhoneController
         private static readonly Color Ink = new Color(0.025f,0.065f,0.09f);
         public float DisplayedKph => displayedKph;
 
-        public void Initialize(Transform target, RectTransform hud)
+        public void Initialize(Transform target, RectTransform hud, RectTransform minimapFrame = null)
         {
             if(root!=null || target==null || hud==null)return;
             car=target.GetComponent<Rigidbody>();
             if(car==null)return;
-            root=Element(hud,"Car speedometer",new Vector2(220,220));
+            root=Element(minimapFrame != null ? minimapFrame : hud,"Car speedometer",new Vector2(220,220));
             root.anchorMin=root.anchorMax=root.pivot=new Vector2(1,0);
             root.anchoredPosition=new Vector2(-20,20);
+            if (minimapFrame != null)
+            {
+                root.anchorMin = root.anchorMax = new Vector2(.5f, 0);
+                root.pivot = new Vector2(.5f, 1);
+                root.anchoredPosition = new Vector2(0, -24);
+                root.localScale = Vector3.one * .85f;
+            }
             var shadow=Disc(root,"Dial shadow",232,new Color(0,0,0,0.4f));
             shadow.rectTransform.anchoredPosition=new Vector2(2,-3);
             Disc(root,"Dial border",224,Ink);

@@ -14,7 +14,7 @@ namespace FlyHigh.PhoneController
         public PedestrianSurfaces Surfaces { get; private set; }
         public IReadOnlyList<PedestrianWalker> Walkers => walkers;
         public int RoadSafetyCorrections { get; internal set; }
-        public void Initialize(Transform player)
+        public void Initialize(Transform player, bool compact = false)
         {
             if(settings!=null)return;
             settings=Resources.Load<PedestrianSettings>("FlyHighPedestrians");
@@ -22,8 +22,8 @@ namespace FlyHigh.PhoneController
             navigation=NavMesh.AddNavMeshData(settings.navigation);Surfaces=new PedestrianSurfaces();
             foreach(var point in settings.waypoints){if(!regions.TryGetValue(point.region,out var list)){list=new List<Vector3>();regions.Add(point.region,list);}list.Add(point.position);}
             var chosen=new List<Vector3>();
-            Spawn(false,settings.cityPopulation,player!=null?player.position:Vector3.zero,chosen);
-            Spawn(true,settings.beachPopulation,player!=null?player.position:Vector3.zero,chosen);
+            Spawn(false,compact ? Mathf.Min(12, settings.cityPopulation) : settings.cityPopulation,player!=null?player.position:Vector3.zero,chosen);
+            Spawn(true,compact ? Mathf.Min(8, settings.beachPopulation) : settings.beachPopulation,player!=null?player.position:Vector3.zero,chosen);
         }
         private void Spawn(bool beach,int count,Vector3 player,List<Vector3> chosen)
         {

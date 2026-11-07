@@ -28,6 +28,7 @@ namespace FlyHigh.PhoneController
         private GameObject activeVisual;
         private CarContactGuard contactGuard;
         private WifiReceiver input;
+        private MobileDriveControls mobileControls;
         private Rigidbody car;
         private Camera view;
         private bool cityMode;
@@ -39,9 +40,10 @@ namespace FlyHigh.PhoneController
         public float MaximumSpeed => maximumSpeed;
         public Transform PlayerCar => car != null ? car.transform : null;
         public string CollisionDiagnostics => contactGuard != null ? contactGuard.Diagnostics : "Contact guard initializing";
-        public void Initialize(WifiReceiver receiver, bool useCity = false, VehicleGarage progress = null)
+        public void Initialize(WifiReceiver receiver, bool useCity = false, VehicleGarage progress = null, MobileDriveControls localControls = null)
         {
             input = receiver; garage = progress;
+            mobileControls = localControls;
             cityMode = useCity;
             startPosition = Vector3.up;
             if (cityMode)
@@ -128,11 +130,13 @@ namespace FlyHigh.PhoneController
         private void FixedUpdate()
         {
             if (car == null) return;
-            float steer = input.Steering, throttle = input.Throttle, brake = input.Brake;
+            float steer = mobileControls != null ? mobileControls.Steering : input.Steering;
+            float throttle = mobileControls != null ? mobileControls.Throttle : input.Throttle;
+            float brake = mobileControls != null ? mobileControls.Brake : input.Brake;
             var keys = Keyboard.current;
-            bool keyboardSteering = !input.Connected;
+            bool keyboardSteering = mobileControls == null && !input.Connected;
             // Keyboard fallback is for testing before installing the phone app.
-            if (!input.Connected && keys != null && (keys.wKey.isPressed || keys.sKey.isPressed || keys.aKey.isPressed || keys.dKey.isPressed || keys.downArrowKey.isPressed))
+            if (keyboardSteering && keys != null && (keys.wKey.isPressed || keys.sKey.isPressed || keys.aKey.isPressed || keys.dKey.isPressed || keys.downArrowKey.isPressed))
             {
                 steer = (keys.dKey.isPressed ? 1 : 0) - (keys.aKey.isPressed ? 1 : 0);
                 throttle = (keys.wKey.isPressed ? 1 : 0) - (keys.downArrowKey.isPressed ? 1 : 0);
@@ -187,7 +191,7 @@ namespace FlyHigh.PhoneController
                 phoneSteeringVelocity = 0;
                 return;
             }
-            // Shape phone input on the PC so existing controller APKs gain the same feel.
+            // Apply the same steering curve to local and remote phone input.
             // Remove hand tremor around neutral, then build steering progressively.
             float magnitude = Mathf.Clamp01((Mathf.Abs(raw) - phoneSteeringDeadZone)
                 / Mathf.Max(0.01f, 1 - phoneSteeringDeadZone));

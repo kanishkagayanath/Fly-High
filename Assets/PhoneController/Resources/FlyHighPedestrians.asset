@@ -7195,7 +7195,7 @@ MonoBehaviour:
   - position: {x: 83.28, y: -0.20000005, z: 95.64}
     region: 4085
     beach: 1
-  cityPopulation: 20
-  beachPopulation: 12
+  cityPopulation: 32
+  beachPopulation: 20
   walkSpeed: {x: 1.05, y: 1.4}
   characterScale: 0.9

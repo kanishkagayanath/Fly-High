@@ -9,8 +9,12 @@ namespace FlyHigh.PhoneController
         private Transform player;
         public int VehicleCount { get; private set; }
         public string Status { get; private set; } = "Preparing city traffic";
-        public void Initialize(Transform playerCar) { player = playerCar; StartCoroutine(Prepare()); }
-        private IEnumerator Prepare()
+        public void Initialize(Transform playerCar, int vehicleLimit = int.MaxValue)
+        {
+            player = playerCar;
+            StartCoroutine(Prepare(vehicleLimit));
+        }
+        private IEnumerator Prepare(int vehicleLimit)
         {
             yield return null;
             var settings = Resources.Load<TrafficVehicleSettings>("FlyHighTraffic");
@@ -26,7 +30,7 @@ namespace FlyHigh.PhoneController
             var spawnPoints = new List<Vector3>();
             // Farthest-point placement spreads traffic over the complete road network.
             // The old player-distance sort filled the nearby streets first.
-            while (candidates.Count > 0 && VehicleCount < settings.vehicleCount)
+            while (candidates.Count > 0 && VehicleCount < Mathf.Min(settings.vehicleCount, vehicleLimit))
             {
                 int selected=-1;float best=float.NegativeInfinity;
                 foreach(int candidate in candidates)

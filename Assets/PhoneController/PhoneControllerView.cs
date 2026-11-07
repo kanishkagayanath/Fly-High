@@ -19,7 +19,7 @@ namespace FlyHigh.PhoneController
         private bool? controlsReady;
         private float calibratedUntil;
         public RectTransform Root=>root;
-        public void Initialize(RectTransform safeArea,PhoneSender connection)
+        public void Initialize(RectTransform safeArea,PhoneSender connection, System.Action playOnPhone = null)
         {
             sender=connection;
             var audio=GetComponent<GameAudio>();if(audio==null)audio=gameObject.AddComponent<GameAudio>();audio.InitializePhone(sender);
@@ -51,7 +51,7 @@ namespace FlyHigh.PhoneController
             pairing=gameObject.AddComponent<PhonePairingPanel>();pairing.Initialize(root,sender);
             gameObject.AddComponent<PhoneMissionPanel>().Initialize(root,sender);
             guide=gameObject.AddComponent<HowToPlayGuide>();guide.Initialize(root,true,()=>sender.HasMenuState&&sender.MenuState.view==DriveMenuView.Driving);
-            home=gameObject.AddComponent<PhoneHomePanel>();home.Initialize(root,sender,pairing,guide);
+            home=gameObject.AddComponent<PhoneHomePanel>();home.Initialize(root,sender,pairing,guide,playOnPhone);
             gameObject.AddComponent<PhonePausePanel>().Initialize(root,sender,()=>!home.IsVisible&&!pairing.IsOpen&&!guide.IsOpen);
             guide.ShowFirstTime();
         }

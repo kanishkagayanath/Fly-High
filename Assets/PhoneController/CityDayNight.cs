@@ -45,6 +45,7 @@ namespace FlyHigh.PhoneController
         public float NightAmount => current.night;
         public float Hour => Mode==CityTimeMode.Automatic?hour:Mode==CityTimeMode.Morning?9:Mode==CityTimeMode.Evening?18:0;
         public int StreetLampCount => fixtures.Count;
+        public bool OnPhone { get; private set; }
         public int VehicleCount => vehicles.Count;
         private struct Binding { public Renderer renderer; public Material[] original; }
         private struct Fixture { public Light light; public float intensity; }
@@ -71,9 +72,10 @@ namespace FlyHigh.PhoneController
             {float t=Mathf.SmoothStep(0,1,Mathf.InverseLerp(States[i-1].hour,States[i].hour,time));return State.Mix(States[i-1],States[i],t);}
             return States[0];
         }
-        public void Initialize(Transform playerCar,WifiReceiver receiver)
+        public void Initialize(Transform playerCar, WifiReceiver receiver, bool onPhone = false)
         {
             if(initialized)return;
+            OnPhone = onPhone;
             player=playerCar;controls=receiver;settings=Resources.Load<CityLightingSettings>("FlyHighLighting");
             hour=settings!=null?settings.initialHour:9;Mode=(CityTimeMode)Mathf.Clamp(PlayerPrefs.GetInt(ModeKey,0),0,3);
             oldSky=RenderSettings.skybox;oldFog=RenderSettings.fogColor;oldFogStart=RenderSettings.fogStartDistance;oldFogEnd=RenderSettings.fogEndDistance;
@@ -85,7 +87,17 @@ namespace FlyHigh.PhoneController
             if(settings!=null && settings.skyMaterial!=null)sky=new Material(settings.skyMaterial);
             else {var shader=Shader.Find("FlyHigh/City Sky");if(shader!=null)sky=new Material(shader);}
             if(sky!=null){sky.name="City sky (runtime)";ownedMaterials.Add(sky);RenderSettings.skybox=sky;}
-            SetupPostProcessing();BuildCityLights();
+            if (OnPhone)
+            {
+                var camera = Camera.main;
+                if (camera != null && camera.TryGetComponent(out cameraData))
+                {
+                    oldPost = cameraData.renderPostProcessing;
+                    cameraData.renderPostProcessing = false;
+                }
+            }
+            else SetupPostProcessing();
+            BuildCityLights();
             current=At(Hour);initialized=true;Apply();StartCoroutine(AttachVehicleLights());
         }
         public void SetMode(CityTimeMode mode)
@@ -112,7 +124,13 @@ namespace FlyHigh.PhoneController
             foreach(var mat in signals.Values)mat.SetColor(Emission,Color.white*Mathf.Lerp(1.25f,4,current.night));
             foreach(var mat in windows.Values)mat.SetColor(Emission,new Color(.8f,1.05f,1.4f)*(current.night*.5f));
             foreach(var fixture in fixtures)
-            {if(fixture.light==null)continue;float intensity=fixture.intensity*current.night;fixture.light.intensity=intensity;fixture.light.enabled=intensity>.01f;}
+            {
+                if (fixture.light == null) continue;
+                float intensity = fixture.intensity * current.night;
+                bool nearby = !OnPhone || (player.position - fixture.light.transform.position).sqrMagnitude < 28f * 28f;
+                fixture.light.intensity = intensity;
+                fixture.light.enabled = intensity > .01f && nearby;
+            }
             foreach(var water in waters)
             {
                 water.material.SetColor(Shallow,Color.Lerp(water.shallow,new Color(.018f,.085f,.13f),current.night));

@@ -6,6 +6,7 @@ namespace FlyHigh.PhoneController
     {
         private PhoneSender sender;
         private RectTransform root,volumeFill;
+        private MenuReveal reveal;
         private GameObject actions,settings;
         private TMP_Text title,volume,pauseLabel;
         private UnityEngine.UI.Button pause;
@@ -14,13 +15,15 @@ namespace FlyHigh.PhoneController
         public void Initialize(RectTransform parent,PhoneSender connection,System.Func<bool> allowed=null)
         {
             sender=connection;canShow=allowed;pause=Command(parent,"Phone PAUSE","PAUSE",.835f,.88f,.96f,.96f,DriveMenuAction.Pause,PhoneUi.Surface,PhoneUi.Cyan);pauseLabel=pause.GetComponentInChildren<TMP_Text>();
-            root=PhoneUi.Rect(parent,"Phone pause menu",0,0,1,1);root.gameObject.AddComponent<UnityEngine.UI.Image>().color=PhoneUi.Ink;
-            title=PhoneUi.Text(root,"Pause title","DRIVE PAUSED",.20f,.79f,.80f,.94f,43,PhoneUi.White,true,TextAlignmentOptions.Center);
-            actions=PhoneUi.Rect(root,"Phone pause actions",0,0,1,1).gameObject;
+            root = PhoneUi.Rect(parent, "Phone pause menu", 0, 0, 1, 1);
+            ViewportBackdrop.Create(root, PhoneUi.Ink);
+            var content = PhoneUi.Rect(root, "Pause content", 0, 0, 1, 1);
+            title=PhoneUi.Text(content,"Pause title","DRIVE PAUSED",.20f,.79f,.80f,.94f,43,PhoneUi.White,true,TextAlignmentOptions.Center);
+            actions=PhoneUi.Rect(content,"Phone pause actions",0,0,1,1).gameObject;
             controls.Add(Command(actions.transform,"Phone RESUME","RESUME",.25f,.56f,.75f,.73f,DriveMenuAction.Resume,PhoneUi.Cyan,PhoneUi.Cyan,PhoneUi.Ink));
             controls.Add(Command(actions.transform,"Phone SETTINGS","SETTINGS",.25f,.35f,.75f,.52f,DriveMenuAction.Settings,PhoneUi.Surface,PhoneUi.Edge));
             controls.Add(Command(actions.transform,"Phone HOME","BACK TO HOME",.25f,.14f,.75f,.31f,DriveMenuAction.Home,new Color(.36f,.17f,.10f),PhoneUi.Amber));
-            settings=PhoneUi.Rect(root,"Phone sound settings",0,0,1,1).gameObject;
+            settings=PhoneUi.Rect(content,"Phone sound settings",0,0,1,1).gameObject;
             var sound=PhoneUi.Panel(settings.transform,"Volume card",.06f,.31f,.94f,.68f,PhoneUi.Surface,PhoneUi.Edge).rectTransform;
             PhoneUi.Text(sound,"Volume caption","MASTER VOLUME",.04f,.65f,.70f,.94f,18,PhoneUi.Muted,true);
             volume=PhoneUi.Text(sound,"Volume amount","100%",.70f,.65f,.96f,.94f,27,PhoneUi.White,true,TextAlignmentOptions.Right);
@@ -29,15 +32,21 @@ namespace FlyHigh.PhoneController
             PhoneUi.Panel(sound,"Volume track",.21f,.29f,.79f,.37f,PhoneUi.Ink,PhoneUi.Ink);volumeFill=PhoneUi.Panel(sound,"Volume fill",.21f,.29f,.79f,.37f,PhoneUi.Cyan,PhoneUi.Cyan).rectTransform;
             controls.Add(Command(settings.transform,"Phone BACK","BACK",.06f,.10f,.40f,.245f,DriveMenuAction.Back,PhoneUi.Surface,PhoneUi.Edge));
             PhoneUi.Text(settings.transform,"Sound hint","Changes the game audio on your PC.",.45f,.10f,.94f,.245f,17,PhoneUi.Muted);
+            settings.SetActive(false);
             root.gameObject.SetActive(false);
+            reveal = MenuReveal.Attach(root.gameObject, content);
+            MenuReveal.Attach(actions);
+            MenuReveal.Attach(settings);
         }
         private void Update()
         {
             if(root==null)return;bool ready=sender.HasMenuState;var view=sender.MenuState.view;
-            bool paused=ready&&(canShow==null||canShow())&&(view==DriveMenuView.Paused||view==DriveMenuView.Settings);root.gameObject.SetActive(paused);
+            bool paused=ready&&(canShow==null||canShow())&&(view==DriveMenuView.Paused||view==DriveMenuView.Settings);
+            if (paused && !reveal.IsShown) root.SetAsLastSibling();
+            reveal.SetVisible(paused);
             if(paused)
             {
-                root.SetAsLastSibling();bool sound=view==DriveMenuView.Settings;actions.SetActive(!sound);settings.SetActive(sound);title.text=sound?"SOUND SETTINGS":"DRIVE PAUSED";
+                bool sound=view==DriveMenuView.Settings;actions.SetActive(!sound);settings.SetActive(sound);title.text=sound?"SOUND SETTINGS":"DRIVE PAUSED";
                 volume.text=sender.MenuState.volume+"%";volumeFill.anchorMax=new Vector2(Mathf.Lerp(.21f,.79f,sender.MenuState.volume/100f),.37f);
                 foreach(var button in controls)button.interactable=!sender.MenuPending;
             }

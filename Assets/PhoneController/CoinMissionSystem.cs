@@ -37,7 +37,7 @@ namespace FlyHigh.PhoneController
         public bool CanStart => enabled && Phase == CoinMissionPhase.Available && Time.timeScale > 0 && Eligible(offered);
         public bool IsCollected(int index) => collected != null && index >= 0 && index < collected.Length && collected[index];
 
-        public void Initialize(Transform car, WifiReceiver connection, RectTransform hud, CityMinimap minimap, VehicleGarage progress)
+        public void Initialize(Transform car, WifiReceiver connection, RectTransform hud, CityMinimap minimap, VehicleGarage progress, bool onPhone = false)
         {
             if (settings != null) return;
             settings = Resources.Load<CoinMissionSettings>("FlyHighMissions");
@@ -46,8 +46,8 @@ namespace FlyHigh.PhoneController
             garage = progress; garage.Changed += ProgressChanged;
             previousPosition = body.position;
             presentation = gameObject.AddComponent<CoinMissionPresentation>();
-            presentation.Initialize(this, hud, minimap);
-            receiver.StartMissionRequested += RequestStart;
+            presentation.Initialize(this, hud, minimap, onPhone);
+            if (receiver != null) receiver.StartMissionRequested += RequestStart;
             Publish();
         }
 
@@ -177,9 +177,13 @@ namespace FlyHigh.PhoneController
         }
         private void OnEnable()
         {
-            if (settings == null || receiver == null) return;
+            if (settings == null || presentation == null) return;
             if (garage != null) { garage.Changed -= ProgressChanged; garage.Changed += ProgressChanged; }
-            receiver.StartMissionRequested -= RequestStart; receiver.StartMissionRequested += RequestStart;
+            if (receiver != null)
+            {
+                receiver.StartMissionRequested -= RequestStart;
+                receiver.StartMissionRequested += RequestStart;
+            }
             if (presentation != null) presentation.enabled = true;
             Publish();
         }

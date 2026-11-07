@@ -95,7 +95,8 @@ namespace FlyHigh.PhoneController
         private void Apply()
         {
             if(cycle==null)return;
-            float night=cycle.NightAmount,local=night;
+            float night = cycle.NightAmount;
+            float local = cycle.OnPhone && !player ? 0 : night;
             foreach(var mat in frontMaterials)mat.SetColor(Emission,Color.white*Mathf.Lerp(.08f,3.5f,night));
             foreach(var mat in rearMaterials)mat.SetColor(Emission,new Color(1,.03f,.01f)*(night*1.2f+brakeGlow*2.2f));
             foreach(var light in headlights){light.intensity=local*(player?42:24);light.enabled=light.intensity>.01f;}

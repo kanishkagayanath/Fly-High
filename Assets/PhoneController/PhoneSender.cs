@@ -15,7 +15,8 @@ namespace FlyHigh.PhoneController
         private IPEndPoint server;
         private string code;
         private uint sequence;
-        private float nextSend, lastAck = -100, centre;
+        private float nextSend, lastAck = -100;
+        private readonly TiltSteering tilt = new TiltSteering();
         private bool active = true;
         private float lastMissionState = -100, startUntil, nextStartSend;
         private string requestedToken;
@@ -73,7 +74,6 @@ namespace FlyHigh.PhoneController
         {
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            if (Accelerometer.current != null) InputSystem.EnableDevice(Accelerometer.current);
         }
 
         public void Connect(string address, string pairingCode)
@@ -187,22 +187,15 @@ namespace FlyHigh.PhoneController
             catch (SocketException e) { CancelDiscovery(); Status = "Search interrupted: " + e.SocketErrorCode + ". Try again or use manual Connect."; }
         }
 
-        private float Tilt()
-        {
-            if (Accelerometer.current == null) return 0;
-            Vector3 a = Accelerometer.current.acceleration.ReadValue();
-            // Input System compensates the sensor coordinates for landscape orientation.
-            return Mathf.Atan2(a.x, -a.y) * Mathf.Rad2Deg;
-        }
-        public void Calibrate() { centre = Tilt(); }
+        public void Calibrate() { tilt.Calibrate(); Steering = 0; }
 
         private void Update()
         {
             if (!active) return;
             if (discoverySocket != null) UpdateDiscovery();
             if (socket == null) return;
-            Steering = Mathf.Lerp(Steering, Mathf.Clamp(Mathf.DeltaAngle(centre, Tilt()) / 35f, -1, 1),
-                1 - Mathf.Exp(-12 * Time.unscaledDeltaTime));
+            tilt.Sample(Time.unscaledDeltaTime);
+            Steering = tilt.Value;
             try
             {
                 for (int i = 0; i < 64 && socket.Available > 0; i++)

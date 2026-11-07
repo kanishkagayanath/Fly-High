@@ -19,6 +19,7 @@ namespace FlyHigh.PhoneController
         private MissionMapOverlay map;
         private Material markerMaterial;
         private Camera view;
+        private bool onPhone;
         private CoinMissionRoute shownRoute;
         private int lastVersion = -1, shownWallet = -1;
         private float nextGuidance, pickupFlash;
@@ -29,9 +30,10 @@ namespace FlyHigh.PhoneController
         private static readonly Color Mint = new Color(0.31f,1,0.81f);
         private static readonly Color Ink = new Color(0.025f,0.075f,0.11f,0.94f);
 
-        public void Initialize(CoinMissionSystem owner, RectTransform hud, CityMinimap minimap)
+        public void Initialize(CoinMissionSystem owner, RectTransform hud, CityMinimap minimap, bool mobile = false)
         {
             mission = owner; view = Camera.main;
+            onPhone = mobile;
             world = new GameObject("Coin mission world").transform; world.SetParent(transform,false);
             markerMaterial = new Material(mission.Settings.markerMaterial);
             markerMaterial.name = "Mission marker runtime"; markerMaterial.color = Gold;
@@ -44,23 +46,25 @@ namespace FlyHigh.PhoneController
                 WorldLabel(markers[i],"M",new Vector3(0,2.6f,0),Gold);
             }
             hudRoot = MissionUi.Rect(hud,"Mission HUD",Vector2.zero,Vector2.one,Vector2.zero,Vector2.zero);
-            card = MissionUi.Rect(hudRoot,"Mission guidance",new Vector2(.5f,1),new Vector2(.5f,1),new Vector2(0,-22),new Vector2(464,132));
+            card = MissionUi.Rect(hudRoot,"Mission guidance",new Vector2(.5f,1),new Vector2(.5f,1),new Vector2(0, onPhone ? -86 : -22), new Vector2(464, onPhone ? 144 : 132));
             card.pivot = new Vector2(.5f,1);
             MissionUi.Background(card,Ink,Gold);
             title = MissionUi.Text(card,"Mission title",new Vector2(16,-10),new Vector2(432,27),22,Gold);
             guidance = MissionUi.Text(card,"Mission instruction",new Vector2(16,-40),new Vector2(432,26),16,Color.white);
             progress = MissionUi.Text(card,"Mission progress",new Vector2(16,-73),new Vector2(235,24),15,Mint);
-            var bar=MissionUi.Rect(card,"Coin progress track",Vector2.up,Vector2.up,new Vector2(16,-111),new Vector2(432,4));
+            var bar=MissionUi.Rect(card,"Coin progress track",Vector2.up,Vector2.up,new Vector2(16, onPhone ? -127 : -111),new Vector2(432,4));
             bar.pivot=Vector2.up; MissionUi.Fill(bar,new Color(.15f,.23f,.25f));
             var fill=MissionUi.Rect(bar,"Coin progress",Vector2.zero,Vector2.one,Vector2.zero,Vector2.zero);
             progressFill=MissionUi.Fill(fill,Gold);
-            var button=MissionUi.Rect(card,"Start Mission",Vector2.one,Vector2.one,new Vector2(-16,-76),new Vector2(165,30));
-            button.pivot=Vector2.one; var background=MissionUi.Fill(button,Gold);
-            background.raycastTarget=true;
+            var button=MissionUi.Rect(card,"Start Mission",Vector2.one,Vector2.one,new Vector2(-16,-76),new Vector2(165, onPhone ? 46 : 30));
+            button.pivot=Vector2.one;
+            var buttonVisual = PhoneUi.Rect(button, "Start button visual", 0, 0, 1, 1);
+            var background=MissionUi.Fill(buttonVisual,Gold);
             startButton=button.gameObject.AddComponent<UnityEngine.UI.Button>();ButtonSound.Attach(startButton); startButton.targetGraphic=background;
             startButton.onClick.AddListener(()=>mission.TryStartMission());
-            buttonText=MissionUi.Text(button,"Start label",new Vector2(0,0),new Vector2(165,30),15,Ink);
+            buttonText=MissionUi.Text(buttonVisual,"Start label",new Vector2(0,0),new Vector2(165, onPhone ? 46 : 30),15,Ink);
             buttonText.alignment=TextAlignmentOptions.Center;
+            button.gameObject.AddComponent<MenuButtonMotion>().Initialize(buttonVisual);
             wallet=MissionUi.Rect(hudRoot,"Coin wallet",Vector2.one,Vector2.one,new Vector2(-20,-20),new Vector2(220,44));
             wallet.pivot=Vector2.one; MissionUi.Background(wallet,Ink,Gold);
             var icon=MissionUi.Disc(wallet,"Gold coin icon",26,Gold); icon.anchoredPosition=new Vector2(-85,-22);
@@ -69,6 +73,8 @@ namespace FlyHigh.PhoneController
             walletText.rectTransform.anchorMin=walletText.rectTransform.anchorMax=Vector2.one;
             walletText.alignment=TextAlignmentOptions.MidlineRight;
             map=gameObject.AddComponent<MissionMapOverlay>(); map.Initialize(mission,minimap);
+            card.gameObject.SetActive(false);
+            MenuReveal.Attach(card.gameObject);
             Refresh();
         }
 
@@ -171,8 +177,8 @@ namespace FlyHigh.PhoneController
             {
                 bool ready=mission.CanStart;
                 startButton.interactable=ready;
-                buttonText.text=ready?"START MISSION  [E]":"SLOW DOWN";
-                guidance.text=ready?"Tap START MISSION on your phone, or click here.":"Stop inside the M ring to start this coin run.";
+                buttonText.text = ready ? (onPhone ? "START MISSION" : "START MISSION  [E]") : "SLOW DOWN";
+                guidance.text = ready ? (onPhone ? "Tap START MISSION to begin this coin run." : "Tap START MISSION on your phone, or click here.") : "Stop inside the M ring to start this coin run.";
             }
             else if(mission.Phase==CoinMissionPhase.Collecting)
                 guidance.text=mission.Collected==mission.Total?"All coins collected! Drive into the floating coin sacks.":"Follow the gold route. Collect every coin, then the sacks.";

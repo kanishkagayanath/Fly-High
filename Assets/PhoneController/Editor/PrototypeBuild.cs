@@ -57,7 +57,7 @@ namespace FlyHigh.PhoneController.Editor
         public static void BuildPC() => Build(BuildTarget.StandaloneWindows64, "Builds/PC/FlyHigh.exe");
         [MenuItem("Fly High/Build PC city drive")]
         public static void BuildCity() => Build(BuildTarget.StandaloneWindows64, "Builds/City/FlyHighCity.exe", "Assets/Scenes/CityDrive.unity");
-        [MenuItem("Fly High/Build Android controller")]
+        [MenuItem("Fly High/Build Android game and controller")]
         public static void BuildAndroid() => Build(BuildTarget.Android, "Builds/Android/FlyHighController.apk");
         private static void Build(BuildTarget target, string path, string scene = "Assets/Scenes/GameScene.unity")
         {
@@ -76,7 +76,10 @@ namespace FlyHigh.PhoneController.Editor
                 }
                 var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
-                    scenes = new[] { scene }, locationPathName = path,
+                    scenes = target == BuildTarget.Android
+                        ? new[] { scene, "Assets/Scenes/CityDrive.unity" }
+                        : new[] { scene },
+                    locationPathName = path,
                     target = target, options = BuildOptions.None
                 });
                 if (report.summary.result != BuildResult.Succeeded)
