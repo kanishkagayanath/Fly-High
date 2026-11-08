@@ -12,8 +12,9 @@ namespace FlyHigh.PhoneController
         [Tooltip("Plays while driving. Pausing lowers its volume; returning Home fades to menu music.")]
         public AudioClip[] drivingMusic = new AudioClip[0];
         [Range(0,1)] public float musicVolume=.4f;
+        [Range(0,1)] public float drivingMusicMultiplier=1;
         [Min(.05f)] public float musicFadeSeconds=1.2f;
-        [Tooltip("Normally off: the PC plays music and the phone only plays interface sounds.")]
+        [Tooltip("Play quieter menu music on the controller home screen until it pairs with a PC.")]
         public bool phoneHomeMusic;
         [Range(0,1)] public float pausedMusicMultiplier=.3f;
 
@@ -22,6 +23,7 @@ namespace FlyHigh.PhoneController
         public AudioClip connected;
         public AudioClip disconnected;
         [Range(0,1)] public float interfaceVolume=.65f;
+        [Range(0,1)] public float controllerInterfaceMultiplier=1;
 
         [Header("Player vehicle — use short seamless loops")]
         public AudioClip engineStart;
@@ -44,6 +46,7 @@ namespace FlyHigh.PhoneController
         public AudioClip beachWavesLoop;
         public AudioClip trafficEngineLoop;
         [Range(0,1)] public float ambienceVolume=.25f;
+        [Range(0,1)] public float cityNightVolumeMultiplier=1;
         [Range(0,1)] public float trafficVolume=.16f;
         [Tooltip("Island bounds used to fade the sea in near every city edge. Refresh using Fly High > Audio > Read island bounds.")]
         public Vector2 islandCentre=Vector2.zero;

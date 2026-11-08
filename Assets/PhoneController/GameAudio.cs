@@ -24,14 +24,14 @@ namespace FlyHigh.PhoneController
         private CoinMissionSystem missions;
         private VehicleGarage garage;
         private VehicleImpactSound impact;
-        private bool initialized,subscribed,lastConnected,suspended;
+        private bool initialized,subscribed,lastConnected,suspended,localMobile;
         private int menuTrack,driveTrack,uiVoice,effectVoice,lastPhoneVolume=-1;
         private float nextClick,nextCoin,nextImpact,nextOffer;
         private DriveMenuView lastView=DriveMenuView.Home;
         public GameAudioSettings Settings=>settings;
-        public void InitializeDesktop(RacingPrototype car,DesktopMainMenu navigation,CityDayNight city,CoinMissionSystem coinMissions,VehicleGarage progress,WifiReceiver connection)
+        public void InitializeDesktop(RacingPrototype car,DesktopMainMenu navigation,CityDayNight city,CoinMissionSystem coinMissions,VehicleGarage progress,WifiReceiver connection,bool onPhone=false)
         {
-            if(initialized)return;driving=car;menu=navigation;environment=city;missions=coinMissions;garage=progress;receiver=connection;
+            if(initialized)return;driving=car;menu=navigation;environment=city;missions=coinMissions;garage=progress;receiver=connection;localMobile=onPhone;
             if(car!=null&&car.PlayerCar!=null)body=car.PlayerCar.GetComponent<Rigidbody>();
             InitializeSources();
             if(body!=null){impact=body.gameObject.AddComponent<VehicleImpactSound>();impact.Initialize(this);}
@@ -40,6 +40,7 @@ namespace FlyHigh.PhoneController
         public void InitializePhone(PhoneSender connection)
         {
             if(initialized)return;phone=connection;InitializeSources();lastConnected=phone!=null&&phone.Connected;
+            RestoreLocalVolume();
         }
         private void InitializeSources()
         {
@@ -85,13 +86,22 @@ namespace FlyHigh.PhoneController
             if(!initialized||settings==null||suspended)return;
             DriveMenuView view=phone!=null?(phone.HasMenuState?phone.MenuState.view:DriveMenuView.Home):menu!=null?menu.View:DriveMenuView.Home;
             bool connected=phone!=null?phone.Connected:receiver!=null&&receiver.Connected;
-            if(connected!=lastConnected){Interface(connected?settings.connected:settings.disconnected);lastConnected=connected;}
             if(phone!=null&&phone.HasMenuState&&lastPhoneVolume!=phone.MenuState.volume)
             {lastPhoneVolume=phone.MenuState.volume;AudioListener.volume=lastPhoneVolume/100f;}
+            if(connected!=lastConnected)
+            {
+                if (phone != null && !connected) RestoreLocalVolume();
+                Interface(connected?settings.connected:settings.disconnected);
+                lastConnected=connected;
+            }
+
             float dt=Mathf.Min(Time.unscaledDeltaTime,.1f);
             bool home=view==DriveMenuView.Home;
-            Music(menuMusic,settings.menuMusic,ref menuTrack,home&&(phone==null||settings.phoneHomeMusic)?settings.musicVolume:0,dt);
-            Music(driveMusic,settings.drivingMusic,ref driveTrack,!home&&phone==null?settings.musicVolume*(view==DriveMenuView.Driving?1:settings.pausedMusicMultiplier):0,dt);
+            float menuGain = phone == null ? settings.musicVolume :
+                settings.phoneHomeMusic && !connected ? settings.musicVolume * .6f : 0;
+            float driveGain = settings.musicVolume * settings.drivingMusicMultiplier;
+            Music(menuMusic,settings.menuMusic,ref menuTrack,home?menuGain:0,dt);
+            Music(driveMusic,settings.drivingMusic,ref driveTrack,!home&&phone==null?driveGain*(view==DriveMenuView.Driving?1:settings.pausedMusicMultiplier):0,dt);
             if(phone==null)
             {
                 if(view==DriveMenuView.Driving&&lastView==DriveMenuView.Home)Effect(settings.engineStart,.65f);
@@ -99,18 +109,27 @@ namespace FlyHigh.PhoneController
             }
             lastView=view;
         }
+        private void RestoreLocalVolume()
+        {
+            lastPhoneVolume = -1;
+            AudioListener.volume = Mathf.Clamp01(PlayerPrefs.GetFloat(DesktopMainMenu.VolumeKey, 1));
+        }
+
         private void Music(AudioSource source,AudioClip[] playlist,ref int track,float target,float dt)
         {
             if(source==null)return;
-            bool assigned=false;if(playlist!=null)foreach(var clip in playlist)if(clip!=null){assigned=true;break;}
-            if(!assigned){source.Stop();source.clip=null;source.volume=0;return;}
+            int assigned = 0;
+            if (playlist != null)
+                foreach (var clip in playlist)
+                    if (clip != null) assigned++;
+            if(assigned==0){source.Stop();source.clip=null;source.volume=0;return;}
             source.volume=Ease(source.volume,target,dt,settings.musicFadeSeconds);
             if(target<=0&&source.volume<.001f){source.Stop();source.volume=0;return;}
             if(source.isPlaying||target<=0)return;
             for(int i=0;i<playlist.Length;i++)
             {
                 var clip=playlist[track%playlist.Length];track=(track+1)%playlist.Length;
-                if(clip==null)continue;source.clip=clip;source.loop=false;source.Play();break;
+                if(clip==null)continue;source.clip=clip;source.loop=assigned==1;source.Play();break;
             }
         }
         private static float Ease(float value,float target,float dt,float seconds)
@@ -148,7 +167,7 @@ namespace FlyHigh.PhoneController
             float ambience=active&&environment!=null?settings.ambienceVolume:0;
             bool both=settings.cityDayLoop!=null&&settings.cityNightLoop!=null;
             Loop(cityDay,settings.cityDayLoop,ambience*(both?1-night:1)*(1-beach*.65f),1,dt);
-            Loop(cityNight,settings.cityNightLoop,ambience*(both?night:1)*(1-beach*.65f),1,dt);
+            Loop(cityNight,settings.cityNightLoop,ambience*settings.cityNightVolumeMultiplier*(both?night:1)*(1-beach*.65f),1,dt);
             Loop(sea,settings.beachWavesLoop,ambience*beach,1,dt);
             foreach(var voice in traffic)
             {
@@ -172,7 +191,11 @@ namespace FlyHigh.PhoneController
             if(settings==null||!isActiveAndEnabled||Time.realtimeSinceStartup<nextClick)return;
             nextClick=Time.realtimeSinceStartup+.035f;Interface(settings.buttonClick);
         }
-        private void Interface(AudioClip clip){Voice(uiVoices,ref uiVoice,clip,settings!=null?settings.interfaceVolume:0,false,Vector3.zero,1);}
+        private void Interface(AudioClip clip)
+        {
+            float gain = settings.interfaceVolume * (phone != null ? settings.controllerInterfaceMultiplier : 1);
+            Voice(uiVoices,ref uiVoice,clip,gain,false,Vector3.zero,1);
+        }
         private void Effect(AudioClip clip,float gain=1){Voice(effectVoices,ref effectVoice,clip,settings!=null?settings.effectsVolume*gain:0,false,Vector3.zero,1);}
         private void Voice(AudioSource[] pool,ref int index,AudioClip clip,float volume,bool spatial,Vector3 position,float pitch)
         {
@@ -206,7 +229,7 @@ namespace FlyHigh.PhoneController
         }
         private void OnApplicationPause(bool paused)
         {
-            if(phone==null)return;suspended=paused;
+            if(phone==null&&!localMobile)return;suspended=paused;
             foreach(var source in sources)if(source!=null){if(paused)source.Pause();else source.UnPause();}
         }
         private void OnDisable(){Unsubscribe();foreach(var source in sources)if(source!=null)source.Stop();}

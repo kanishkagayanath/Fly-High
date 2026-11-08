@@ -138,9 +138,10 @@ namespace FlyHigh.PhoneController
             gameObject.AddComponent<CarSpeedometer>().Initialize(driving.PlayerCar, drivingHud, mobile ? minimap?.Frame : null);
             var menu = gameObject.AddComponent<DesktopMainMenu>();
             System.Action controller = mobile ? () => LoadMobileScene("GameScene") : null;
-            menu.Initialize(safeArea, drivingHud.gameObject, environment, receiver, garage, addresses, controller);
+            menu.Initialize(safeArea, drivingHud.gameObject, environment, receiver, garage, addresses, controller,
+                mobile ? driving.ResetCar : null);
             if (localControls != null) localControls.Initialize(drivingHud, menu);
-            gameObject.AddComponent<GameAudio>().InitializeDesktop(driving, menu, environment, missions, garage, receiver);
+            gameObject.AddComponent<GameAudio>().InitializeDesktop(driving, menu, environment, missions, garage, receiver, mobile);
         }
 
         private void LoadMobileScene(string scene)

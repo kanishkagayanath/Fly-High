@@ -127,9 +127,8 @@ namespace FlyHigh.PhoneController
             {
                 if (fixture.light == null) continue;
                 float intensity = fixture.intensity * current.night;
-                bool nearby = !OnPhone || (player.position - fixture.light.transform.position).sqrMagnitude < 28f * 28f;
                 fixture.light.intensity = intensity;
-                fixture.light.enabled = intensity > .01f && nearby;
+                fixture.light.enabled = intensity > .01f;
             }
             foreach(var water in waters)
             {

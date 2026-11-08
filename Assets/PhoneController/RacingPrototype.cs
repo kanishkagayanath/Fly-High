@@ -205,8 +205,9 @@ namespace FlyHigh.PhoneController
                 phoneSteeringVelocity = 0;
             }
         }
-        private void ResetCar()
+        internal void ResetCar()
         {
+            if (car == null) return;
             car.position = startPosition; car.rotation = startRotation;
             car.linearVelocity = Vector3.zero; car.angularVelocity = Vector3.zero;
             smoothedSteering = 0;

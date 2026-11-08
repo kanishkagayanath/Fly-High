@@ -11,11 +11,16 @@ namespace FlyHigh.PhoneController
         private GameAudio gameAudio;
         public static void Attach(UnityEngine.UI.Button target)
         {
-            if(target.GetComponent<ButtonSound>()==null)target.gameObject.AddComponent<ButtonSound>();
+            if (target.GetComponent<ButtonSound>() != null) return;
+            var sound = target.gameObject.AddComponent<ButtonSound>();
+            sound.button = target;
+            // Register before the action so hiding the clicked panel cannot swallow its cue.
+            target.onClick.AddListener(sound.Clicked);
         }
-        private void Awake(){button=GetComponent<UnityEngine.UI.Button>();}
-        private void OnEnable(){if(button!=null)button.onClick.AddListener(Clicked);}
-        private void OnDisable(){if(button!=null)button.onClick.RemoveListener(Clicked);}
+        private void OnDestroy()
+        {
+            if (button != null) button.onClick.RemoveListener(Clicked);
+        }
         private void Clicked(){if(GetComponent<HoldPedal>()==null)Play();}
         public void OnPointerDown(PointerEventData e)
         {
@@ -23,7 +28,7 @@ namespace FlyHigh.PhoneController
         }
         private void Play()
         {
-            if(button==null||!button.IsActive()||!button.IsInteractable())return;
+            if(!isActiveAndEnabled||button==null||!button.IsActive()||!button.IsInteractable())return;
             if(gameAudio==null)gameAudio=GetComponentInParent<GameAudio>();
             if(gameAudio!=null)gameAudio.PlayButton();
         }

@@ -8,7 +8,7 @@ namespace FlyHigh.PhoneController
     /// <summary>Desktop presentation and menu state; controller networking remains live while paused.</summary>
     public sealed class DesktopMainMenu : MonoBehaviour
     {
-        private const string VolumeKey = "FlyHigh.MasterVolume";
+        internal const string VolumeKey = "FlyHigh.MasterVolume";
         private const string FullscreenKey = "FlyHigh.Fullscreen";
         private static readonly Color Mint = new Color(.40f, .96f, 1);
         private static readonly Color SoftWhite = new Color(.79f, .85f, .93f);
@@ -39,7 +39,7 @@ namespace FlyHigh.PhoneController
         public DriveMenuView View => overlay != null && overlay.activeSelf ? DriveMenuView.Home :
             pauseReveal != null && pauseReveal.IsShown ? (pauseSettings.activeSelf ? DriveMenuView.Settings : DriveMenuView.Paused) : DriveMenuView.Driving;
 
-        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null, string localAddresses = null, System.Action returnToController = null)
+        public void Initialize(Transform uiParent, GameObject drivingHud, CityDayNight cityEnvironment = null, WifiReceiver phoneReceiver = null, VehicleGarage playerGarage = null, string localAddresses = null, System.Action returnToController = null, System.Action resetCar = null)
         {
             environment = cityEnvironment; receiver = phoneReceiver; hud = drivingHud; garage = playerGarage;
             visuals = Resources.Load<MenuVisualSettings>("FlyHighMenu");
@@ -117,7 +117,7 @@ namespace FlyHigh.PhoneController
             MenuReveal.Attach(home);
             MenuReveal.Attach(options);
             if (shop != null) MenuReveal.Attach(shop.Root.gameObject);
-            BuildPauseMenu(uiParent, onPhone);
+            BuildPauseMenu(uiParent, onPhone, resetCar);
             if(receiver!=null){receiver.MenuRequested+=OnPhoneMenu;receiver.GarageRequested+=OnPhoneGarage;}
             Pause(); ShowHome(); UpdatePhoneCard();
             guide=gameObject.AddComponent<HowToPlayGuide>();
@@ -149,7 +149,7 @@ namespace FlyHigh.PhoneController
             if(receiver!=null){receiver.MenuRequested-=OnPhoneMenu;receiver.GarageRequested-=OnPhoneGarage;receiver.ClearMenuState();receiver.ClearHomeState();}
             if(shop!=null)Destroy(shop);
         }
-        private void BuildPauseMenu(Transform parent, bool onPhone)
+        private void BuildPauseMenu(Transform parent, bool onPhone, System.Action resetCar)
         {
             var pause = Button(hud.transform,"PAUSE",0,0,1,1,OpenPause,visuals!=null?visuals.optionsButton:null);
             var corner=pause.GetComponent<RectTransform>();corner.anchorMin=corner.anchorMax=corner.pivot=new Vector2(0,1);
@@ -165,7 +165,15 @@ namespace FlyHigh.PhoneController
             Text(pauseHome.transform,"Take a breather. Your city will wait.",.08f,.68f,.92f,.80f,18,SoftWhite).alignment=TextAlignmentOptions.Center;
             resumeButton=Button(pauseHome.transform,"RESUME",.14f,.46f,.86f,.63f,StartDriving,visuals!=null?visuals.playButton:null);
             Button(pauseHome.transform,"SETTINGS",.14f,.27f,.86f,.44f,ShowPauseSettings,visuals!=null?visuals.optionsButton:null);
-            Button(pauseHome.transform,"HOME",.14f,.08f,.86f,.25f,ReturnHome,visuals!=null?visuals.exitButton:null);
+            if (resetCar != null)
+            {
+                Button(pauseHome.transform, "RESET CAR", .14f, .08f, .49f, .25f, () =>
+                {
+                    resetCar();
+                    StartDriving();
+                }, visuals != null ? visuals.optionsButton : null);
+            }
+            Button(pauseHome.transform,"HOME",resetCar != null ? .51f : .14f,.08f,.86f,.25f,ReturnHome,visuals!=null?visuals.exitButton:null);
             pauseSettings=Area(card,"Pause sound settings",0,0,1,1).gameObject;
             Text(pauseSettings.transform,"SOUND SETTINGS",.08f,.79f,.92f,.94f,32,Color.white).alignment=TextAlignmentOptions.Center;
             pauseVolumeLabel=Text(pauseSettings.transform,"",.10f,.58f,.90f,.73f,23,SoftWhite);pauseVolumeLabel.alignment=TextAlignmentOptions.Center;

@@ -12,44 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d212154acc3b4e34aaafe06e93aa09f4, type: 3}
   m_Name: FlyHighAudio
   m_EditorClassIdentifier: Assembly-CSharp::FlyHigh.PhoneController.GameAudioSettings
-  menuMusic: []
-  drivingMusic: []
-  musicVolume: 0.4
+  menuMusic:
+  - {fileID: 8300000, guid: 0ccd30030a5f7d944ac52651f58f2a13, type: 3}
+  drivingMusic:
+  - {fileID: 8300000, guid: 9991f68c6b3f795428738cc9bca064ee, type: 3}
+  musicVolume: 0.3
+  drivingMusicMultiplier: 0.62
   musicFadeSeconds: 1.2
-  phoneHomeMusic: 0
-  pausedMusicMultiplier: 0.3
-  buttonClick: {fileID: 0}
-  connected: {fileID: 0}
-  disconnected: {fileID: 0}
-  interfaceVolume: 0.65
-  engineStart: {fileID: 0}
+  phoneHomeMusic: 1
+  pausedMusicMultiplier: 0.27
+  buttonClick: {fileID: 8300000, guid: 88c7b866da5caf94ba00844b3a5a153a, type: 3}
+  connected: {fileID: 8300000, guid: ac469ed6e168e49458c528ba611394a6, type: 3}
+  disconnected: {fileID: 8300000, guid: 387b11f42a19e444783b330dd85a7efa, type: 3}
+  interfaceVolume: 0.47
+  controllerInterfaceMultiplier: 0.82
+  engineStart: {fileID: 8300000, guid: 8f094632ac9411d4a95e50f16930cd72, type: 3}
   engineIdleLoop: {fileID: 0}
-  engineDrivingLoop: {fileID: 0}
-  tyreSkidLoop: {fileID: 0}
-  collision: {fileID: 0}
+  engineDrivingLoop: {fileID: 8300000, guid: b2c1d0086d1aafe4da39a7844316b3ea, type: 3}
+  tyreSkidLoop: {fileID: 8300000, guid: 3d83cb1e14a009248995474651f952c7, type: 3}
+  collision: {fileID: 8300000, guid: 33e8862a66c9c39439e131f09943814d, type: 3}
   reverseLoop: {fileID: 0}
-  engineVolume: 0.55
-  lowEnginePitch: 0.8
-  highEnginePitch: 2.1
+  engineVolume: 0.56
+  lowEnginePitch: 0.88
+  highEnginePitch: 1.92
   skidMinimumSpeed: 7
   minimumImpactSpeed: 1.5
-  cityDayLoop: {fileID: 0}
-  cityNightLoop: {fileID: 0}
-  beachWavesLoop: {fileID: 0}
-  trafficEngineLoop: {fileID: 0}
-  ambienceVolume: 0.25
-  trafficVolume: 0.16
+  cityDayLoop: {fileID: 8300000, guid: feb1665c2667d53489440dfc10a4bbec, type: 3}
+  cityNightLoop: {fileID: 8300000, guid: e910389cd3289ac4688b583d4f62dd78, type: 3}
+  beachWavesLoop: {fileID: 8300000, guid: aa9d7f7b5cb107c47a8fef6091c3e2c7, type: 3}
+  trafficEngineLoop: {fileID: 8300000, guid: 184c0929a5d39234282cf2962a335009, type: 3}
+  ambienceVolume: 0.21
+  cityNightVolumeMultiplier: 0.52
+  trafficVolume: 0.17
   islandCentre: {x: -3.0000076, y: 3}
   islandHalfSize: {x: 69, y: 84.000015}
   beachFadeDistance: 25
-  missionAvailable: {fileID: 0}
-  missionStart: {fileID: 0}
-  coinCollect: {fileID: 0}
-  missionComplete: {fileID: 0}
-  vehiclePurchased: {fileID: 0}
-  vehicleSelected: {fileID: 0}
-  actionDenied: {fileID: 0}
-  effectsVolume: 0.7
+  missionAvailable: {fileID: 8300000, guid: 30c7c42b93a90ee47ab99a31aebf9a59, type: 3}
+  missionStart: {fileID: 8300000, guid: dc1a367af36b97f418bada8f41cb9b1c, type: 3}
+  coinCollect: {fileID: 8300000, guid: feb8540a5a25da940983491326a0f4d3, type: 3}
+  missionComplete: {fileID: 8300000, guid: ab1ad210e5c4b144c9076902f45e120c, type: 3}
+  vehiclePurchased: {fileID: 8300000, guid: 4d734ae61996c9240bf662f5b5f77486, type: 3}
+  vehicleSelected: {fileID: 8300000, guid: 0984cd618248dda4d97120ac2366b619, type: 3}
+  actionDenied: {fileID: 8300000, guid: 6968a56576216a142b3cad3c65dce647, type: 3}
+  effectsVolume: 0.56
   musicOutput: {fileID: 0}
   interfaceOutput: {fileID: 0}
   vehicleOutput: {fileID: 0}
