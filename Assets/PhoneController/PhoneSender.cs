@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
@@ -54,9 +53,13 @@ namespace FlyHigh.PhoneController
             menuUntil = Time.realtimeSinceStartup + 1.5f; nextMenuSend = 0;
             Throttle = Reverse = Brake = 0;
         }
+        private const string LastPcAddressKey = "FlyHigh.LastPCAddress";
         private UdpClient discoverySocket;
+        private readonly DiscoverySearchTargets discoveryTargets = new DiscoverySearchTargets();
+        private int nextProbe, probePass;
+        private float nextProbeSend;
+        private bool savedPcAddress;
         private readonly List<DiscoveredPC> games = new List<DiscoveredPC>();
-        private readonly List<IPEndPoint> broadcastTargets = new List<IPEndPoint>();
         private string discoveryNonce;
         private byte[] discoveryRequest;
         private float discoveryEnd, nextDiscoverySend;
@@ -86,7 +89,7 @@ namespace FlyHigh.PhoneController
             {
                 server = new IPEndPoint(ip, ControllerPacket.Port); code = pairingCode.Trim();
                 socket = new UdpClient(); socket.Connect(server); socket.Client.Blocking = false;
-                sequence = 0; nextSend = 0; Status = "Connecting..."; Calibrate();
+                sequence = 0; nextSend = 0; savedPcAddress = false; Status = "Connecting..."; Calibrate();
             }
             catch (SocketException e) { Disconnect(); Status = e.Message; }
         }
@@ -102,9 +105,10 @@ namespace FlyHigh.PhoneController
                 discoverySocket.Client.Bind(new IPEndPoint(IPAddress.Any, 0));
                 discoveryNonce = Guid.NewGuid().ToString("N");
                 discoveryRequest = ControllerDiscovery.Request(discoveryNonce);
-                BuildBroadcastTargets();
-                discoveryEnd = Time.realtimeSinceStartup + 6;
-                nextDiscoverySend = 0;
+                discoveryTargets.Refresh(PlayerPrefs.GetString(LastPcAddressKey, ""));
+                discoveryEnd = Time.realtimeSinceStartup + 10;
+                nextDiscoverySend = nextProbeSend = 0;
+                nextProbe = probePass = 0;
                 Status = "Searching for PCs on your Wi-Fi...";
             }
             catch (SocketException e) { CancelDiscovery(); Status = "Cannot search: " + e.SocketErrorCode + ". Try manual Connect."; }
@@ -117,28 +121,10 @@ namespace FlyHigh.PhoneController
             if (socket == null) Status = "Tap Find PC, or enter an address and code";
         }
 
-        private void BuildBroadcastTargets()
+        private void SendDiscovery(IPEndPoint target)
         {
-            broadcastTargets.Clear();
-            broadcastTargets.Add(new IPEndPoint(IPAddress.Broadcast, ControllerPacket.Port));
-            // Directed broadcasts help PCs with several adapters. Limited broadcast remains the fallback.
-            try
-            {
-                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if (adapter.OperationalStatus != OperationalStatus.Up || adapter.NetworkInterfaceType == NetworkInterfaceType.Loopback) continue;
-                    foreach (var address in adapter.GetIPProperties().UnicastAddresses)
-                    {
-                        if (address.Address.AddressFamily != AddressFamily.InterNetwork || address.IPv4Mask == null) continue;
-                        byte[] ip = address.Address.GetAddressBytes(), mask = address.IPv4Mask.GetAddressBytes();
-                        for (int i = 0; i < 4; i++) ip[i] = (byte)(ip[i] | (mask[i] ^ 255));
-                        var target = new IPEndPoint(new IPAddress(ip), ControllerPacket.Port);
-                        if (!broadcastTargets.Contains(target) && broadcastTargets.Count < 8) broadcastTargets.Add(target);
-                    }
-                }
-            }
-            catch (NetworkInformationException) { }
-            catch (NotSupportedException) { }
+            try { discoverySocket.Send(discoveryRequest, discoveryRequest.Length, target); }
+            catch (SocketException) { }
         }
 
         private void UpdateDiscovery()
@@ -172,14 +158,20 @@ namespace FlyHigh.PhoneController
                 if (now >= nextDiscoverySend)
                 {
                     nextDiscoverySend = now + 0.75f;
-                    // One unavailable adapter must not prevent searches on the others.
-                    SocketError? failure = null; bool sent = false;
-                    foreach (var target in broadcastTargets)
+                    foreach (var target in discoveryTargets.Broadcasts) SendDiscovery(target);
+                    if (discoveryTargets.Hosts.Count > 0) SendDiscovery(discoveryTargets.Hosts[0]);
+                }
+                if (now >= nextProbeSend && discoveryTargets.Hosts.Count > 0 && probePass < 2)
+                {
+                    nextProbeSend = now + .05f;
+                    for (int i = 0; i < 12 && nextProbe < discoveryTargets.Hosts.Count; i++)
+                        SendDiscovery(discoveryTargets.Hosts[nextProbe++]);
+                    if (nextProbe == discoveryTargets.Hosts.Count)
                     {
-                        try { discoverySocket.Send(discoveryRequest, discoveryRequest.Length, target); sent = true; }
-                        catch (SocketException e) { failure = e.SocketErrorCode; }
+                        nextProbe = 0;
+                        probePass++;
+                        nextProbeSend = now + .75f;
                     }
-                    if (!sent) { CancelDiscovery(); Status = "Cannot search: " + failure + ". Try manual Connect."; }
                 }
             }
             // An adapter/PC without a listener can return ICMP errors. Keep searching the other targets.
@@ -202,7 +194,16 @@ namespace FlyHigh.PhoneController
                 {
                     IPEndPoint peer = server;
                     byte[] reply = socket.Receive(ref peer);
-                    if (Encoding.ASCII.GetString(reply) == "FH1|OK|" + code) lastAck = Time.realtimeSinceStartup;
+                    if (Encoding.ASCII.GetString(reply) == "FH1|OK|" + code)
+                    {
+                        lastAck = Time.realtimeSinceStartup;
+                        if (!savedPcAddress)
+                        {
+                            savedPcAddress = true;
+                            PlayerPrefs.SetString(LastPcAddressKey, server.Address.ToString());
+                            PlayerPrefs.Save();
+                        }
+                    }
                     else if (MenuPhoneProtocol.TryStatus(reply, code, out var menu) &&
                         (lastMenuState < 0 || menu.revision == MenuState.revision || ControllerPacket.IsNewer(menu.revision, MenuState.revision)))
                     {
